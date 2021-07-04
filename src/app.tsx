@@ -1,4 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<h2>Hello from React in Electron!</h2>, document.body);
+import WelcomeHeaderContainer from './components/WelcomeHeaderContainer';
+
+// Treat this as the function App() portion of the project
+// Anything inside ReactDOM.render() is 'returned'
+ReactDOM.render(
+    <div className="App">
+        <WelcomeHeaderContainer />
+    </div>
+    , document.body);
