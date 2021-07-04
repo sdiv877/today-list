@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Fab, makeStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+
+// Props types
+interface AddTasksFabProps {
+    setShow: (show: boolean) => void,
+}
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -13,11 +18,13 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const AddTasksFab: React.VoidFunctionComponent = () => {
+const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {
     const classes = useStyles();
 
     return (
-        <Fab color="primary" aria-label="add" className={classes.root}>
+        <Fab color="primary" aria-label="add" className={classes.root} onClick={ () => {
+            props.setShow(true);
+        }}>
             <AddIcon />
         </Fab>);
 }
