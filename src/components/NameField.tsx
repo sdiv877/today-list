@@ -5,13 +5,14 @@ const NameField: React.VoidFunctionComponent = () => {
 
     const useStyles = makeStyles(() => ({
         root: {
-            textAlign: 'center', 
             fontSize: 40,
             fontFamily: 'Montserrat',
             fontWeight: 500,
              
             paddingTop:0, 
-            paddingBottom:0
+            paddingBottom:0,
+            
+            textAlign: 'center', 
         },
       }));
 
@@ -28,5 +29,4 @@ const NameField: React.VoidFunctionComponent = () => {
         </div>);
 }
 
-//style: { textAlign: 'center', fontSize: "4vmax", fontFamily: 'Montserrat', fontWeight: 500 }
 export default NameField;
