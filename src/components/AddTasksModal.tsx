@@ -18,7 +18,7 @@ function handleAdd(list: Task[],
 }
 
 // Handle any changes made to state of submission
-function handleOnChange(field: string,changedField: string ,submission: Task, setSubmission: React.Dispatch<React.SetStateAction<Task>>) {
+function handleOnChange(field: string, changedField: string, submission: Task, setSubmission: React.Dispatch<React.SetStateAction<Task>>) {
   const submissionCopy = submission;
 
   switch (field) {
@@ -63,12 +63,18 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
 
   return (
     <FocusTrap>
-      {/*Bind onClick to modal so that an event can be generated. 
-      Then inside modal content check if an area outside or 'cancel' was clicked */}
-      <div className="modal" onClick={() => { props.setShow(false); }}>
+      {/* 'modal'represents the gray area outside of the card, while 'dialogCard' represents the actual white part of the dialog.
+      In this way if someone clicks on the gray area we want to close the dialog.
+      So we add the setShow(false) onClick to 'modal' so that an event can be generated if the gray is clicked. */}
+      <div className="modal" onClick={() => {
+        props.setShow(false);
+        setSubmission(initialTask);
+      }}>
 
         <Card className="dialogCard">
-          {/*On clicking outside modal-content, close the Modal*/}
+          {/*Stop the event from clicking on modal from reaching other parts of our component (we don't need it anymore).
+          Any closing that happens from a click inside the dialogCard should only be due to the cancel button, which already 
+          has its own closing logic.*/}
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               Add Tasks
@@ -82,7 +88,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
                   (event) => {
                     handleOnChange('task', event.target.value, submission, setSubmission)
                   }} />
-                  
+
                 <TextField label="Complete by" variant="filled" onChange={
                   (event) => {
                     handleOnChange('date', event.target.value, submission, setSubmission)
