@@ -2,7 +2,7 @@ import React from 'react';
 
 import Task from '../models/Task';
 
-import TaskList from './TaskList';
+import TaskDisplay from './TaskDisplay';
 import AddTasksModal from './AddTasksModal'
 import AddTasksFab from './AddTasksFab';
 
@@ -20,7 +20,7 @@ const BodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         <div className="BodyContainer">
-            <TaskList taskList={taskList} setTaskList={setTaskList} completedList={completedList} setCompletedList={setCompletedList} />
+            <TaskDisplay taskList={taskList} setTaskList={setTaskList} completedList={completedList} setCompletedList={setCompletedList} />
             <AddTasksModal taskList={taskList} setTaskList={setTaskList} show={show} setShow={setShow} />
             <AddTasksFab setShow={setShow} />
         </div>);

@@ -8,12 +8,15 @@ import IconMenu from './IconMenu'
 
 import '../styles/AddTasksModal.css'
 
-// Pass in the taskList and setTaskList props, and add a new item to the list
-function handleAdd(list: Task[],
+// Pass in the taskList and setTaskList props, and add a new item to the list based on what was submitted in the text fields
+function handleAdd(taskList: Task[],
   setTaskList: React.Dispatch<React.SetStateAction<Task[]>>,
   submission: Task) {
 
-  const newList = list.concat({ id: uuid(), icon: submission.icon, task: submission.task, date: submission.date });
+  // Map needed to clone an array of objects
+  const taskListCopy = taskList.map(l => Object.assign({}, l));
+
+  const newList = taskListCopy.concat({ id: uuid(), icon: submission.icon, task: submission.task, date: submission.date });
   setTaskList(newList);
 }
 
