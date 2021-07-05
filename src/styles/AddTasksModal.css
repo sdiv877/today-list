@@ -1,3 +1,7 @@
+.dialogCard {
+    padding-bottom: 10px;
+}
+
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
 
@@ -14,23 +18,17 @@
 }
 
 .modal-content {
-    background-color: white;
-
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
 .modal-header {
-    background-color: white;
-
     text-align: center;
 
     padding-bottom: 5px;
 }
 
 .modal-body {
-    background-color: white;
-
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 
@@ -41,8 +39,6 @@
 }
 
 .modal-footer {
-    background-color: white;
-
     padding-top: 10px;
     padding-right: 10px;
 }

@@ -1,0 +1,15 @@
+.taskCard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    min-height: 115px;
+    display: flex;
+}
+
+.taskIcon {
+    text-align: center;
+}
+
+.taskDate {
+    color: gray;
+}

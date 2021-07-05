@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import FocusTrap from "focus-trap-react";
 import { v4 as uuid } from 'uuid';
-import { TextField, Button } from "@material-ui/core";
+import { Card, TextField, Button } from "@material-ui/core";
 
 import Task from '../models/Task'
 import IconMenu from './IconMenu'
@@ -67,43 +67,46 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
       Then inside modal content check if an area outside or 'cancel' was clicked */}
       <div className="modal" onClick={() => { props.setShow(false); }}>
 
-        {/*On clicking outside modal-content, close the Modal*/}
-        <div className="modal-content" onClick={e => e.stopPropagation()}>
-          <div className="modal-header">
-            Add Tasks
+        <Card className="dialogCard">
+          {/*On clicking outside modal-content, close the Modal*/}
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              Add Tasks
+            </div>
+
+            <div className="modal-body">
+              <form>
+                <IconMenu submission={submission} setSubmission={setSubmission} />
+
+                <TextField label="Task" variant="filled" onChange={
+                  (event) => {
+                    handleOnChange('task', event.target.value, submission, setSubmission)
+                  }} />
+                  
+                <TextField label="Complete by" variant="filled" onChange={
+                  (event) => {
+                    handleOnChange('date', event.target.value, submission, setSubmission)
+                  }} />
+              </form>
+            </div>
+
+            <div className="modal-footer">
+              <Button className="button" onClick={() => { handleAdd(props.list, props.setList, submission) }}>
+                Submit
+              </Button>
+
+              {/*On clicking Cancel, hide the Modal*/}
+              <Button className="button" onClick={() => {
+                setSubmission(initialTask);
+                props.setShow(false);
+              }}>
+                Cancel
+              </Button>
+            </div>
+
           </div>
+        </Card>
 
-          <div className="modal-body">
-            <form>
-              <IconMenu submission={submission} setSubmission={setSubmission} />
-
-              <TextField label="Task" variant="filled" onChange={
-                (event) => {
-                  handleOnChange('task', event.target.value, submission, setSubmission)
-                }} />
-                
-              <TextField label="Complete by" variant="filled" onChange={
-                (event) => {
-                  handleOnChange('date', event.target.value, submission, setSubmission)
-                }} />
-            </form>
-          </div>
-
-          <div className="modal-footer">
-            <Button className="button" onClick={() => { handleAdd(props.list, props.setList, submission) }}>
-              Submit
-            </Button>
-
-            {/*On clicking Cancel, hide the Modal*/}
-            <Button className="button" onClick={() => {
-              setSubmission(initialTask);
-              props.setShow(false);
-            }}>
-              Cancel
-            </Button>
-          </div>
-
-        </div>
       </div>
     </FocusTrap>
   );
