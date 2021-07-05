@@ -18,7 +18,7 @@ const BodyContainer: React.VoidFunctionComponent = () => {
     return (
         <div className="BodyContainer">
             <TaskList list={list} setList={setList} />
-            <AddTasksModal show={show} setShow={setShow} />
+            <AddTasksModal list={list} setList={setList} show={show} setShow={setShow} />
             <AddTasksFab setShow={setShow} />
         </div>);
 }
