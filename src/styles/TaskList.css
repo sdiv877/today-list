@@ -6,10 +6,14 @@
     display: flex;
 }
 
-.taskIcon {
-    text-align: center;
+.taskCard:hover .hiddenButton {
+    visibility: visible;
 }
 
-.taskDate {
-    color: gray;
+.hiddenButton {
+    visibility: hidden;
+}
+
+.taskIcon {
+    text-align: center;
 }

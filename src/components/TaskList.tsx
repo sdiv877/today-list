@@ -1,4 +1,5 @@
-import { Grid, Card, Divider, makeStyles } from '@material-ui/core';
+import { Grid, Card, Divider, makeStyles, IconButton } from '@material-ui/core';
+import { Check, Delete } from '@material-ui/icons';
 import React, { FC } from 'react';
 
 import Task from '../models/Task';
@@ -6,28 +7,33 @@ import { getIcon, handleEmptyTaskField, handleEmptyDateField } from '../utils/Ta
 
 import '../styles/TaskList.css'
 
+// Task completion and deletion handlers
+function handleCompleteTask(): void {
+    console.log('completed');
+    // setCompletedList(completedList + completedTask)
+}
+
+function handleDeleteTask(): void {
+    console.log('deletec');
+    // setTaskList(taskList - deleted task)
+}
+
 // Card styles
 const useStyles = makeStyles({
-    root: {
-        minWidth: 275,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
     title: {
         fontSize: 18,
     },
-    pos: {
-        marginBottom: 12,
+    date: {
+        fontSize: 16,
     },
 });
 
 // Needed to let TS know explicitly what is passed from props
 interface TaskListProps {
-    list: Task[],
-    setList: React.Dispatch<React.SetStateAction<Task[]>>,
+    taskList: Task[],
+    setTaskList: React.Dispatch<React.SetStateAction<Task[]>>,
+    completedList: Task[],
+    setCompletedList: React.Dispatch<React.SetStateAction<Task[]>>,
 }
 
 const TaskList: FC<TaskListProps> = (props): JSX.Element => {
@@ -37,7 +43,7 @@ const TaskList: FC<TaskListProps> = (props): JSX.Element => {
     return (
         <div>
             {/*Write all the tasks in the list prop by accessing their fields*/}
-            {props.list.map((task) => (
+            {props.taskList.map((task) => (
                 <Card className="taskCard" variant="outlined" key={task.id}>
 
                     <Grid container direction="row" alignItems="center">
@@ -49,19 +55,30 @@ const TaskList: FC<TaskListProps> = (props): JSX.Element => {
 
                         <Divider orientation="vertical" flexItem />
 
-                        <Grid item xs container direction="column" alignItems="center">
-                            <Grid item xs={5} className={classes.title}>
+                        <Grid item xs={8} container direction="column" alignItems="center">
+                            <Grid item className={classes.title}>
                                 {handleEmptyTaskField(task.task)}
                             </Grid>
 
-                            <Grid item xs={5} className="taskDate">
+                            <Grid item className={classes.date}>
                                 {handleEmptyDateField(task.date)}
                             </Grid>
-
-                            {/* <Grid item xs={3}>
-                                {task.id}
-                            </Grid> */}
                         </Grid>
+
+                        <Grid item xs container direction="column" alignItems="center">
+                            <Grid item>
+                                <IconButton aria-label="complete-task" className="hiddenButton" onClick={() => { handleCompleteTask() }}>
+                                    <Check />
+                                </IconButton>
+                            </Grid>
+
+                            <Grid item>
+                                <IconButton aria-label="delete-task" className="hiddenButton" onClick={() => { handleDeleteTask() }}>
+                                    <Delete />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+
                     </Grid>
 
                 </Card>

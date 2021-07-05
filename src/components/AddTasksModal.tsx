@@ -8,13 +8,13 @@ import IconMenu from './IconMenu'
 
 import '../styles/AddTasksModal.css'
 
-// Pass in the list and setList props, and add a new item to the list
+// Pass in the taskList and setTaskList props, and add a new item to the list
 function handleAdd(list: Task[],
-  setList: React.Dispatch<React.SetStateAction<Task[]>>,
+  setTaskList: React.Dispatch<React.SetStateAction<Task[]>>,
   submission: Task) {
 
   const newList = list.concat({ id: uuid(), icon: submission.icon, task: submission.task, date: submission.date });
-  setList(newList);
+  setTaskList(newList);
 }
 
 // Handle any changes made to state of submission
@@ -38,8 +38,8 @@ function handleOnChange(field: string, changedField: string, submission: Task, s
 
 // Props types
 interface AddTasksModalProps {
-  list: Task[],
-  setList: React.Dispatch<React.SetStateAction<Task[]>>,
+  taskList: Task[],
+  setTaskList: React.Dispatch<React.SetStateAction<Task[]>>,
   show: boolean,
   setShow: (show: boolean) => void,
 }
@@ -97,7 +97,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
             </div>
 
             <div className="modal-footer">
-              <Button className="button" onClick={() => { handleAdd(props.list, props.setList, submission) }}>
+              <Button className="button" onClick={() => { handleAdd(props.taskList, props.setTaskList, submission) }}>
                 Submit
               </Button>
 
