@@ -1,17 +1,14 @@
 import React from 'react';
 
+import Task from '../models/Task';
+
 import TaskList from './TaskList';
 import AddTasksModal from './AddTasksModal'
 import AddTasksFab from './AddTasksFab';
 
 const BodyContainer: React.VoidFunctionComponent = () => {
     // TaskList states
-    const initialList = [
-        {
-            id: '1',
-            name: '1',
-        },
-    ];
+    const initialList = new Array<Task>();
 
     const [list, setList] = React.useState(initialList);
 

@@ -16,7 +16,7 @@ const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
 
     return (
         <div className="WelcomeHeaderContainer">
-            <Card variant="outlined" className={classes.card}>
+            <Card className={classes.card}>
                 <WelcomeText />
                 <NameField />
             </Card>

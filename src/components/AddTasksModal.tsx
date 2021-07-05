@@ -28,9 +28,11 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
           </div>
 
           <div className="modal-body">
-            <input></input>
+            <input placeholder="icon"></input>
             <br />
-            <input></input>
+            <input placeholder="task"></input>
+            <br />
+            <input placeholder="date"></input>
           </div>
 
           <div className="modal-footer">
