@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { v4 as uuid } from 'uuid';
-import { Card, TextField, Button } from "@material-ui/core";
+import { Card, Grid, TextField, Button } from "@material-ui/core";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 import Task from '../models/Task'
@@ -50,6 +50,14 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     setSelectedDate(date);
   };
 
+  // Clear states of all input fields upon closing the window
+  function clearStates() {
+
+    setSelectedIcon('');
+    setSelectedTask('');
+    setSelectedDate(new Date());
+  }
+
   // If show is not true, don't return the component
   if (!props.show) {
     return null;
@@ -59,13 +67,14 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     <div>
       {/* 'modal'represents the gray area outside of the card, while 'dialogCard' represents the actual white part of the dialog.
         In this way if someone clicks on the gray area we want to close the dialog.
-        So we add the setShow(false) onClick to 'modal' so that an event can be generated if the gray is clicked. */}
+        So we add the setShow(false) onClick to 'modal' so that the modal is closed if the gray is clicked. */}
       <div className="modal" onClick={() => {
         props.setShow(false);
+        clearStates();
       }}>
 
         <Card className="dialogCard">
-          {/*Stop the event from clicking on modal from reaching other parts of our component (we don't need it anymore).
+          {/*Clicking on the gray above causes an event we don't want reaching other parts of our component (we don't need it anymore).
             Any closing that happens from a click inside the dialogCard should only be due to the cancel button, which already 
             has its own closing logic.*/}
           <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -73,27 +82,34 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
               Add Tasks
             </div>
 
-            <div className="modal-body">
-              <form>
-                <IconMenu selectedIcon={selectedIcon} handleIconChange={handleIconChange} />
+            <div className="modal-body"> {/*The actual input fields*/}
+              <Grid container className="formGridContainer" direction="column" spacing={3} alignItems="center">
+                <Grid item>
+                  <IconMenu selectedIcon={selectedIcon} handleIconChange={handleIconChange} />
+                </Grid>
 
-                <TextField label="Task" variant="filled" value={selectedTask} onChange={
-                  (event) => {
-                    handleTaskChange(event.target.value)
-                  }} />
+                <Grid item>
+                  <TextField label="Task" fullWidth style={{ minWidth: "350px" }} value={selectedTask} onChange={
+                    (event) => {
+                      handleTaskChange(event.target.value)
+                    }} />
+                </Grid>
 
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    variant="inline"
-                    disableToolbar={true}
-                    autoOk={true}
-                    value={selectedDate}
-                    onChange={(date) => handleDateChange(date)} />
-                </MuiPickersUtilsProvider>
-              </form>
+                <Grid item>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      variant="inline"
+                      style={{ minWidth: "350px" }}
+                      disableToolbar={true}
+                      autoOk={true}
+                      value={selectedDate}
+                      onChange={(date) => handleDateChange(date)} />
+                  </MuiPickersUtilsProvider>
+                </Grid>
+              </Grid>
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer"> {/*Submit and cancel buttons*/}
               <Button className="button" onClick={() => { handleAdd() }}>
                 Submit
               </Button>
@@ -101,6 +117,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
               {/*On clicking Cancel, hide the Modal*/}
               <Button className="button" onClick={() => {
                 props.setShow(false);
+                clearStates();
               }}>
                 Cancel
               </Button>

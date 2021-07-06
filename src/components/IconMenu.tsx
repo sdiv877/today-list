@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FormControl, InputLabel, Select } from "@material-ui/core";
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 //Props types
 interface IconMenuProps {
@@ -14,21 +14,20 @@ const IconMenu: FC<IconMenuProps> = (props): JSX.Element => {
     }
 
     return (
-        <div className="IconMenu">
-            <FormControl>
+        <div className="IconMenu" style={{ minWidth: '350px', height: '30px' }}>
+            <FormControl fullWidth>
                 <InputLabel>Icon</InputLabel>
-                <Select
-                    native
-                    onChange={(event) => { handleChange(event.target.value as string) }}
-                >
-                    <option aria-label="None" value="" />
-                    <option value={'create'}>Pencil</option>
-                    <option value={'assignment'}>Assignment</option>
-                    <option value={'accessalarm'}>Clock</option>
-                    <option value={'fastfood'}>Food</option>
-                    <option value={'apartment'}>Location</option>
-                    <option value={'fitnesscenter'}>Fitness</option>
-                    <option value={'videogameasset'}>Gaming</option>
+
+                <Select defaultValue='' value={props.selectedIcon} onChange={(event) => {
+                    handleChange(event.target.value as string)
+                }}>
+                    <MenuItem value={'create'}>Pencil</MenuItem>
+                    <MenuItem value={'assignment'}>Assignment</MenuItem>
+                    <MenuItem value={'accessalarm'}>Clock</MenuItem>
+                    <MenuItem value={'fastfood'}>Food</MenuItem>
+                    <MenuItem value={'apartment'}>Location</MenuItem>
+                    <MenuItem value={'fitnesscenter'}>Fitness</MenuItem>
+                    <MenuItem value={'videogameasset'}>Gaming</MenuItem>
                 </Select>
             </FormControl>
         </div>);
