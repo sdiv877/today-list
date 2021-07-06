@@ -1,23 +1,17 @@
 import React, { FC } from 'react';
 import { FormControl, InputLabel, Select } from "@material-ui/core";
 
-import Task from '../models/Task'
-
 //Props types
 interface IconMenuProps {
-    submission: Task,
-    setSubmission: React.Dispatch<React.SetStateAction<Task>>,
+    selectedIcon: string,
+    handleIconChange: (icon: string | null) => void
 }
 
 const IconMenu: FC<IconMenuProps> = (props): JSX.Element => {
-    // When a change happens, setIcon to the value in the option tag (as a string) that was selected
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>, submission: Task, setSubmission: React.Dispatch<React.SetStateAction<Task>>) => {
 
-        const submissionCopy = submission;
-        submissionCopy.icon = event.target.value as string;
-
-        setSubmission(submissionCopy);
-    };
+    const handleChange = (icon: string) => {
+        props.handleIconChange(icon);
+    }
 
     return (
         <div className="IconMenu">
@@ -25,7 +19,7 @@ const IconMenu: FC<IconMenuProps> = (props): JSX.Element => {
                 <InputLabel>Icon</InputLabel>
                 <Select
                     native
-                    onChange={(event) => { handleChange(event, props.submission, props.setSubmission) }}
+                    onChange={(event) => { handleChange(event.target.value as string) }}
                 >
                     <option aria-label="None" value="" />
                     <option value={'create'}>Pencil</option>
