@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Create, Assignment, AccessAlarm, Fastfood, Apartment, FitnessCenter, VideogameAsset } from '@material-ui/icons';
 
-export function getIcon(iconName: string) {
+export function getIcon(iconName: string): ReactElement {
     const style = {
         fontSize: 35,
     }
