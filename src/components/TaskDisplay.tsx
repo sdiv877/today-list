@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 import Task from '../models/Task';
 import { getIcon, handleEmptyTaskField, handleEmptyDateField } from '../utils/TaskListHelpers'
 
-import '../styles/TaskList.css'
+import '../styles/TaskDisplay.css'
 
 // Card styles
 const useStyles = makeStyles({

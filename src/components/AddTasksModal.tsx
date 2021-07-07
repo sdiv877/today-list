@@ -8,7 +8,7 @@ import IconMenu from './IconMenu'
 
 import '../styles/AddTasksModal.css'
 import DateFnsUtils from "@date-io/date-fns";
-import { getLogicalDateString } from "../utils/dateHelpers";
+import { getLogicalDateString } from "../utils/dates";
 
 // Props types
 interface AddTasksModalProps {
