@@ -1,8 +1,8 @@
 import { Card, makeStyles } from '@material-ui/core';
 import React from 'react';
 
-import WelcomeText from './WelcomeText';
-import NameField from './NameField';
+import WelcomeText from '../WelcomeText';
+import NameField from '../WelcomeName';
 
 const useStyles = makeStyles(() => ({
     card: {

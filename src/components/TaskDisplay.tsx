@@ -14,10 +14,8 @@ interface TaskDisplayProps {
 }
 
 const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
-
-    // Task completion and deletion handlers
+    // Task completion handler
     function handleCompleteTask(task: Task): void {
-
         // Map needed to clone an array of objects
         let completedListCopy = props.completedList.map(l => Object.assign({}, l));
 
@@ -31,8 +29,8 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
         props.setCompletedList(completedListCopy)
     }
 
+    // Task deletion handler
     function handleDeleteTask(id: string): void {
-
         // Map needed to clone an array of objects
         const taskListCopy = props.taskList.map(l => Object.assign({}, l));
 
@@ -54,7 +52,6 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
             Uncompleted section
             <br />
 
-            {/*Write all the tasks in the list prop by accessing their fields*/}
             {props.taskList.map((task) => (
                 <CurrentTaskCard task={task} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} key={task.id} />
             ))}

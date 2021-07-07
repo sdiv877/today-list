@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, TextField } from "@material-ui/core"
 
-const NameField: React.VoidFunctionComponent = () => {
+const WelcomeName: React.VoidFunctionComponent = () => {
 
     const useStyles = makeStyles(() => ({
         root: {
@@ -29,4 +29,4 @@ const NameField: React.VoidFunctionComponent = () => {
         </div>);
 }
 
-export default NameField;
+export default WelcomeName;

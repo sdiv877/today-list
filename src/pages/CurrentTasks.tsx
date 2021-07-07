@@ -1,15 +1,15 @@
 import React from 'react';
 
-import WelcomeHeaderContainer from '../components/WelcomeHeaderContainer';
-import BodyContainer from '../components/BodyContainer';
+import CurrentTasksHeaderContainer from '../components/containers/CurrentTasksHeaderContainer';
+import CurrentTasksBodyContainer from '../components/containers/CurrentTasksBodyContainer';
 
 const CurrentTasks: React.VoidFunctionComponent = () => {
 
     // /
     return (
         <div className="CurrentTasksPage">
-            <WelcomeHeaderContainer />
-            <BodyContainer />
+            <CurrentTasksHeaderContainer />
+            <CurrentTasksBodyContainer />
         </div>);
 }
 
