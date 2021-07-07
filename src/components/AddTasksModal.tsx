@@ -3,10 +3,10 @@ import { v4 as uuid } from 'uuid';
 import { Card, Grid, TextField, Button } from "@material-ui/core";
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
-import Task from '../../models/Task'
+import Task from '../models/Task'
 import IconMenu from './IconMenu'
 
-import '../../styles/AddTasksModal.css'
+import '../styles/AddTasksModal.css'
 import DateFnsUtils from "@date-io/date-fns";
 
 // Props types
