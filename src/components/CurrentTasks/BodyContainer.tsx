@@ -4,7 +4,7 @@ import TaskDisplay from './TaskDisplay';
 import AddTasksModal from './AddTasksModal'
 import AddTasksFab from './AddTasksFab';
 
-import Task from '../models/Task';
+import Task from '../../models/Task';
 
 const BodyContainer: React.VoidFunctionComponent = () => {
     // TaskList states

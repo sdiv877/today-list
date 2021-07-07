@@ -4,7 +4,7 @@ export function getTaskCardDateString(date: Date): string {
 
     taskCardDateString += " at " + getTimeString(date);
 
-    return taskCardDateString; 
+    return taskCardDateString;
 }
 
 //-- Date string helpers

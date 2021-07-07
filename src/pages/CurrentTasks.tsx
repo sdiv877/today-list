@@ -1,7 +1,7 @@
 import React from 'react';
 
-import WelcomeHeaderContainer from '../components/WelcomeHeaderContainer';
-import BodyContainer from '../components/BodyContainer';
+import WelcomeHeaderContainer from '../components/CurrentTasks/WelcomeHeaderContainer';
+import BodyContainer from '../components/CurrentTasks/BodyContainer';
 
 const CurrentTasks: React.VoidFunctionComponent = () => {
 
