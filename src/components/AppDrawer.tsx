@@ -1,8 +1,14 @@
 import React from 'react';
+import { HashRouter, Route, Link } from 'react-router-dom';
 import { Drawer, List, Divider, Tooltip, ListItem, ListItemIcon, withStyles, makeStyles } from '@material-ui/core';
-import { v4 as uuid } from 'uuid';
 
 import { getIcon } from '../utils/AppDrawerHelpers'
+
+import CurrentTasks from '../pages/CurrentTasks'
+import Settings from '../pages/Settings'
+import CompletedTasks from '../pages/CompletedTasks';
+import RecycleBin from '../pages/RecycleBin';
+import Stats from '../pages/Stats';
 
 const ButtonTooltip = withStyles(() => ({
     tooltip: {
@@ -24,49 +30,71 @@ const AppDrawer: React.VoidFunctionComponent = () => {
     const classes = useStyles();
 
     return (
-        <Drawer
-            variant="permanent"
-            anchor="left"
-            className={classes.drawerPaper}
-        >
-            <List>
-                {['Current Tasks', 'Completed Tasks', 'Recycle Bin'].map((icon) => (
-                    <ButtonTooltip title={icon} arrow placement="right" key={icon}>
-                        <ListItem button key={uuid()} >
+        <HashRouter>
+
+            <Drawer
+                variant="permanent"
+                anchor="left"
+                className={classes.drawerPaper}
+            >
+                <List>
+                    <ButtonTooltip title={'Current Tasks'} arrow placement="right" key={'Current Tasks'}>
+                        <ListItem button component={Link} to="/" replace >
                             <ListItemIcon>
-                                {getIcon(icon)}
+                                {getIcon('Current Tasks')}
                             </ListItemIcon>
                         </ListItem>
                     </ButtonTooltip>
-                ))}
 
-                <Divider orientation="horizontal" />
-
-                {['Stats'].map((icon) => (
-                    <ButtonTooltip title={icon} arrow placement="right" key={icon}>
-                        <ListItem button >
+                    <ButtonTooltip title={'Completed Tasks'} arrow placement="right" key={'Completed Tasks'}>
+                        <ListItem button component={Link} to="/completed" replace >
                             <ListItemIcon>
-                                {getIcon(icon)}
+                                {getIcon('Completed Tasks')}
                             </ListItemIcon>
                         </ListItem>
                     </ButtonTooltip>
-                ))}
 
-                <Divider orientation="horizontal" />
-
-                {['Settings'].map((icon) => (
-                    <ButtonTooltip title={icon} arrow placement="right" key={icon}>
-                        <ListItem button >
+                    <ButtonTooltip title={'Recycle Bin'} arrow placement="right" key={'Recycle Bin'}>
+                        <ListItem button component={Link} to="/bin" replace >
                             <ListItemIcon>
-                                {getIcon(icon)}
+                                {getIcon('Recycle Bin')}
                             </ListItemIcon>
                         </ListItem>
                     </ButtonTooltip>
-                ))}
 
-                <Divider orientation="horizontal" />
-            </List>
-        </Drawer>);
+                    <Divider orientation="horizontal" />
+
+                    <ButtonTooltip title={'Stats'} arrow placement="right" key={'Stats'}>
+                        <ListItem button component={Link} to="/stats" replace >
+                            <ListItemIcon>
+                                {getIcon('Stats')}
+                            </ListItemIcon>
+                        </ListItem>
+                    </ButtonTooltip>
+
+                    <Divider orientation="horizontal" />
+
+                    <ButtonTooltip title={'Settings'} arrow placement="right" key={'Settings'}>
+                        <ListItem button component={Link} to="/settings" replace >
+                            <ListItemIcon>
+                                {getIcon('Settings')}
+                            </ListItemIcon>
+                        </ListItem>
+                    </ButtonTooltip>
+
+                    <Divider orientation="horizontal" />
+                </List>
+            </Drawer>
+
+            <main>
+                <Route exact path="/" component={CurrentTasks} />
+                <Route exact path="/completed" component={CompletedTasks} />
+                <Route exact path="/bin" component={RecycleBin} />
+                <Route exact path="/stats" component={Stats} />
+                <Route path="/settings" component={Settings} />
+            </main>
+
+        </HashRouter>);
 }
 
 export default AppDrawer;

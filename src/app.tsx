@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { CssBaseline } from '@material-ui/core';
 
 import AppDrawer from './components/AppDrawer';
-import WelcomeHeaderContainer from './components/WelcomeHeaderContainer';
-import BodyContainer from './components/BodyContainer'
 
 import './styles/App.css'
 
@@ -11,11 +10,9 @@ import './styles/App.css'
 // Anything inside ReactDOM.render() is 'returned'
 ReactDOM.render(
     <div className="App">
-        <AppDrawer />
-
         <div className="content">
-            <WelcomeHeaderContainer />
-            <BodyContainer />
+            <CssBaseline />
+            <AppDrawer />
         </div>
     </div>
     , document.body);
