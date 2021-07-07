@@ -1,20 +1,14 @@
-export function getShortDateString(date: Date): string {
-    // ex. 8/07/21
-    const dateString = (date.getDate().toString() + "/0" + (date.getMonth() + 1).toString()) + '/'
-        + (date.getFullYear().toString().slice(2))
+export function getTaskCardDateString(date: Date): string {
+    //ex. due 8/07/21 at 15:00 
+    let taskCardDateString = "Due: " + getLogicalDateString(date);
 
-    return dateString;
+    taskCardDateString += " at " + getTimeString(date);
+
+    return taskCardDateString; 
 }
 
-export function getDayDateString(date: Date): string {
-    // ex. Thursday, 7th July
-    const dateString = getWeekdayString(date.getDay()) + ', ' + getOrdinalDayString(date.getDate()) + ' '
-        + getMonthString(date.getMonth());
-
-    return dateString;
-}
-
-export function getLogicalDateString(date: Date): string {
+//-- Date string helpers
+function getLogicalDateString(date: Date): string {
 
     const currentDate = new Date();
 
@@ -31,15 +25,23 @@ export function getLogicalDateString(date: Date): string {
     }
 }
 
-// Potentially unneeded
-export function getLongDateString(date: Date): string {
-
-    const dateString = getDayDateString(date) + ' ' + getShortDateString(date);
+function getShortDateString(date: Date): string {
+    // ex. 8/07/21
+    const dateString = (date.getDate().toString() + "/0" + (date.getMonth() + 1).toString()) + '/'
+        + (date.getFullYear().toString().slice(2))
 
     return dateString;
 }
 
-// Helpers
+function getDayDateString(date: Date): string {
+    // ex. Thursday, 7th July
+    const dateString = getWeekdayString(date.getDay()) + ', ' + getOrdinalDayString(date.getDate()) + ' '
+        + getMonthString(date.getMonth());
+
+    return dateString;
+}
+
+//-- Day/Month helpers
 function getWeekdayString(day: number): string {
 
     const weekdays = ['Sunday', 'Monday', 'Tueday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -66,4 +68,16 @@ function getMonthString(month: number): string {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     return months[month];
+}
+
+//-- Time string helpers
+function getTimeString(date: Date): string {
+
+    let timeString = date.getHours().toString() + ':' + date.getMinutes().toString();
+
+    if (date.getHours() < 10) {
+        timeString = '0' + timeString;
+    }
+
+    return timeString;
 }

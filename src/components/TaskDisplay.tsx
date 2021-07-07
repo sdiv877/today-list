@@ -3,8 +3,8 @@ import { Check, Delete } from '@material-ui/icons';
 import React, { FC } from 'react';
 
 import Task from '../models/Task';
-import { getIcon, handleEmptyTaskField, handleEmptyDateField } from '../utils/TaskDisplayHelpers'
-import { getLogicalDateString } from '../utils/dates';
+import { getIcon, handleTaskField } from '../utils/TaskDisplayHelpers'
+import { getTaskCardDateString } from '../utils/dates';
 
 import '../styles/TaskDisplay.css'
 
@@ -86,11 +86,11 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
 
                         <Grid item xs={8} container direction="column" alignItems="center">
                             <Grid item className={classes.title}>
-                                {handleEmptyTaskField(task.task)}
+                                {handleTaskField(task.task)}
                             </Grid>
 
                             <Grid item className={classes.date}>
-                                {handleEmptyDateField(getLogicalDateString(task.date))}
+                                {getTaskCardDateString(task.date)}
                             </Grid>
                         </Grid>
 
@@ -132,11 +132,11 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
 
                         <Grid item xs container direction="column" alignItems="center">
                             <Grid item className={classes.title}>
-                                {handleEmptyTaskField(task.task)}
+                                {handleTaskField(task.task)}
                             </Grid>
 
                             <Grid item className={classes.date}>
-                                {handleEmptyDateField(getLogicalDateString(task.date))}
+                                {getTaskCardDateString(task.date)}
                             </Grid>
                         </Grid>
                     </Grid>

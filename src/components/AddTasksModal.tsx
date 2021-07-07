@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { v4 as uuid } from 'uuid';
 import { Card, Grid, TextField, Button } from "@material-ui/core";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 import Task from '../models/Task'
 import IconMenu from './IconMenu'
@@ -96,10 +96,11 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
 
                 <Grid item>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
+                    <KeyboardDateTimePicker
                       variant="inline"
+                      ampm={false}
+                      disablePast
                       style={{ minWidth: "350px" }}
-                      disableToolbar={true}
                       autoOk={true}
                       value={selectedDate}
                       onChange={(date) => handleDateChange(date)} />

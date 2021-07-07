@@ -26,18 +26,10 @@ export function getIcon(iconName: string): ReactElement {
     }
 }
 
-export function handleEmptyTaskField(task: string): string {
+export function handleTaskField(task: string): string {
     if (task === '') {
         return "No task specified"
     }
 
     return task;
-}
-
-export function handleEmptyDateField(date: string): string {
-    if (date === '') {
-        return "No date specified"
-    }
-
-    return "Due: " + date;
 }
