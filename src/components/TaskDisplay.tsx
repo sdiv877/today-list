@@ -1,22 +1,9 @@
-import { Grid, Card, Divider, makeStyles, IconButton } from '@material-ui/core';
-import { Check, Delete } from '@material-ui/icons';
 import React, { FC } from 'react';
 
+import CurrentTaskCard from './CurrentTaskCard';
+import CompletedTaskCard from './CompletedTaskCard'
+
 import Task from '../models/Task';
-import { getIcon, handleTaskField } from '../utils/TaskDisplayHelpers'
-import { getTaskCardDateString } from '../utils/dates';
-
-import '../styles/TaskDisplay.css'
-
-// Card styles
-const useStyles = makeStyles({
-    title: {
-        fontSize: 18,
-    },
-    date: {
-        fontSize: 16,
-    },
-});
 
 // Needed to let TS know explicitly what is passed from props
 interface TaskDisplayProps {
@@ -60,88 +47,24 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
         props.setTaskList(taskListCopy);
     }
 
-    const classes = useStyles();
-
     // Returned FC
     return (
-        <div>
-            <br />
+        <div className="taskDisplay">
             <br />
             Uncompleted section
-            <br />
             <br />
 
             {/*Write all the tasks in the list prop by accessing their fields*/}
             {props.taskList.map((task) => (
-                <Card className="taskCard" variant="outlined" key={task.id}>
-
-                    <Grid container direction="row" alignItems="center">
-                        <Grid item xs={2}>
-                            <Grid item className="taskIcon">
-                                {getIcon(task.icon)}
-                            </Grid>
-                        </Grid>
-
-                        <Divider orientation="vertical" flexItem />
-
-                        <Grid item xs={8} container direction="column" alignItems="center">
-                            <Grid item className={classes.title}>
-                                {handleTaskField(task.task)}
-                            </Grid>
-
-                            <Grid item className={classes.date}>
-                                {getTaskCardDateString(task.date)}
-                            </Grid>
-                        </Grid>
-
-                        <Grid item xs container direction="column" alignItems="center">
-                            <Grid item>
-                                <IconButton aria-label="complete-task" className="hiddenButton" onClick={() => { handleCompleteTask(task) }}>
-                                    <Check />
-                                </IconButton>
-                            </Grid>
-
-                            <Grid item>
-                                <IconButton aria-label="delete-task" className="hiddenButton" onClick={() => { handleDeleteTask(task.id) }}>
-                                    <Delete />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                </Card>
+                <CurrentTaskCard task={task} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} key={task.id} />
             ))}
 
             <br />
-            <br />
             Completed section
-            <br />
             <br />
 
             {props.completedList.map((task) => (
-                <Card className="taskCard" variant="outlined" key={task.id}>
-
-                    <Grid container direction="row" alignItems="center">
-                        <Grid item xs={2}>
-                            <Grid item className="taskIcon">
-                                {getIcon(task.icon)}
-                            </Grid>
-                        </Grid>
-
-                        <Divider orientation="vertical" flexItem />
-
-                        <Grid item xs container direction="column" alignItems="center">
-                            <Grid item className={classes.title}>
-                                {handleTaskField(task.task)}
-                            </Grid>
-
-                            <Grid item className={classes.date}>
-                                {getTaskCardDateString(task.date)}
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                </Card>
+                <CompletedTaskCard task={task} key={task.id} />
             ))}
         </div>
     );

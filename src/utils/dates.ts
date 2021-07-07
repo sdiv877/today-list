@@ -73,11 +73,17 @@ function getMonthString(month: number): string {
 //-- Time string helpers
 function getTimeString(date: Date): string {
 
-    let timeString = date.getHours().toString() + ':' + date.getMinutes().toString();
-
+    let hoursString = date.getHours().toString();
     if (date.getHours() < 10) {
-        timeString = '0' + timeString;
+        hoursString = '0' + hoursString.toString();
     }
+
+    let minutesString = date.getMinutes().toString();
+    if (date.getMinutes() < 10) {
+        minutesString = '0' + minutesString.toString();
+    }
+    
+    const timeString = hoursString + ':' + minutesString;
 
     return timeString;
 }

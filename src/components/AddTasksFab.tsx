@@ -22,7 +22,7 @@ const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {
     const classes = useStyles();
 
     return (
-        <Fab color="primary" aria-label="add" className={classes.root} onClick={ () => {
+        <Fab color="primary" aria-label="add" className={classes.root} onClick={() => {
             props.setShow(true);
         }}>
             <AddIcon />
