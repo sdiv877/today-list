@@ -3,7 +3,8 @@ import { Check, Delete } from '@material-ui/icons';
 import React, { FC } from 'react';
 
 import Task from '../models/Task';
-import { getIcon, handleEmptyTaskField, handleEmptyDateField } from '../utils/TaskListHelpers'
+import { getIcon, handleEmptyTaskField, handleEmptyDateField } from '../utils/TaskDisplayHelpers'
+import { getLogicalDateString } from '../utils/dates';
 
 import '../styles/TaskDisplay.css'
 
@@ -89,7 +90,7 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
                             </Grid>
 
                             <Grid item className={classes.date}>
-                                {handleEmptyDateField(task.date)}
+                                {handleEmptyDateField(getLogicalDateString(task.date))}
                             </Grid>
                         </Grid>
 
@@ -135,7 +136,7 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
                             </Grid>
 
                             <Grid item className={classes.date}>
-                                {handleEmptyDateField(task.date)}
+                                {handleEmptyDateField(getLogicalDateString(task.date))}
                             </Grid>
                         </Grid>
                     </Grid>

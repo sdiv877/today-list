@@ -8,7 +8,6 @@ import IconMenu from './IconMenu'
 
 import '../styles/AddTasksModal.css'
 import DateFnsUtils from "@date-io/date-fns";
-import { getLogicalDateString } from "../utils/dates";
 
 // Props types
 interface AddTasksModalProps {
@@ -25,7 +24,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     // Map needed to clone an array of objects
     const taskListCopy = props.taskList.map(l => Object.assign({}, l));
 
-    const newList = taskListCopy.concat({ id: uuid(), icon: selectedIcon, task: selectedTask, date: getLogicalDateString(selectedDate) });
+    const newList = taskListCopy.concat({ id: uuid(), icon: selectedIcon, task: selectedTask, date: selectedDate });
     props.setTaskList(newList);
   }
 

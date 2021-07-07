@@ -3,7 +3,7 @@ interface Task {
     id: string,
     icon: string,
     task: string,
-    date: string,
+    date: Date,
 }
 
 export default Task;
