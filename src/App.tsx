@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AppDrawer from './components/AppDrawer';
 import { HashRouter, Route } from 'react-router-dom';
 
+import AppDrawer from './components/AppDrawer';
 import CurrentTasks from './pages/CurrentTasks'
 import Settings from './pages/Settings'
 import CompletedTasks from './pages/CompletedTasks';

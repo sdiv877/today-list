@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Fab, makeStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -18,12 +19,19 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+// LOGGED IN DEV TOOLS
+window.api.receiveText('text-from-main', (event, text) => {
+    console.log('Text from main: ' + text)
+})
+
 const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {
     const classes = useStyles();
 
     return (
         <Fab color="primary" aria-label="add" className={classes.root} onClick={() => {
             props.setShow(true);
+
+            window.api.sendText('text-from-renderer', 'ping');
         }}>
             <AddIcon />
         </Fab>);

@@ -10,6 +10,13 @@ An Electron app for organizing your daily tasks.
 * A statistics tracker to get an idea of your productivity (TO DO)  
 * App customisation including colours, background images and more (TO DO)  
 
+## Technologies
+* Electron
+* React
+* TypeScript
+* SQLite (via better-sqlite3)
+* electron-forge (packaging)
+
 ## Installation
 ### Installer
 An installer will be provided here once development is at a suitable level.
@@ -20,13 +27,6 @@ Download the repository and in the root directory run:
 
 `> npm install`  
 `> npm start`
-
-## Techonologies used
-* Electron
-* React
-* TypeScript
-* SQLite (via better-sqlite3)
-* electron-forge (packaging)
 
 ## Development Sample
 ![Dev Sample Image](https://i.imgur.com/N319maX.png)
