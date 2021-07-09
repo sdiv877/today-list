@@ -11,8 +11,8 @@ import DateFnsUtils from "@date-io/date-fns";
 
 // Props types
 interface AddTasksModalProps {
-  taskList: Task[],
-  setTaskList: React.Dispatch<React.SetStateAction<Task[]>>,
+  currentList: Task[],
+  setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>,
   show: boolean,
   setShow: (show: boolean) => void,
 }
@@ -21,11 +21,17 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
   // Add a new item to the taskList based on what was submitted in the text fields
   const handleAdd = () => {
 
-    // Map needed to clone an array of objects
-    const taskListCopy = props.taskList.map(l => Object.assign({}, l));
+    const newTask: Task = { id: uuid(), icon: selectedIcon, task: selectedTask, date: selectedDate };
 
-    const newList = taskListCopy.concat({ id: uuid(), icon: selectedIcon, task: selectedTask, date: selectedDate });
-    props.setTaskList(newList);
+    // Map needed to clone an array of objects
+    let taskListCopy = props.currentList.map(l => Object.assign({}, l));
+
+    // Add to react state
+    taskListCopy = taskListCopy.concat(newTask);
+    props.setCurrentList(taskListCopy);
+
+    // And add it to the local db
+    window.api.addToCurrentList(newTask)
   }
 
   // Tracking icon selected

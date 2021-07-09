@@ -31,7 +31,7 @@ const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {
         <Fab color="primary" aria-label="add" className={classes.root} onClick={() => {
             props.setShow(true);
 
-            window.api.sendText('text-from-renderer', 'ping');
+            // window.api.sendText('text-from-renderer', 'ping');
         }}>
             <AddIcon />
         </Fab>);

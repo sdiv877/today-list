@@ -7,9 +7,14 @@ contextBridge.exposeInMainWorld(
     // Declare access of window to .api by using the Window interface
     // Then in your renderer process you may call window.sendText('ping') etc.
     sendText: (channel, text) => ipcRenderer.send(channel, text),
-    
+
     receiveText: (channel, func) => {
       ipcRenderer.on(channel, func);
-    }
+    },
+
+    currentList: ipcRenderer.invoke('loadCurrentList'),
+    saveCurrentList: (currentList) => ipcRenderer.send('saveCurrentList', currentList),
+    addToCurrentList: (task) => ipcRenderer.send('addToCurrentList', task),
+    deleteFromCurrentList: (task) => ipcRenderer.send('deleteFromCurrentList', task),
   }
 )

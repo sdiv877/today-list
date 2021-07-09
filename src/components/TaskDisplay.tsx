@@ -7,8 +7,8 @@ import Task from '../models/Task';
 
 // Needed to let TS know explicitly what is passed from props
 interface TaskDisplayProps {
-    taskList: Task[],
-    setTaskList: React.Dispatch<React.SetStateAction<Task[]>>,
+    currentList: Task[],
+    setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>,
     completedList: Task[],
     setCompletedList: React.Dispatch<React.SetStateAction<Task[]>>,
 }
@@ -32,7 +32,7 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
     // Task deletion handler
     function handleDeleteTask(id: string): void {
         // Map needed to clone an array of objects
-        const taskListCopy = props.taskList.map(l => Object.assign({}, l));
+        const taskListCopy = props.currentList.map(l => Object.assign({}, l));
 
         for (let i = 0; i < taskListCopy.length; i++) {
             if (taskListCopy[i].id === id) {
@@ -41,8 +41,12 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
             }
         }
 
+        // Update react state
         console.log('Deleted item, key: ' + id);
-        props.setTaskList(taskListCopy);
+        props.setCurrentList(taskListCopy);
+
+        // Then delete from local db
+        window.api.deleteFromCurrentList(id);
     }
 
     // Returned FC
@@ -52,7 +56,7 @@ const TaskDisplay: FC<TaskDisplayProps> = (props): JSX.Element => {
             Uncompleted section
             <br />
 
-            {props.taskList.map((task) => (
+            {props.currentList.map((task) => (
                 <CurrentTaskCard task={task} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} key={task.id} />
             ))}
 
