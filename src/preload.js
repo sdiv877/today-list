@@ -16,5 +16,9 @@ contextBridge.exposeInMainWorld(
     saveCurrentList: (currentList) => ipcRenderer.send('saveCurrentList', currentList),
     addToCurrentList: (task) => ipcRenderer.send('addToCurrentList', task),
     deleteFromCurrentList: (task) => ipcRenderer.send('deleteFromCurrentList', task),
+    removeAllListeners: (channel) => {
+      ipcRenderer.removeAllListeners('text-from-main');
+      console.log('attempted to removeListener');
+    }, 
   }
 )

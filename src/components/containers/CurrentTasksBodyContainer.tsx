@@ -16,8 +16,26 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
     // Handling async initialLists
     React.useEffect(() => {
         console.log('use effect called');
+
         const currentListPromise = window.api.currentList;
-        currentListPromise.then((res) => setCurrentList(res))
+        currentListPromise.then((res: Task[]) => setCurrentList(res))
+
+        // window.location.reload();
+
+        window.api.sendText('text-from-renderer', 'ping');
+
+        window.api.receiveText('text-from-main', (event, text) => {
+            console.log('Text from main: ' + text.length)
+            setCurrentList(text)
+        })
+
+        return () => {
+            window.api.removeAllListeners('text-from-main');
+        }
+
+        // if (window.api.activeCurrentList.length > 0) {
+        //     console.log('h');
+        // }
     }, [])
 
     // AddTasksFab and AddTasksModal states

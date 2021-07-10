@@ -20,9 +20,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 // LOGGED IN DEV TOOLS
-window.api.receiveText('text-from-main', (event, text) => {
-    console.log('Text from main: ' + text)
-})
+// window.api.receiveText('text-from-main', (event, text) => {
+//     console.log('Text from main: ' + text)
+// })
 
 const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {
     const classes = useStyles();
