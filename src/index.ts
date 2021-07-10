@@ -58,14 +58,10 @@ app.on('activate', () => {
 initDatabase();
 
 // LOGGED IN TERMINAL
-ipcMain.on('text-from-renderer', (event, text) => {
-  console.log('Text from the renderer: ' + text)
-  event.reply('text-from-main', loadCurrentList())
+ipcMain.on('request-loadCurrentList', (event) => {
+  console.log('Renderer requested loadCurrentList')
+  event.reply('response-loadCurrentList', loadCurrentList())
 })
-
-ipcMain.handle('loadCurrentList', () => {
-  return loadCurrentList();
-});
 
 ipcMain.on('addToCurrentList', (event, task) => {
   addToCurrentList(task);

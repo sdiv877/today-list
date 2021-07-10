@@ -1,5 +1,4 @@
 import Database = require('better-sqlite3')
-// import { ipcMain } from 'electron';
 
 import Task from '../models/Task'
 
@@ -43,10 +42,6 @@ function deleteTask(id: string) {
 }
 
 export function loadCurrentList(): Task[] {
-
-    // ipcMain.removeAllListeners();
-    console.log('called load current list');
-
     const db = connectToDatabase();
 
     const select = db.prepare('SELECT * FROM current_tasks');
@@ -58,9 +53,6 @@ export function loadCurrentList(): Task[] {
     }
 
     db.close();
-
-    //console.log('called loadCurrentList');
-    //console.log(currentList.length)
 
     return currentList;
 }
@@ -98,5 +90,3 @@ export function deleteFromCurrentList(id: string): void {
         deleteTask(id);
     }
 }
-
-

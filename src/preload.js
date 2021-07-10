@@ -5,20 +5,20 @@ contextBridge.exposeInMainWorld(
   'api',
   {
     // Declare access of window to .api by using the Window interface
-    // Then in your renderer process you may call window.sendText('ping') etc.
-    sendText: (channel, text) => ipcRenderer.send(channel, text),
+    // Then in your renderer process you may call window.sendRequest('request-loadCurrentList') etc.
+    sendRequest: (channel) => ipcRenderer.send(channel),
 
-    receiveText: (channel, func) => {
+    receiveResponse: (channel, func) => {
       ipcRenderer.on(channel, func);
     },
 
-    currentList: ipcRenderer.invoke('loadCurrentList'),
+    removeAllListeners: (channel) => {
+      ipcRenderer.removeAllListeners(channel);
+      console.log('Attempted to removeListener from: ' + channel);
+    },
+
     saveCurrentList: (currentList) => ipcRenderer.send('saveCurrentList', currentList),
     addToCurrentList: (task) => ipcRenderer.send('addToCurrentList', task),
     deleteFromCurrentList: (task) => ipcRenderer.send('deleteFromCurrentList', task),
-    removeAllListeners: (channel) => {
-      ipcRenderer.removeAllListeners('text-from-main');
-      console.log('attempted to removeListener');
-    }, 
   }
 )
