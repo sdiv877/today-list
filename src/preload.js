@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld(
   'api',
   {
     // Declare access of window to .api by using the Window interface
-    // Then in your renderer process you may call window.sendRequest('request-loadCurrentList') etc.
+    // Then in your renderer process you may call window.sendRequest('request-list', 'current_tasks') etc.
     sendRequest: (channel, table) => ipcRenderer.send(channel, table),
 
     receiveResponse: (channel, func) => {
@@ -14,7 +14,7 @@ contextBridge.exposeInMainWorld(
 
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
-      console.log('Attempted to removeListener from: ' + channel);
+      console.log('Attempted to remove listeners from: ' + channel);
     },
 
     addToList: (table, task) => ipcRenderer.send('addToList', table, task),

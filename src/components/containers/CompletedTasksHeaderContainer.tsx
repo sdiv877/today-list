@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HeaderCard from '../HeaderCard'
+import HeaderCard from '../text/HeaderCard'
 
 const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
 

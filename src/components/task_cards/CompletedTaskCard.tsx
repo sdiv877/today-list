@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { Grid, Card, Divider, makeStyles, IconButton } from '@material-ui/core';
 import { Replay } from '@material-ui/icons';
 
-import { getIcon, handleTaskField } from '../utils/TaskDisplayHelpers'
-import { getTaskCardDateString } from '../utils/dates';
+import { getIcon, handleTaskField } from '../../utils/TaskDisplayHelpers'
+import { getTaskCardDateString } from '../../utils/dates';
 
-import Task from '../models/Task'
+import Task from '../../models/Task'
 
-import '../styles/TaskCard.css'
+import '../../styles/TaskCard.css'
 
 // Card styles
 const useStyles = makeStyles({

@@ -1,15 +1,15 @@
 import { Card, makeStyles } from '@material-ui/core';
 import React from 'react';
 
-import WelcomeText from '../WelcomeText';
-import NameField from '../WelcomeName';
+import WelcomeText from '../text/WelcomeText';
+import WelcomeNameField from '../pickers/WelcomeNameField';
 
 const useStyles = makeStyles(() => ({
     card: {
         paddingTop: 4,
         paddingBottom: 12,
     },
-  }));
+}));
 
 const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
     const classes = useStyles();
@@ -18,7 +18,7 @@ const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
         <div className="WelcomeHeaderContainer">
             <Card className={classes.card}>
                 <WelcomeText />
-                <NameField />
+                <WelcomeNameField />
             </Card>
         </div>);
 }

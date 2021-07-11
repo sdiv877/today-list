@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import CurrentTaskCard from './CurrentTaskCard';
 
-import Task from '../models/Task';
+import Task from '../../models/Task';
 
 // Needed to let TS know explicitly what is passed from props
 interface CurrentsTaskDisplayProps {

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Tooltip, ListItem, ListItemIcon, withStyles } from '@material-ui/core';
 
-import { getIcon } from '../utils/AppDrawerHelpers'
+import { getIcon } from '../../utils/AppDrawerHelpers'
 
 const ButtonTooltip = withStyles(() => ({
     tooltip: {

@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
 
         textAlign: "center",
     },
-  }));
+}));
 
 const WelcomeText: React.VoidFunctionComponent = () => {
     const classes = useStyles();

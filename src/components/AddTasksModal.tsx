@@ -2,12 +2,13 @@ import React, { FC } from "react";
 import { v4 as uuid } from 'uuid';
 import { Card, Grid, TextField, Button } from "@material-ui/core";
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+
+import IconMenu from './pickers/IconMenu'
 
 import Task from '../models/Task'
-import IconMenu from './IconMenu'
 
 import '../styles/AddTasksModal.css'
-import DateFnsUtils from "@date-io/date-fns";
 
 // Props types
 interface AddTasksModalProps {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CompletedTasksDisplay from '../CompletedTasksDisplay';
+import CompletedTasksDisplay from '../task_cards/CompletedTasksDisplay';
 
 import Task from '../../models/Task'
 

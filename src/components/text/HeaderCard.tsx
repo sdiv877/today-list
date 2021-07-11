@@ -1,5 +1,5 @@
-import { Card, Typography, makeStyles } from '@material-ui/core';
 import React, { FC } from 'react';
+import { Card, Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
     card: {
