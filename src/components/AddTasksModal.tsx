@@ -31,7 +31,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     props.setCurrentList(taskListCopy);
 
     // And add it to the local db
-    window.api.addToCurrentList(newTask)
+    window.api.addToList('current_tasks', newTask)
   }
 
   // Tracking icon selected

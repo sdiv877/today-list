@@ -21,47 +21,47 @@ export function initDatabase(): void {
     db.close();
 }
 
-function insertTask(task: Task) {
+function insertTask(table: string, task: Task) {
 
     const db = connectToDatabase();
 
-    const insert = db.prepare('INSERT INTO current_tasks (id, icon, task, date) VALUES (@id, @icon, @task, @date)');
+    const insert = db.prepare('INSERT INTO ' + table + ' (id, icon, task, date) VALUES (@id, @icon, @task, @date)');
     insert.run({ id: task.id, icon: task.icon, task: task.task, date: task.date.toISOString() },)
 
     db.close();
 }
 
-function deleteTask(id: string) {
+function deleteTask(table: string, id: string) {
 
     const db = connectToDatabase();
 
-    const deletestmt = db.prepare('DELETE FROM current_tasks WHERE id = ?');
+    const deletestmt = db.prepare('DELETE FROM ' + table + ' WHERE id = ?');
     deletestmt.run(id);
 
     db.close();
 }
 
-export function loadCurrentList(): Task[] {
+export function loadList(table: string): Task[] {
     const db = connectToDatabase();
 
-    const select = db.prepare('SELECT * FROM current_tasks');
-    const currentList: Task[] = select.all();
+    const select = db.prepare('SELECT * FROM ' + table);
+    const list: Task[] = select.all();
 
     // Converting Date ISOs back to Date objects
-    for (let i = 0; i < currentList.length; i++) {
-        currentList[i].date = new Date(currentList[i].date)
+    for (let i = 0; i < list.length; i++) {
+        list[i].date = new Date(list[i].date)
     }
 
     db.close();
 
-    return currentList;
+    return list;
 }
 
-export function addToCurrentList(newTask: Task): void {
-    const currentList = loadCurrentList()
+export function addToList(table: string, newTask: Task): void {
+    const list = loadList(table)
     let addTask = true;
 
-    for (const currTask of currentList) {
+    for (const currTask of list) {
         // If the id of the 'newTask' is the same as any of 'currTask's in the db, don't add it
         if (newTask.id === currTask.id) {
             addTask = false;
@@ -70,15 +70,15 @@ export function addToCurrentList(newTask: Task): void {
     }
 
     if (addTask) {
-        insertTask(newTask);
+        insertTask(table, newTask);
     }
 }
 
-export function deleteFromCurrentList(id: string): void {
-    const currentList = loadCurrentList()
+export function deleteFromList(table: string, id: string): void {
+    const list = loadList(table)
     let removeTask = false;
 
-    for (const currTask of currentList) {
+    for (const currTask of list) {
         // If the id of the 'task' is the same as any of 'currTask's in the db, remove it
         if (id === currTask.id) {
             removeTask = true;
@@ -87,6 +87,6 @@ export function deleteFromCurrentList(id: string): void {
     }
 
     if (removeTask) {
-        deleteTask(id);
+        deleteTask(table, id);
     }
 }
