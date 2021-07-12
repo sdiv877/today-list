@@ -4,7 +4,7 @@ export function getTaskCardDateString(date: Date): string {
 
     taskCardDateString += " at " + getTimeString(date);
 
-    return taskCardDateString; 
+    return taskCardDateString;
 }
 
 //-- Date string helpers
@@ -63,7 +63,7 @@ function getOrdinalDayString(day: number): string {
     }
 }
 
-function getMonthString(month: number): string {
+export function getMonthString(month: number): string {
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -82,7 +82,7 @@ function getTimeString(date: Date): string {
     if (date.getMinutes() < 10) {
         minutesString = '0' + minutesString.toString();
     }
-    
+
     const timeString = hoursString + ':' + minutesString;
 
     return timeString;

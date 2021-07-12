@@ -12,6 +12,10 @@ contextBridge.exposeInMainWorld(
       ipcRenderer.on(channel, func);
     },
 
+    receiveGraphDataResponse: (channel, func) => {
+      ipcRenderer.on(channel, func)
+    },
+
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
       console.log('Attempted to remove listeners from: ' + channel);

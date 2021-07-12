@@ -100,3 +100,12 @@ export function clearList(table: string): void {
 
     deletestmt.run();
 }
+
+export function getListLength(table: string): number {
+
+    const db = connectToDatabase();
+    const count = db.prepare('SELECT COUNT(*) FROM ' + table);
+
+    const listLength = count.pluck().get();
+    return listLength;
+}

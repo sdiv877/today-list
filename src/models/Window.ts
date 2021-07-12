@@ -1,10 +1,14 @@
 import Task from '../models/Task'
+import TasksGraphData from './TasksGraphData';
 
+// Used to access contextBridge functions from the browser window
 declare global {
     interface Window {
         api: {
             sendRequest: (channel: string, table: string) => void,
-            receiveResponse: (channel: string, func: (event: Event, text: Task[]) => void) => void,
+            receiveResponse: (channel: string, func: (event: Event, list: Task[]) => void) => void,
+
+            receiveGraphDataResponse: (channel: string, func: (event: Event, graphData: TasksGraphData[]) => void) => void,
 
             addToList: (table: string, task: Task) => void,
             deleteFromList: (table: string, id: string) => void,
