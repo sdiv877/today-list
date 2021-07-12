@@ -15,7 +15,7 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
     function handleCompleteTask(task: Task): void {
 
         // Delete it from currentList (takes care of react state)
-        handleDeleteTask(task.id);
+        handleDeleteTask(task);
 
         // Add it to completed_tasks (takes care of db state)
         window.api.addToList('completed_tasks', task);
@@ -24,23 +24,24 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
     }
 
     // Task deletion handler
-    function handleDeleteTask(id: string): void {
+    function handleDeleteTask(task: Task): void {
         // Map needed to clone an array of objects
         const taskListCopy = props.currentList.map(l => Object.assign({}, l));
 
         for (let i = 0; i < taskListCopy.length; i++) {
-            if (taskListCopy[i].id === id) {
+            if (taskListCopy[i].id === task.id) {
                 taskListCopy.splice(i, 1);
                 break;
             }
         }
 
         // Update react state
-        console.log('Deleted item, key: ' + id);
+        console.log('Deleted item, key: ' + task.id);
         props.setCurrentList(taskListCopy);
 
-        // Then delete from local db
-        window.api.deleteFromList('current_tasks', id);
+        // Then delete from current_tasks table in db, and add to deleted_tasks 
+        window.api.deleteFromList('current_tasks', task.id);
+        window.api.addToList('deleted_tasks', task)
     }
 
     // Returned FC

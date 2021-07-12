@@ -11,11 +11,11 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
+const CurrentTasksContainer: React.VoidFunctionComponent = () => {
     const classes = useStyles();
 
     return (
-        <div className="WelcomeHeaderContainer">
+        <div className="CurrentTasksContainer">
             <Card className={classes.card}>
                 <WelcomeText />
                 <WelcomeNameField />
@@ -23,4 +23,4 @@ const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
         </div>);
 }
 
-export default WelcomeHeaderContainer;
+export default CurrentTasksContainer;

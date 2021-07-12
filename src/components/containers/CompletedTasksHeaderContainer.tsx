@@ -2,12 +2,12 @@ import React from 'react';
 
 import HeaderCard from '../text/HeaderCard'
 
-const WelcomeHeaderContainer: React.VoidFunctionComponent = () => {
+const CompletedTasksHeaderContainer: React.VoidFunctionComponent = () => {
 
     return (
-        <div className="WelcomeHeaderContainer">
+        <div className="CompletedTasksHeaderContainer">
             <HeaderCard text={"Completed Tasks"} />
         </div>);
 }
 
-export default WelcomeHeaderContainer;
+export default CompletedTasksHeaderContainer;

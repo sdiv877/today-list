@@ -17,6 +17,8 @@ export function initDatabase(): void {
     addCurrentTasksTable.run();
     const addCompletedTasksTable = db.prepare('CREATE TABLE IF NOT EXISTS completed_tasks(id text, icon text, task text, date text)');
     addCompletedTasksTable.run();
+    const addDeletedTasksTable = db.prepare('CREATE TABLE IF NOT EXISTS deleted_tasks(id text, icon text, task text, date text)');
+    addDeletedTasksTable.run();
 
     db.close();
 }
@@ -89,4 +91,12 @@ export function deleteFromList(table: string, id: string): void {
     if (removeTask) {
         deleteTask(table, id);
     }
+}
+
+export function clearList(table: string): void {
+
+    const db = connectToDatabase();
+    const deletestmt = db.prepare('DELETE FROM ' + table);
+
+    deletestmt.run();
 }

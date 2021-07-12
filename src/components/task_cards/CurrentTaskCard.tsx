@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 interface CurrentTaskCardProps {
     task: Task,
     handleCompleteTask(task: Task): void,
-    handleDeleteTask(id: string): void,
+    handleDeleteTask(task: Task): void,
 }
 
 const CurrentTaskCard: FC<CurrentTaskCardProps> = (props): JSX.Element => {
@@ -59,7 +59,7 @@ const CurrentTaskCard: FC<CurrentTaskCardProps> = (props): JSX.Element => {
                     </Grid>
 
                     <Grid item>
-                        <IconButton aria-label="delete-task" className="hiddenButton" onClick={() => { props.handleDeleteTask(props.task.id) }}>
+                        <IconButton aria-label="delete-task" className="hiddenButton" onClick={() => { props.handleDeleteTask(props.task) }}>
                             <Delete />
                         </IconButton>
                     </Grid>

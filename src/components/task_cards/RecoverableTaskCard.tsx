@@ -22,12 +22,12 @@ const useStyles = makeStyles({
 });
 
 // Props types
-interface CompletedTaskCardProps {
+interface RecoverableTaskCardProps {
     task: Task,
     handleRecoverTask(task: Task): void,
 }
 
-const CompletedTaskCard: FC<CompletedTaskCardProps> = (props): JSX.Element => {
+const RecoverableTaskCard: FC<RecoverableTaskCardProps> = (props): JSX.Element => {
 
     const classes = useStyles();
 
@@ -63,4 +63,4 @@ const CompletedTaskCard: FC<CompletedTaskCardProps> = (props): JSX.Element => {
         </Card>);
 }
 
-export default CompletedTaskCard;
+export default RecoverableTaskCard;

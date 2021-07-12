@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CompletedTasksDisplay from '../task_cards/CompletedTasksDisplay';
+import RecoverableTasksDisplay from '../task_cards/RecoverableTasksDisplay';
 
 import Task from '../../models/Task'
 
@@ -26,7 +26,7 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         <div className="CompletedTasksBodyContainer">
-            <CompletedTasksDisplay completedList={completedList} setCompletedList={setCompletedList} />
+            <RecoverableTasksDisplay recoverableList={completedList} setRecoverableList={setCompletedList} table={'completed_tasks'} />
         </div>);
 }
 
