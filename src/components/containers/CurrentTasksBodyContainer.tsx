@@ -17,9 +17,9 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendRequest('request-list', 'current_tasks');
+        window.api.sendListRequest('request-list', 'current_tasks');
 
-        window.api.receiveResponse('response-list', (event, list_res) => {
+        window.api.receiveListResponse('response-list', (event, list_res) => {
             console.log('current_tasks response received from main. Length: ' + list_res.length)
             setCurrentList(list_res)
         })

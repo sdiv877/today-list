@@ -1,12 +1,12 @@
-import { loadList } from './sqlite';
+import { loadListWithYear } from './sqlite';
 import { getMonthString } from './dates'
 
 import TasksGraphData from '../models/TasksGraphData'
 
-export function getTasksGraphData(): TasksGraphData[] {
+export function getTasksGraphData(year: number): TasksGraphData[] {
 
-    const currentTaskCountsByMonth = getTaskCountsByMonth('current_tasks');
-    const completedTaskCountsByMonth = getTaskCountsByMonth('completed_tasks');
+    const currentTaskCountsByMonth = getTaskCountsByMonth('current_tasks', year);
+    const completedTaskCountsByMonth = getTaskCountsByMonth('completed_tasks', year);
 
     const tasksGraphData = new Array<TasksGraphData>();
 
@@ -21,10 +21,10 @@ export function getTasksGraphData(): TasksGraphData[] {
     return tasksGraphData;
 }
 
-function getTaskCountsByMonth(table: string): number[] {
+function getTaskCountsByMonth(table: string, year: number): number[] {
 
     const taskCountsByMonth = new Array<number>();
-    const taskList = loadList(table);
+    const taskList = loadListWithYear(table, year);
 
     // Loop 12 times, once for each month
     for (let i = 0; i < 12; i++) {

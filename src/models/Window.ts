@@ -5,9 +5,10 @@ import TasksGraphData from './TasksGraphData';
 declare global {
     interface Window {
         api: {
-            sendRequest: (channel: string, table: string) => void,
-            receiveResponse: (channel: string, func: (event: Event, list: Task[]) => void) => void,
+            sendListRequest: (channel: string, table: string) => void,
+            receiveListResponse: (channel: string, func: (event: Event, list: Task[]) => void) => void,
 
+            sendGraphDataRequest: (channel: string, year: number) => void,
             receiveGraphDataResponse: (channel: string, func: (event: Event, graphData: TasksGraphData[]) => void) => void,
 
             addToList: (table: string, task: Task) => void,

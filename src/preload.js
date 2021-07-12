@@ -5,12 +5,14 @@ contextBridge.exposeInMainWorld(
   'api',
   {
     // Declare access of window to .api by using the Window interface
-    // Then in your renderer process you may call window.sendRequest('request-list', 'current_tasks') etc.
-    sendRequest: (channel, table) => ipcRenderer.send(channel, table),
+    // Then in your renderer process you may call window.sendListRequest('request-list', 'current_tasks') etc.
+    sendListRequest: (channel, table) => ipcRenderer.send(channel, table),
 
-    receiveResponse: (channel, func) => {
+    receiveListResponse: (channel, func) => {
       ipcRenderer.on(channel, func);
     },
+
+    sendGraphDataRequest: (channel, year) => ipcRenderer.send(channel, year),
 
     receiveGraphDataResponse: (channel, func) => {
       ipcRenderer.on(channel, func)

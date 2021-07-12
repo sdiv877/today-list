@@ -14,7 +14,8 @@ const TasksGraph: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendRequest('request-graph-data', 'n/a');
+        const currYear = new Date().getFullYear()
+        window.api.sendGraphDataRequest('request-graph-data', currYear);
 
         window.api.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
             console.log('Graph data response received from main')

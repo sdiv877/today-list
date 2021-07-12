@@ -76,9 +76,9 @@ ipcMain.on('deleteFromList', (event, table, task) => {
   deleteFromList(table, task);
 });
 
-ipcMain.on('request-graph-data', (event) => {
+ipcMain.on('request-graph-data', (event, year) => {
   console.log('Renderer requested graph data from')
-  event.reply('response-graph-data', getTasksGraphData())
+  event.reply('response-graph-data', getTasksGraphData(year))
 });
 
 // clearing deleted_tasks (RecycleBin) before closing app

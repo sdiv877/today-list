@@ -109,3 +109,13 @@ export function getListLength(table: string): number {
     const listLength = count.pluck().get();
     return listLength;
 }
+
+export function loadListWithYear(table: string, year: number): Task[] {
+
+    const db = connectToDatabase();
+    const selectWithYear = db.prepare("SELECT * FROM " + table + " WHERE date LIKE (? || '%')");
+
+    const listWithYear: Task[] = selectWithYear.all(year.toString());
+
+    return listWithYear;
+}

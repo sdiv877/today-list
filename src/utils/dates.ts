@@ -27,7 +27,9 @@ function getLogicalDateString(date: Date): string {
 
 function getShortDateString(date: Date): string {
     // ex. 8/07/21
-    const dateString = (date.getDate().toString() + "/0" + (date.getMonth() + 1).toString()) + '/'
+    const month = date.getMonth() < 9 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+
+    const dateString = (date.getDate().toString()) + '/' + month + '/'
         + (date.getFullYear().toString().slice(2))
 
     return dateString;

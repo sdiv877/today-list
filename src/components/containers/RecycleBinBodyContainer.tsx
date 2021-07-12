@@ -12,9 +12,9 @@ const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendRequest('request-list', 'deleted_tasks');
+        window.api.sendListRequest('request-list', 'deleted_tasks');
 
-        window.api.receiveResponse('response-list', (event, list_res) => {
+        window.api.receiveListResponse('response-list', (event, list_res) => {
             console.log('deleted_tasks response received from main. Length: ' + list_res.length)
             setDeletedList(list_res)
         })
