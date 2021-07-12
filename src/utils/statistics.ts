@@ -12,7 +12,7 @@ export function getTasksGraphData(): TasksGraphData[] {
 
     for (let i = 0; i < 12; i++) {
         tasksGraphData.push({
-            month: getMonthString(i),
+            month: getMonthString(i).slice(0, 3),
             Created: currentTaskCountsByMonth[i] + completedTaskCountsByMonth[i],
             Completed: completedTaskCountsByMonth[i]
         })

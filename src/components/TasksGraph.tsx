@@ -39,7 +39,7 @@ const TasksGraph: React.VoidFunctionComponent = () => {
                 <ResponsiveContainer width="150%" height={300}>
                     <BarChart data={graphData} >
                         <XAxis dataKey="month" />
-                        <YAxis domain={[0, 6]} label={{ value: 'Number of Tasks', angle: -90, position: 'insideLeft' }} />
+                        <YAxis domain={[0, 'auto']} label={{ value: 'Number of Tasks', angle: -90, position: 'insideLeft' }} />
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="Created" fill="#8884d8" />
