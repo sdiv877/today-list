@@ -113,6 +113,9 @@ export function getListLength(table: string): number {
 export function loadListWithYear(table: string, year: number): Task[] {
 
     const db = connectToDatabase();
+
+    // Loads every record from the specified table 
+    // based on if 'year' matches the start of the record's date field (string)
     const selectWithYear = db.prepare("SELECT * FROM " + table + " WHERE date LIKE (? || '%')");
 
     const listOfYear: Task[] = selectWithYear.all(year.toString());
@@ -120,12 +123,13 @@ export function loadListWithYear(table: string, year: number): Task[] {
     return listOfYear;
 }
 
-// Return the lowest year value found from date fields in a table
+// Return the lowest and highest year values found from date fields in a table
 export function getListYearRange(table: string): number[] {
 
     const db = connectToDatabase();
     const selectYears = db.prepare('SELECT date from ' + table);
 
+    // Get all the date fields from a table
     const dateISOStrings: string[] = selectYears.pluck().all();
 
     // [minYear, maxYear]
@@ -134,10 +138,12 @@ export function getListYearRange(table: string): number[] {
     for (const date of dateISOStrings) {
         const yearOfDate = new Date(date).getFullYear();
 
+        // If the yearOfDate is lower than the current minimum, set it to be the new minimum
         if (yearOfDate < yearRange[0]) {
             yearRange[0] = yearOfDate;
         }
 
+        // Same idea
         if (yearOfDate > yearRange[1]) {
             yearRange[1] = yearOfDate;
         }

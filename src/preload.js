@@ -22,6 +22,12 @@ contextBridge.exposeInMainWorld(
       ipcRenderer.on(channel, func)
     },
 
+    sendTaskStatsRequest: (channel, year) => ipcRenderer.send(channel, year),
+    
+    receiveTaskStatsResponse: (channel, func) => {
+      ipcRenderer.on(channel, func)
+    },
+
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
       console.log('Attempted to remove listeners from: ' + channel);

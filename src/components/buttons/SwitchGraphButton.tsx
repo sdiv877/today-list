@@ -17,6 +17,8 @@ const SwitchGraphButton: FC<SwitchGraphButtonProps> = (props): JSX.Element => {
         console.log('button use effect called');
 
         if (props.label === 'prev') {
+            // If the year === the respective value of range for the button
+            // disable it.
             if (props.graphRange[0] === props.year) {
                 setDisabled(true);
             } else {
@@ -33,6 +35,8 @@ const SwitchGraphButton: FC<SwitchGraphButtonProps> = (props): JSX.Element => {
     })
 
     function handleClick(): void {
+        // Depending on label, choose which range to compare to
+        // If the next page would be in bounds for this button, then setYear
         if (props.label === 'prev') {
             if (props.year > props.graphRange[0]) {
                 props.setYear(props.year - 1)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 import { BarChart, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { Card, Divider } from '@material-ui/core';
 
@@ -8,24 +8,32 @@ import TasksGraphData from '../models/TasksGraphData';
 
 import '../styles/TasksGraph.css'
 
-const TasksGraph: React.VoidFunctionComponent = () => {
+// Props types
+interface TasksGraphProps {
+    year: number,
+    setYear: React.Dispatch<React.SetStateAction<number>>,
+}
+
+const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
     // Graph data states
     const [graphData, setGraphData] = React.useState(new Array<TasksGraphData>())
     const [graphRange, setGraphRange] = React.useState([new Date().getFullYear(), new Date().getFullYear()]);
-    const [year, setYear] = React.useState(new Date().getFullYear())
 
     // Handling getting graph-data from db on page reload
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendGraphDataRequest('request-graph-data', year);
+        // Get the graph data for the current year
+        window.api.sendGraphDataRequest('request-graph-data', props.year);
 
         window.api.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
             console.log('Graph data response received from main')
             setGraphData(graph_data_res);
         })
 
-        window.api.sendGraphDataRequest('request-graph-range', year);
+
+        // Get the graph range (min and max year) to decide how many pages we need
+        window.api.sendGraphDataRequest('request-graph-range', props.year);
 
         window.api.receiveGraphRangeResponse('response-graph-range', (event, graph_range_res) => {
             console.log('Graph year range response received from main')
@@ -33,6 +41,7 @@ const TasksGraph: React.VoidFunctionComponent = () => {
             setGraphRange(graph_range_res);
         })
 
+        // Remove listeners when component unmounts
         return () => {
             window.api.removeAllListeners('response-graph-data');
             window.api.removeAllListeners('response-graph-range');
@@ -40,14 +49,18 @@ const TasksGraph: React.VoidFunctionComponent = () => {
     }, [])
 
     function handleSetYear(year: number) {
+        // When we change the year
+        props.setYear(year);
 
-        setYear(year);
-
+        // We need to request the new data that needs to be displayed for it
         window.api.sendGraphDataRequest('request-graph-data', year);
 
         window.api.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
             console.log('Graph data response received from main')
+
+            // And set the react state to reflect this change in year
             setGraphData(graph_data_res);
+            // Synchronously removeAllListeners
             window.api.removeAllListeners('response-graph-data');
         })
     }
@@ -56,7 +69,7 @@ const TasksGraph: React.VoidFunctionComponent = () => {
         < Card variant='outlined' className="TasksGraph" >
 
             <div className="graphTitle">
-                Task completion in {year.toString()}
+                Task completion in {props.year.toString()}
             </div>
 
             <Divider orientation='horizontal' />
@@ -75,8 +88,8 @@ const TasksGraph: React.VoidFunctionComponent = () => {
             </div>
 
             <div className="graphButtons">
-                <SwitchGraphButton label={'prev'} graphRange={graphRange} year={year} setYear={handleSetYear} />
-                <SwitchGraphButton label={'next'} graphRange={graphRange} year={year} setYear={handleSetYear} />
+                <SwitchGraphButton label={'prev'} graphRange={graphRange} year={props.year} setYear={handleSetYear} />
+                <SwitchGraphButton label={'next'} graphRange={graphRange} year={props.year} setYear={handleSetYear} />
             </div>
         </Card >);
 }

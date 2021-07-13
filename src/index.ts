@@ -86,5 +86,10 @@ ipcMain.on('request-graph-range', (event) => {
   event.reply('response-graph-range', getGraphYearRange())
 });
 
+ipcMain.on('request-task-stats', (event, year) => {
+  console.log('Renderer requested task-stats')
+  event.reply('response-task-stats')//, getTaskStats(year))
+});
+
 // clearing deleted_tasks (RecycleBin) before closing app
 app.on('before-quit', () => { clearList('deleted_tasks') })

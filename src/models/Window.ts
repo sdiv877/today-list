@@ -1,5 +1,6 @@
-import Task from '../models/Task'
+import Task from './Task'
 import TasksGraphData from './TasksGraphData';
+import TaskStats from './TaskStats';
 
 // Used to access contextBridge functions from the browser window
 declare global {
@@ -11,6 +12,9 @@ declare global {
             sendGraphDataRequest: (channel: string, year: number) => void,
             receiveGraphDataResponse: (channel: string, func: (event: Event, graphData: TasksGraphData[]) => void) => void,
             receiveGraphRangeResponse: (channel: string, func: (event: Event, graphRange: number[]) => void) => void,
+
+            sendTaskStatsRequest: (channel: string, year: number) => void,
+            receiveTaskStatsResponse: (channel: string, func: (event: Event, taskStats: TaskStats) => void) => void,
 
             addToList: (table: string, task: Task) => void,
             deleteFromList: (table: string, id: string) => void,

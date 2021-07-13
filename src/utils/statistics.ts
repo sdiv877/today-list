@@ -1,3 +1,4 @@
+// import { getListLength, getListYearRange, loadList, loadListWithYear } from './sqlite';
 import { getListYearRange, loadListWithYear } from './sqlite';
 import { getMonthString } from './dates'
 
@@ -12,6 +13,7 @@ export function getTasksGraphData(year: number): TasksGraphData[] {
 
     for (let i = 0; i < 12; i++) {
         tasksGraphData.push({
+            // Truncating month to 3 letters e.g. April -> Apr etc.
             month: getMonthString(i).slice(0, 3),
             Created: currentTaskCountsByMonth[i] + completedTaskCountsByMonth[i],
             Completed: completedTaskCountsByMonth[i]
@@ -53,6 +55,8 @@ export function getGraphYearRange(): number[] {
     const completedYearRange = getListYearRange('completed_tasks');
 
     const yearRange = [new Date().getFullYear(), new Date().getFullYear()]
+    // Set final yearRange based on if the current and completed values are lower
+    // or higher than each other respectively
     yearRange[0] = currentYearRange[0] < completedYearRange[0] ? currentYearRange[0] : completedYearRange[0]
     yearRange[1] = currentYearRange[1] > completedYearRange[1] ? currentYearRange[1] : completedYearRange[1]
 

@@ -13,15 +13,15 @@
 }
 
 .barGraph {
-  padding-top: 14px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 25px;
+  padding-left: 4%;
+  padding-right: 4%;
 }
 
 .graphButtons {
   float: right;
 
   margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
+  margin-bottom: 16px;
+  margin-right: 2%;
 }
