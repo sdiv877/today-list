@@ -10,6 +10,7 @@ declare global {
 
             sendGraphDataRequest: (channel: string, year: number) => void,
             receiveGraphDataResponse: (channel: string, func: (event: Event, graphData: TasksGraphData[]) => void) => void,
+            receiveGraphRangeResponse: (channel: string, func: (event: Event, graphRange: number[]) => void) => void,
 
             addToList: (table: string, task: Task) => void,
             deleteFromList: (table: string, id: string) => void,

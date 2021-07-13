@@ -12,13 +12,19 @@ function getLogicalDateString(date: Date): string {
 
     const currentDate = new Date();
 
-    if (date.getDate() === currentDate.getDate()) {
+    if (date.getDate() === currentDate.getDate() && date.getMonth() === currentDate.getMonth() &&
+        date.getFullYear() === currentDate.getFullYear()) {
+
         return "Today";
-    } else if (date.getDate() === currentDate.getDate() + 1) {
+
+    } else if (date.getDate() === currentDate.getDate() + 1 && date.getMonth() === currentDate.getMonth() &&
+        date.getFullYear() === currentDate.getFullYear()) {
+
         return "Tomorrow";
 
-        // If day of the month diff <= 7 and month is equal
-    } else if ((date.getDate() - currentDate.getDate()) <= 7 && (date.getMonth() === currentDate.getMonth())) {
+        // If the asbolute day of the month diff <= 7 and month and year are equal
+    } else if ((Math.abs(date.getDate() - currentDate.getDate())) <= 7 && (date.getMonth() === currentDate.getMonth())
+        && (date.getFullYear() === currentDate.getFullYear())) {
         return getDayDateString(date);
     } else {
         return getShortDateString(date);

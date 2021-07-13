@@ -1,4 +1,4 @@
-import { loadListWithYear } from './sqlite';
+import { getListYearRange, loadListWithYear } from './sqlite';
 import { getMonthString } from './dates'
 
 import TasksGraphData from '../models/TasksGraphData'
@@ -45,4 +45,16 @@ function getTaskCountsByMonth(table: string, year: number): number[] {
 
     //ex. [0, 5, 7, 3, 4, 6, 8, 2, 7, 0, 10, 9]
     return taskCountsByMonth;
+}
+
+export function getGraphYearRange(): number[] {
+
+    const currentYearRange = getListYearRange('current_tasks');
+    const completedYearRange = getListYearRange('completed_tasks');
+
+    const yearRange = [new Date().getFullYear(), new Date().getFullYear()]
+    yearRange[0] = currentYearRange[0] < completedYearRange[0] ? currentYearRange[0] : completedYearRange[0]
+    yearRange[1] = currentYearRange[1] > completedYearRange[1] ? currentYearRange[1] : completedYearRange[1]
+
+    return yearRange;
 }
