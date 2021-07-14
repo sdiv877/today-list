@@ -23,7 +23,7 @@ contextBridge.exposeInMainWorld(
     },
 
     sendTaskStatsRequest: (channel, year) => ipcRenderer.send(channel, year),
-    
+
     receiveTaskStatsResponse: (channel, func) => {
       ipcRenderer.on(channel, func)
     },

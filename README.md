@@ -2,15 +2,14 @@
 An Electron app for organizing your daily tasks.
 
 **This app is currently under heavy development and regular use is not recommended.**  
-<ins>**Data you enter into the app will not be saved.**</ins>
 
 ## Features
-* An appealing UI with a modern feel (IN DEV)  
+* An clear UI with a modern feel (IN DEV)  
 * Organization of tasks with due dates and times (IN DEV)  
-* A statistics tracker to get an idea of your productivity (TO DO)  
-* App customisation including colours, background images and more (TO DO)  
+* A statistics tracker to get an idea of your productivity (IN DEV)  
+* App customization including colours, background images and more (TO DO)  
 
-## Technologies
+## Technology
 * Electron
 * React
 * TypeScript

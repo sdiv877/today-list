@@ -1,8 +1,9 @@
 // import { getListLength, getListYearRange, loadList, loadListWithYear } from './sqlite';
-import { getListYearRange, loadListWithYear } from './sqlite';
+import { loadList, getListLength, getListLengthWithYear, getListYearRange, loadListWithYear } from './sqlite';
 import { getMonthString } from './dates'
 
 import TasksGraphData from '../models/TasksGraphData'
+import TaskStats from '../models/TaskStats'
 
 export function getTasksGraphData(year: number): TasksGraphData[] {
 
@@ -61,4 +62,68 @@ export function getGraphYearRange(): number[] {
     yearRange[1] = currentYearRange[1] > completedYearRange[1] ? currentYearRange[1] : completedYearRange[1]
 
     return yearRange;
+}
+
+export function getTaskStats(year: number): TaskStats {
+
+    const taskStats: TaskStats = { totalCreated: 0, totalCompleted: 0 }
+
+    if (year != 0) {
+        // annual
+        taskStats.totalCreated = getListLengthWithYear('current_tasks', year) + getListLengthWithYear('completed_tasks', year);
+        taskStats.totalCompleted = getListLengthWithYear('completed_tasks', year);
+
+        const mostProductive = getMostProductiveMonth(year);
+        taskStats.mostProductiveValue = mostProductive[0] as number;
+        taskStats.mostProductiveText = mostProductive[1] as string;
+    } else {
+        // overall
+        taskStats.totalCreated = getListLength('current_tasks') + getListLength('completed_tasks');
+        taskStats.totalCompleted = getListLength('completed_tasks');
+
+        const mostProductive = getMostProductiveYear();
+        taskStats.mostProductiveValue = mostProductive[0];
+        taskStats.mostProductiveText = mostProductive[1].toString();
+    }
+
+    return taskStats;
+}
+
+function getMostProductiveMonth(year: number): (number | string)[] {
+    const taskCountsByMonth = getTaskCountsByMonth('completed_tasks', year);
+
+    // Get the index of the max value of taskCountsByMonth
+    const maxValue = Math.max(...taskCountsByMonth);
+    const maxIndex = taskCountsByMonth.lastIndexOf(maxValue);
+
+    // [maxTaskCount, monthOfMaxTaskCount]
+    return [taskCountsByMonth[maxIndex], getMonthString(maxIndex)]
+}
+
+function getMostProductiveYear(): number[] {
+
+    const list = loadList('completed_tasks');
+    const yearsInList = new Array<number>();
+
+    for (const task of list) {
+        // If our array doesn't contain the year of the current task's date
+        if (!yearsInList.includes(task.date.getFullYear())) {
+            // Add it to our array
+            yearsInList.push(task.date.getFullYear())
+        }
+    }
+
+    // Calculate the number of tasks completed for every year separately
+    const taskCountsByYear = new Array<number>();
+
+    for (const year of yearsInList) {
+        taskCountsByYear.push(getListLengthWithYear('completed_tasks', year));
+    }
+
+    // Get the index of the max value of taskCountsByYear
+    const maxValue = Math.max(...taskCountsByYear);
+    const maxIndex = taskCountsByYear.lastIndexOf(maxValue);
+
+    // [maxTaskCount, yearOfMaxTaskCount]
+    return [taskCountsByYear[maxIndex], yearsInList[maxIndex]]
 }

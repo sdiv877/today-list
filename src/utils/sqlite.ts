@@ -110,6 +110,15 @@ export function getListLength(table: string): number {
     return listLength;
 }
 
+export function getListLengthWithYear(table: string, year: number): number {
+
+    const db = connectToDatabase();
+    const count = db.prepare('SELECT COUNT(*) FROM ' + table + " WHERE date LIKE (? || '%')")
+
+    const listLengthOfYear = count.pluck().get(year.toString());
+    return listLengthOfYear;
+}
+
 export function loadListWithYear(table: string, year: number): Task[] {
 
     const db = connectToDatabase();

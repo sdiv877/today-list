@@ -1,11 +1,8 @@
 interface TaskStats {
     totalCreated: number,
     totalCompleted: number,
-    maxCompletedMonth?: number,
-    maxCompletedYear?: number,
-
-    maxCompletedMonthString?: string,
-    maxCompletedYearString?: string,
+    mostProductiveValue?: number,
+    mostProductiveText?: string,
 }
 
 export default TaskStats;
