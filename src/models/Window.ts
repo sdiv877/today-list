@@ -1,6 +1,7 @@
 import Task from './Task'
 import TasksGraphData from './TasksGraphData';
 import TaskStats from './TaskStats';
+import UserData from './UserData'
 
 // Used to access contextBridge functions from the browser window
 declare global {
@@ -18,6 +19,13 @@ declare global {
 
             addToList: (table: string, task: Task) => void,
             deleteFromList: (table: string, id: string) => void,
+
+            sendUserDataRequest: () => void,
+            receiveUserDataResponse: (channel: string, func: (event: Event, userData: UserData) => void) => void,
+
+            saveUserData: (userData: UserData) => void,
+
+            setBackgroundColour: (bgColour: string) => void,
 
             removeAllListeners: (channel: string) => void,
         },

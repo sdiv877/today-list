@@ -4,10 +4,10 @@ An Electron app for organizing your daily tasks.
 **This app is currently under heavy development and regular use is not recommended.**  
 
 ## Features
-* An clear UI with a modern feel (IN DEV)  
+* A clear UI with a modern feel (IN DEV)  
 * Organization of tasks with due dates and times (IN DEV)  
 * A statistics tracker to get an idea of your productivity (IN DEV)  
-* App customization including colours, background images and more (TO DO)  
+* App colour customization (TO DO)  
 
 ## Technology
 * Electron

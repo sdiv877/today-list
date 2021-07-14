@@ -9,7 +9,7 @@ interface SettingsDeleteButtonProps {
 const SettingsDeleteButton: FC<SettingsDeleteButtonProps> = (props): JSX.Element => {
 
     return (
-        <Button variant='contained' style={{ color: 'white', backgroundColor: 'crimson', fontWeight: 'bold' }}>
+        <Button variant='outlined' style={{ color: 'crimson', borderColor: 'crimson', fontWeight: 'bold' }}>
             Delete all data
         </Button>
     );

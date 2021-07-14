@@ -28,12 +28,22 @@ contextBridge.exposeInMainWorld(
       ipcRenderer.on(channel, func)
     },
 
+    addToList: (table, task) => ipcRenderer.send('addToList', table, task),
+    deleteFromList: (table, task) => ipcRenderer.send('deleteFromList', table, task),
+
+    saveUserData: (userData) => ipcRenderer.send('saveUserData', userData),
+
+    sendUserDataRequest: () => ipcRenderer.send('loadUserData'),
+
+    receiveUserDataResponse: (channel, func) => {
+      ipcRenderer.on(channel, func)
+    },
+
+    setBackgroundColour: (bgColour) => ipcRenderer.send('setBackgroundColour', bgColour),
+
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
       console.log('Attempted to remove listeners from: ' + channel);
     },
-
-    addToList: (table, task) => ipcRenderer.send('addToList', table, task),
-    deleteFromList: (table, task) => ipcRenderer.send('deleteFromList', table, task),
   }
 )
