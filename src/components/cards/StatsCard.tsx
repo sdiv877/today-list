@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Card, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Create, CheckBox } from '@material-ui/icons';
 
-import MostProductiveStat from './MostProductiveStat';
+import MostProductiveStat from '../text/MostProductiveStat';
 
 import TaskStats from '../../models/TaskStats'
 

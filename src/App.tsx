@@ -29,5 +29,4 @@ ReactDOM.render(
                 </main>
             </div>
         </HashRouter>
-    </div>
-    , document.body);
+    </div>, document.body);

@@ -113,6 +113,11 @@ function getMostProductiveYear(): number[] {
         }
     }
 
+    // If there are no years present in the table, stop the function
+    if (yearsInList.length === 0) {
+        return [0, 0];
+    }
+
     // Calculate the number of tasks completed for every year separately
     const taskCountsByYear = new Array<number>();
 

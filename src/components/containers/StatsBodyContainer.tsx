@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TasksGraph from '../TasksGraph';
-import StatsCard from '../text/StatsCard'
+import StatsCard from '../cards/StatsCard'
 
 const StatsBodyContainer: React.VoidFunctionComponent = () => {
 
