@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     root: {
         margin: 0,
         top: 'auto',
-        right: "10vmin",
+        right: "5vmin",
         bottom: "10vmin",
         left: 'auto',
         position: 'fixed',

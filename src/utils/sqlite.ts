@@ -160,3 +160,10 @@ export function getListYearRange(table: string): number[] {
 
     return yearRange;
 }
+
+export function deleteAllLists(): void {
+
+    clearList('current_tasks');
+    clearList('completed_tasks');
+    clearList('deleted_tasks');
+}

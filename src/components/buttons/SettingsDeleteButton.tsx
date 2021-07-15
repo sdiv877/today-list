@@ -1,17 +1,23 @@
 import React, { FC } from 'react';
 import { Button } from '@material-ui/core';
 
-// Props types
 interface SettingsDeleteButtonProps {
-
+    show: boolean,
+    setShow: (show: boolean) => void;
 }
 
 const SettingsDeleteButton: FC<SettingsDeleteButtonProps> = (props): JSX.Element => {
 
+    function handleClick() {
+        props.setShow(true);
+    }
+
     return (
-        <Button variant='outlined' style={{ color: 'crimson', borderColor: 'crimson', fontWeight: 'bold' }}>
-            Delete all data
-        </Button>
+        <div>
+            <Button variant='outlined' style={{ color: 'crimson', borderColor: 'crimson', fontWeight: 'bold' }} onClick={handleClick}>
+                Delete all data
+            </Button>
+        </div>
     );
 }
 

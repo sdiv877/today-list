@@ -5,6 +5,7 @@ export function getIcon(iconName: string): ReactElement {
     const style = {
         fontSize: 48,
         marginLeft: "4px",
+        color: '#747983',
     };
 
     switch (iconName) {

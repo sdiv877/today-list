@@ -5,12 +5,15 @@ import SettingsNameField from '../pickers/SettingsNameField'
 import SettingsColourPicker from '../pickers/SettingsColourPicker';
 import SettingsDeleteButton from '../buttons/SettingsDeleteButton';
 import SettingsSaveButton from '../buttons/SettingsSaveButton';
+import DeleteDataModal from '../DeleteDataModal';
 
 import UserData from '../../models/UserData'
 
 const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     const [username, setUsername] = React.useState('');
     const [bgColour, setBgColour] = React.useState('');
+    const [disabled, setDisabled] = React.useState(true);
+    const [show, setShow] = React.useState(false);
 
     React.useEffect(() => {
         console.log('use effect called');
@@ -34,17 +37,18 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
             bg_colour: bgColour
         }
 
+        document.querySelector('body').style.backgroundColor = bgColour;
         window.api.saveUserData(userData);
-        window.api.setBackgroundColour(bgColour);
     }
 
     return (
         < div className="SettingsBodyContainer" >
-            <SettingsCard title={'User Profile'} component={<SettingsNameField username={username} setUsername={setUsername} />} />
-            <SettingsCard title={'Appearance'} component={<SettingsColourPicker setBgColour={setBgColour} />} />
-            <SettingsCard title={'Data'} component={<SettingsDeleteButton />} />
+            <SettingsCard title={'User Profile'} component={<SettingsNameField username={username} setUsername={setUsername} setDisabled={setDisabled} />} />
+            <SettingsCard title={'Appearance'} component={<SettingsColourPicker setBgColour={setBgColour} setDisabled={setDisabled} />} />
+            <SettingsCard title={'Data'} component={<SettingsDeleteButton show={show} setShow={setShow} />} />
+            <SettingsSaveButton submitUserData={submitUserData} disabled={disabled} setDisabled={setDisabled} />
 
-            <SettingsSaveButton submitUserData={submitUserData} />
+            <DeleteDataModal show={show} setShow={setShow} />
         </div >);
 }
 

@@ -6,7 +6,6 @@ import { getIcon } from '../../utils/AppDrawerHelpers'
 
 const ButtonTooltip = withStyles(() => ({
     tooltip: {
-        border: '2px solid',
         color: 'white',
         fontSize: 17,
         fontWeight: 400,

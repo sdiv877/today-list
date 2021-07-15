@@ -6,16 +6,18 @@ import { AccountCircle } from '@material-ui/icons';
 interface SettingsNameFieldProps {
     username: string,
     setUsername: React.Dispatch<React.SetStateAction<string>>,
+    setDisabled: (disabled: boolean) => void,
 }
 
 
 const SettingsNameField: FC<SettingsNameFieldProps> = (props): JSX.Element => {
 
     return (
-        <div className="SettingsNameField">
+        <div className="settingsNameField" style={{ width: '26.2%', marginLeft: 'auto', marginRight: 'auto' }}>
             <TextField
                 label="Username"
                 variant='outlined'
+                fullWidth
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -27,7 +29,8 @@ const SettingsNameField: FC<SettingsNameFieldProps> = (props): JSX.Element => {
                 value={props.username}
 
                 onChange={(event) => {
-                    props.setUsername(event.target.value)
+                    props.setUsername(event.target.value);
+                    props.setDisabled(false);
                 }}
             />
         </div>);

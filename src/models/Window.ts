@@ -25,7 +25,7 @@ declare global {
 
             saveUserData: (userData: UserData) => void,
 
-            setBackgroundColour: (bgColour: string) => void,
+            deleteAllData: () => void,
 
             removeAllListeners: (channel: string) => void,
         },

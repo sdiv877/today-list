@@ -39,7 +39,7 @@ contextBridge.exposeInMainWorld(
       ipcRenderer.on(channel, func)
     },
 
-    setBackgroundColour: (bgColour) => ipcRenderer.send('setBackgroundColour', bgColour),
+    deleteAllData: () => ipcRenderer.send('deleteAllData'),
 
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
