@@ -13,7 +13,7 @@ interface SettingsNameFieldProps {
 const SettingsNameField: FC<SettingsNameFieldProps> = (props): JSX.Element => {
 
     return (
-        <div className="settingsNameField" style={{ width: '26.2%', marginLeft: 'auto', marginRight: 'auto' }}>
+        <div className="settingsNameField" style={{ width: '29%', marginLeft: 'auto', marginRight: 'auto' }}>
             <TextField
                 label="Username"
                 variant='outlined'

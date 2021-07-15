@@ -30,7 +30,7 @@ const DeleteDataModal: FC<DeleteDataModal> = (props): JSX.Element => {
                 </DialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        This will delete all your current tasks, including completed ones and contents of the Recycle Bin.
+                        This will delete all your current tasks, including completed ones and the contents of the Recycle Bin.
                     </Typography>
 
                     <Typography gutterBottom>

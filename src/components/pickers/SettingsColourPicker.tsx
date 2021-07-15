@@ -22,9 +22,9 @@ const SettingsColourPicker: FC<SettingsColourPickerProps> = (props): JSX.Element
             <GithubPicker
                 className="center"
                 triangle='hide'
-                colors={['#ffffff', '#d27676', '#e49576', '#f4dc76', '#76bc77', '#76abb1', '#7fafe5', '#769cde', '#9f76ec']}
+                colors={['#ffffff', '#d27676', '#e49576', '#f2bdca', '#f4dc76', '#76bc77', '#76abb1', '#7fafe5', '#769cde', '#9f76ec']}
                 onChangeComplete={handleChangeComplete}
-                width={'25.1%'}
+                width={'27.9%'}
             />
         </div>);
 }

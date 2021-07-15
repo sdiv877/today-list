@@ -1,8 +1,11 @@
 import React, { FC } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import CurrentTaskCard from './CurrentTaskCard';
 
 import Task from '../../models/Task';
+
+import '../../styles/TaskCard.css'
 
 // Needed to let TS know explicitly what is passed from props
 interface CurrentsTaskDisplayProps {
@@ -50,12 +53,20 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
         }
     }
 
+    const cardList = props.currentList.map((task) => (
+        <CSSTransition key={task.id} timeout={350} classNames="fading-task-card">
+            <div className="taskCardItem">
+                <CurrentTaskCard task={task} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} />
+            </div>
+        </CSSTransition>
+    ));
+
     // Returned FC
     return (
         <div className="currentTasksDisplay">
-            {props.currentList.map((task) => (
-                <CurrentTaskCard task={task} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} key={task.id} />
-            ))}
+            <TransitionGroup>
+                {cardList}
+            </TransitionGroup>
         </div>
     );
 }

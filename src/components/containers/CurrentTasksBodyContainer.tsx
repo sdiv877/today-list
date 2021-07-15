@@ -6,8 +6,6 @@ import AddTasksFab from '../buttons/AddTasksFab';
 
 import Task from '../../models/Task'
 
-import '../../styles/fadeIn.css'
-
 const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
     // currrentList states
     const [currentList, setCurrentList] = React.useState(new Array<Task>());
@@ -33,11 +31,11 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         <div className="CurrentTasksBodyContainer">
-            <div className="fadeIn">
-                <CurrentTasksDisplay currentList={currentList} setCurrentList={setCurrentList} />
-                <AddTasksFab setShow={setShow} />
-                <AddTasksModal currentList={currentList} setCurrentList={setCurrentList} show={show} setShow={setShow} />
-            </div>
+
+            <CurrentTasksDisplay currentList={currentList} setCurrentList={setCurrentList} />
+            <AddTasksFab setShow={setShow} />
+            <AddTasksModal currentList={currentList} setCurrentList={setCurrentList} show={show} setShow={setShow} />
+
         </div>);
 }
 

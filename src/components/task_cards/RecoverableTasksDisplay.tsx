@@ -1,8 +1,11 @@
 import React, { FC } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import RecoverableTaskCard from './RecoverableTaskCard';
 
 import Task from '../../models/Task';
+
+import "../../styles/TaskCard.css"
 
 // Needed to let TS know explicitly what is passed from props
 interface RecoverableTasksDisplayProps {
@@ -44,12 +47,23 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         window.api.deleteFromList(props.table, id);
     }
 
-    // Returned FC
+    // Format all tasks into cards, and put them in an array called cardList
+    // fading-task-card relates to styles in TaskCard.css
+    const cardList = props.recoverableList.map((task) => (
+        <CSSTransition key={task.id} timeout={350} classNames="fading-task-card">
+            <div className="taskCardItem">
+                <RecoverableTaskCard task={task} handleRecoverTask={handleRecoverTask} />
+            </div>
+        </CSSTransition>
+    ));
+
+    // Returned FC. Wrapping cards in a Transition group allows each item in the list to
+    // have transitions applied separately (provided they each have a unique key)
     return (
         <div className="RecoverableTasksDisplay">
-            {props.recoverableList.map((task) => (
-                <RecoverableTaskCard task={task} handleRecoverTask={handleRecoverTask} key={task.id} />
-            ))}
+            <TransitionGroup>
+                {cardList}
+            </TransitionGroup>
         </div>
     );
 }
