@@ -4,6 +4,8 @@ import RecoverableTasksDisplay from '../task_cards/RecoverableTasksDisplay';
 
 import Task from '../../models/Task'
 
+import '../../styles/fadeIn.css'
+
 const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
     // deletedList states
     const [deletedList, setDeletedList] = React.useState(new Array<Task>());
@@ -26,7 +28,9 @@ const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         <div className="RecycleBinBodyContainer">
-            <RecoverableTasksDisplay recoverableList={deletedList} setRecoverableList={setDeletedList} table={'deleted_tasks'} />
+            <div className="fadeIn">
+                <RecoverableTasksDisplay recoverableList={deletedList} setRecoverableList={setDeletedList} table={'deleted_tasks'} />
+            </div>
         </div>);
 }
 

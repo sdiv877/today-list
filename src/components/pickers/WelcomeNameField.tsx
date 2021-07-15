@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, TextField } from "@material-ui/core"
+import { Typography, makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -36,16 +36,17 @@ const WelcomeNameField: React.VoidFunctionComponent = () => {
 
     const classes = useStyles();
 
-    return (
-        <div className="WelcomeNameField">
-            <TextField
-                fullWidth
-                InputProps={{ disableUnderline: true }}
-                inputProps={{ className: classes.root }}
-                placeholder="Enter your name"
-                value={username}
-            />
-        </div>);
+    if (username === '') {
+        return null;
+
+    } else {
+        return (
+            <div className="WelcomeNameField">
+                <Typography className={classes.root}>
+                    {username}
+                </Typography>
+            </div>);
+    }
 }
 
 export default WelcomeNameField;

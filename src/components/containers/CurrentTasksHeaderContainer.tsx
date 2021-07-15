@@ -4,6 +4,8 @@ import React from 'react';
 import WelcomeText from '../text/WelcomeText';
 import WelcomeNameField from '../pickers/WelcomeNameField';
 
+import '../../styles/fadeIn.css'
+
 const useStyles = makeStyles(() => ({
     card: {
         paddingTop: 4,
@@ -18,7 +20,10 @@ const CurrentTasksContainer: React.VoidFunctionComponent = () => {
         <div className="CurrentTasksContainer">
             <Card className={classes.card}>
                 <WelcomeText />
-                <WelcomeNameField />
+
+                <div className='fadeIn'>
+                    <WelcomeNameField />
+                </div>
             </Card>
         </div>);
 }

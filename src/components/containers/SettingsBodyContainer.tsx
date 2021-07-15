@@ -9,6 +9,8 @@ import DeleteDataModal from '../DeleteDataModal';
 
 import UserData from '../../models/UserData'
 
+import '../../styles/fadeIn.css'
+
 const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     const [username, setUsername] = React.useState('');
     const [bgColour, setBgColour] = React.useState('');
@@ -43,12 +45,14 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         < div className="SettingsBodyContainer" >
-            <SettingsCard title={'User Profile'} component={<SettingsNameField username={username} setUsername={setUsername} setDisabled={setDisabled} />} />
-            <SettingsCard title={'Appearance'} component={<SettingsColourPicker setBgColour={setBgColour} setDisabled={setDisabled} />} />
-            <SettingsCard title={'Data'} component={<SettingsDeleteButton show={show} setShow={setShow} />} />
-            <SettingsSaveButton submitUserData={submitUserData} disabled={disabled} setDisabled={setDisabled} />
+            <div className="fadeIn">
+                <SettingsCard title={'User Profile'} component={<SettingsNameField username={username} setUsername={setUsername} setDisabled={setDisabled} />} />
+                <SettingsCard title={'Appearance'} component={<SettingsColourPicker setBgColour={setBgColour} setDisabled={setDisabled} />} />
+                <SettingsCard title={'Data'} component={<SettingsDeleteButton show={show} setShow={setShow} />} />
+                <SettingsSaveButton submitUserData={submitUserData} disabled={disabled} setDisabled={setDisabled} />
 
-            <DeleteDataModal show={show} setShow={setShow} />
+                <DeleteDataModal show={show} setShow={setShow} />
+            </div>
         </div >);
 }
 

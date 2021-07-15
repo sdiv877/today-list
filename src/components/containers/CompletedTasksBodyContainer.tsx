@@ -4,6 +4,8 @@ import RecoverableTasksDisplay from '../task_cards/RecoverableTasksDisplay';
 
 import Task from '../../models/Task'
 
+import '../../styles/fadeIn.css'
+
 const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
     // completedList states
     const [completedList, setCompletedList] = React.useState(new Array<Task>());
@@ -26,7 +28,9 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         <div className="CompletedTasksBodyContainer">
-            <RecoverableTasksDisplay recoverableList={completedList} setRecoverableList={setCompletedList} table={'completed_tasks'} />
+            <div className = 'fadeIn'>
+                <RecoverableTasksDisplay recoverableList={completedList} setRecoverableList={setCompletedList} table={'completed_tasks'} />
+            </div>
         </div>);
 }
 
