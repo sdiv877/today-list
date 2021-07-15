@@ -42,10 +42,10 @@ const DeleteDataModal: FC<DeleteDataModal> = (props): JSX.Element => {
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button variant='contained' style={{ backgroundColor: 'crimson', color: 'white', fontWeight: 'bold' }} autoFocus onClick={handleConfirmDeletion} color="primary">
+                    <Button variant='contained' style={{ backgroundColor: 'crimson', color: 'white', fontWeight: 'bold' }} onClick={handleConfirmDeletion} color="primary">
                         Confirm
                     </Button>
                 </DialogActions>

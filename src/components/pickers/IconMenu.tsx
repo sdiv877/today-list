@@ -14,7 +14,7 @@ const IconMenu: FC<IconMenuProps> = (props): JSX.Element => {
     }
 
     return (
-        <div className="IconMenu" style={{ minWidth: '350px', height: '30px' }}>
+        <div className="IconMenu" style={{ minWidth: '425px', height: '30px' }}>
             <FormControl fullWidth>
                 <InputLabel>Icon</InputLabel>
 

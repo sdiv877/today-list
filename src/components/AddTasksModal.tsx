@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 import { v4 as uuid } from 'uuid';
-import { Card, Grid, TextField, Button } from "@material-ui/core";
+import { Button, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 
-import IconMenu from './pickers/IconMenu'
-import DateTimerPicker from './pickers/DateTimePicker'
+import IconMenu from './pickers/IconMenu';
+import DateTimePicker from './pickers/DateTimePicker';
 
 import Task from '../models/Task'
 
@@ -11,121 +11,130 @@ import '../styles/AddTasksModal.css'
 
 // Props types
 interface AddTasksModalProps {
-  currentList: Task[],
-  setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>,
-  show: boolean,
-  setShow: (show: boolean) => void,
+    currentList: Task[],
+    setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>,
+    show: boolean,
+    setShow: (show: boolean) => void,
 }
 
 const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
-  // Add a new item to the taskList based on what was submitted in the text fields
-  const handleAdd = () => {
 
-    const newTask: Task = { id: uuid(), icon: selectedIcon, task: selectedTask, date: selectedDate };
+    // Add a new item to the taskList based on what was submitted in the text fields
+    const handleAdd = () => {
 
-    // Map needed to clone an array of objects
-    let taskListCopy = props.currentList.map(l => Object.assign({}, l));
+        const newTask: Task = { id: uuid(), icon: selectedIcon, task: selectedTask, date: selectedDate };
 
-    // Add to react state
-    taskListCopy = taskListCopy.concat(newTask);
-    props.setCurrentList(taskListCopy);
+        // Map needed to clone an array of objects
+        let taskListCopy = props.currentList.map(l => Object.assign({}, l));
 
-    // And add it to the local db
-    window.api.addToList('current_tasks', newTask)
-  }
+        // Add to react state
+        taskListCopy = taskListCopy.concat(newTask);
+        props.setCurrentList(taskListCopy);
 
-  // Tracking icon selected
-  const [selectedIcon, setSelectedIcon] = React.useState('');
+        // And add it to the local db
+        window.api.addToList('current_tasks', newTask)
 
-  const handleIconChange = (icon: string | null) => {
-    setSelectedIcon(icon);
-  };
+        // Scroll to the bottom of the page so the user can see their new task
+        // 500ms is the time for a card's fade transition
+        setTimeout(() => { handleScroll() }, 500);
+    }
 
-  // Tracking task written
-  const [selectedTask, setSelectedTask] = React.useState('');
+    // Tracking icon selected
+    const [selectedIcon, setSelectedIcon] = React.useState('');
 
-  const handleTaskChange = (task: string | null) => {
-    setSelectedTask(task);
-  };
+    const handleIconChange = (icon: string | null) => {
+        setSelectedIcon(icon);
+    };
 
-  // Tracking date selected
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+    // Tracking task written
+    const [selectedTask, setSelectedTask] = React.useState('');
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
+    const handleTaskChange = (task: string | null) => {
+        setSelectedTask(task);
+    };
 
-  // Clear states of all input fields upon closing the window
-  function clearStates() {
+    // Tracking date selected
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-    setSelectedIcon('');
-    setSelectedTask('');
-    setSelectedDate(new Date());
-  }
+    const handleDateChange = (date: Date | null) => {
+        setSelectedDate(date);
+    };
 
-  // If show is not true, don't return the component
-  if (!props.show) {
-    return null;
-  }
+    // Enter key handler
+    function handleKeyPress(event: React.KeyboardEvent) {
+        console.log('h');
 
-  return (
-    <div>
-      {/* 'modal'represents the gray area outside of the card, while 'dialogCard' represents the actual white part of the dialog.
-        In this way if someone clicks on the gray area we want to close the dialog.
-        So we add the setShow(false) onClick to 'modal' so that the modal is closed if the gray is clicked. */}
-      <div className="modal" onClick={() => {
+        if (event.key === 'Enter') {
+            handleAdd()
+        }
+    }
+
+    // Scrolling to bottom of page when a task is added
+    function handleScroll() {
+        window.scroll({
+            top: document.body.scrollHeight,
+            left: 0,
+            behavior: 'smooth',
+        });
+    }
+
+    // Clear states of all input fields upon closing the window
+    function clearStates() {
+
+        setSelectedIcon('');
+        setSelectedTask('');
+        setSelectedDate(new Date());
+    }
+
+    function handleClose() {
         props.setShow(false);
         clearStates();
-      }}>
+    }
 
-        <Card className="dialogCard">
-          {/*Clicking on the gray above causes an event we don't want reaching other parts of our component (we don't need it anymore).
-            Any closing that happens from a click inside the dialogCard should only be due to the cancel button, which already 
-            has its own closing logic.*/}
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
-              Add Tasks
-            </div>
+    // If show is not true, don't return the component
+    if (!props.show) {
+        return null;
+    }
 
-            <div className="modal-body"> {/*The actual input fields*/}
-              <Grid container className="formGridContainer" direction="column" spacing={3} alignItems="center">
-                <Grid item>
-                  <IconMenu selectedIcon={selectedIcon} handleIconChange={handleIconChange} />
-                </Grid>
+    return (
+        <div>
+            <Dialog className="modal" onClose={handleClose} open={props.show} onKeyPress={(event) => { handleKeyPress(event) }}>
+                <DialogTitle className="modal-title">
+                    Add Tasks
+                </DialogTitle>
 
-                <Grid item>
-                  <TextField label="Task" fullWidth style={{ minWidth: "350px" }} value={selectedTask} onChange={
-                    (event) => {
-                      handleTaskChange(event.target.value)
-                    }} />
-                </Grid>
+                <DialogContent className="modal-content" dividers style={{ paddingBottom: '40px' }}>
 
-                <Grid item>
-                  <DateTimerPicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
-                </Grid>
-              </Grid>
-            </div>
+                    <Grid container className="formGridContainer" direction="column" spacing={4} alignItems="center">
+                        <Grid item>
+                            <IconMenu selectedIcon={selectedIcon} handleIconChange={handleIconChange} />
+                        </Grid>
 
-            <div className="modal-footer"> {/*Submit and cancel buttons*/}
-              <Button className="button" onClick={() => { handleAdd() }}>
-                Submit
-              </Button>
+                        <Grid item>
+                            <TextField label="Task" fullWidth style={{ minWidth: "425px" }} value={selectedTask} onChange={
+                                (event) => {
+                                    handleTaskChange(event.target.value)
+                                }} />
+                        </Grid>
 
-              {/*On clicking Cancel, hide the Modal*/}
-              <Button className="button" onClick={() => {
-                props.setShow(false);
-                clearStates();
-              }}>
-                Cancel
-              </Button>
-            </div>
+                        <Grid item>
+                            <DateTimePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
+                        </Grid>
+                    </Grid>
 
-          </div>
-        </Card>
+                </DialogContent>
 
-      </div>
-    </div>
-  );
+                <DialogActions className="modal-footer" style={{ paddingTop: '15px', paddingBottom: '15px', paddingRight: '15px' }}>
+                    <Button onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant='contained' color='primary' onClick={handleAdd}>
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
 }
 
 export default AddTasksModal;

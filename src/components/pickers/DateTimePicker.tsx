@@ -15,7 +15,7 @@ const DateTimePicker: FC<DateTimePickerProps> = (props): JSX.Element => {
             <KeyboardDateTimePicker
                 variant="inline"
                 ampm={false}
-                style={{ minWidth: "350px" }}
+                style={{ minWidth: "425px" }}
                 autoOk={true}
                 value={props.selectedDate}
                 onChange={(date) => props.handleDateChange(date)} />

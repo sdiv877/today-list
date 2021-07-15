@@ -1,8 +1,8 @@
 import React from 'react';
 
 import CurrentTasksDisplay from '../task_cards/CurrentTasksDisplay';
-import AddTasksModal from '../AddTasksModal'
 import AddTasksFab from '../buttons/AddTasksFab';
+import AddTasksModal from '../AddTasksModal'
 
 import Task from '../../models/Task'
 

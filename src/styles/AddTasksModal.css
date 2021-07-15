@@ -1,50 +1,10 @@
-.dialogCard {
-    padding-bottom: 10px;
-}
-
-.modal {
-    background-color: rgba(0, 0, 0, 0.5);
-
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-
-    position: fixed;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .modal-content {
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-.modal-header {
-    text-align: center;
-
-    padding-bottom: 5px;
-}
-
-.modal-body {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    width: 450px;
+    padding-bottom: 40px;
 }
 
 .modal-footer {
-    padding-top: 10px;
-    padding-right: 10px;
-}
-
-.button {
-    float: right;
-
-    margin-left: 3px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
 }
