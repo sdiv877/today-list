@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { consoleLog } from '../../utils/logging';
+import { consoleLog } from '../../utils/debug';
 import { Card, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Create, CheckBox } from '@material-ui/icons';
 

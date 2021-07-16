@@ -1,7 +1,9 @@
 import React from 'react';
-import { consoleLog } from '../../utils/logging'
+import { consoleLog } from '../../utils/debug'
 
 import RecoverableTasksDisplay from '../task_cards/RecoverableTasksDisplay';
+
+import { sortTaskList } from '../../utils/TaskDisplayHelpers';
 
 import Task from '../../models/Task'
 
@@ -17,7 +19,7 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
 
         window.database.receiveListResponse('response-list', (event, list_res) => {
             consoleLog('completed_tasks response received from main. Length: ' + list_res.length)
-            setCompletedList(list_res)
+            setCompletedList(sortTaskList(list_res))
         })
 
         return () => {

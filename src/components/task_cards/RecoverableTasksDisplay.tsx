@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { consoleLog } from '../../utils/logging'
+import { consoleLog } from '../../utils/debug'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import RecoverableTaskCard from './RecoverableTaskCard';

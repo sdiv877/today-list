@@ -1,7 +1,9 @@
 import React from 'react';
-import { consoleLog } from '../../utils/logging'
+import { consoleLog } from '../../utils/debug'
 
-import RecoverableTasksDisplay from '../task_cards/RecoverableTasksDisplay';
+import RecoverableTasksDisplay from '../task_cards/RecoverableTasksDisplay'
+
+import { sortTaskList } from '../../utils/TaskDisplayHelpers'
 
 import Task from '../../models/Task'
 
@@ -17,7 +19,7 @@ const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
 
         window.database.receiveListResponse('response-list', (event, list_res) => {
             consoleLog('deleted_tasks response received from main. Length: ' + list_res.length)
-            setDeletedList(list_res)
+            setDeletedList(sortTaskList(list_res))
         })
 
         return () => {

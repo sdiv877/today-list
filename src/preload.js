@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
-import { consoleLog } from './utils/logging'
+import { consoleLog } from './utils/debug'
 
 // Set up context bridge between the renderer process and the main process
 contextBridge.exposeInMainWorld(

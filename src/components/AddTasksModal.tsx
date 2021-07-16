@@ -5,6 +5,8 @@ import { Button, Grid, TextField, Dialog, DialogTitle, DialogContent, DialogActi
 import IconMenu from './pickers/IconMenu';
 import DateTimePicker from './pickers/DateTimePicker';
 
+import { sortTaskList } from '../utils/TaskDisplayHelpers';
+
 import Task from '../models/Task'
 
 import '../styles/AddTasksModal.css'
@@ -28,8 +30,10 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
         // Map needed to clone an array of objects
         let taskListCopy = props.currentList.map(l => Object.assign({}, l));
 
-        // Add to react state
+        // Sort list and add to react state
         taskListCopy = taskListCopy.concat(newTask);
+        taskListCopy = sortTaskList(taskListCopy);
+
         props.setCurrentList(taskListCopy);
 
         // And add it to the local db

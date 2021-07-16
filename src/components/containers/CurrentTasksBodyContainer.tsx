@@ -1,9 +1,11 @@
 import React from 'react';
-import { consoleLog } from '../../utils/logging'
+import { consoleLog } from '../../utils/debug'
 
 import CurrentTasksDisplay from '../task_cards/CurrentTasksDisplay';
 import AddTasksFab from '../buttons/AddTasksFab';
 import AddTasksModal from '../AddTasksModal'
+
+import { sortTaskList } from '../../utils/TaskDisplayHelpers';
 
 import Task from '../../models/Task'
 
@@ -24,7 +26,7 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
 
         window.database.receiveListResponse('response-list', (event, list_res) => {
             consoleLog('current_tasks response received from main. Length: ' + list_res.length)
-            setCurrentList(list_res)
+            setCurrentList(sortTaskList(list_res))
         })
 
         // Getting button colour info

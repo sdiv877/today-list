@@ -1,6 +1,7 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 
-import { DEBUG, consoleLog } from './utils/logging'
+import { DEBUG, consoleLog } from './utils/debug'
+import { mainMenuTemplate } from './menu/mainMenu';
 import { initDatabase, loadList, addToList, deleteFromList, clearList, deleteAllLists } from './utils/sqlite';
 import { initUserData, loadUserData, saveUserData, deleteUserData } from './utils/user_data';
 import { getGraphYearRange, getTasksGraphData, getTaskStats } from './utils/statistics';
@@ -17,9 +18,9 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createWindow = (): void => {
-  // Initialise the db and user_data.json
-  initDatabase();
+  // Initialise user_data.json and the db
   initUserData();
+  initDatabase();
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -36,6 +37,10 @@ const createWindow = (): void => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     }
   });
+
+  // load menubar
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
+  Menu.setApplicationMenu(mainMenu)
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -97,13 +102,17 @@ ipcMain.on('loadUserData', (event) => {
 });
 
 ipcMain.on('deleteAllData', () => {
-  deleteAllLists();
   deleteUserData();
+  deleteAllLists();
 
-  initDatabase();
-  initUserData();
+  // If in production, relaunch the app on data deletion
+  if (!DEBUG) {
+    app.relaunch();
+    app.quit();
 
-  BrowserWindow.getAllWindows()[0].reload();
+  } else {
+    BrowserWindow.getAllWindows()[0].reload();
+  }
 });
 
 // statistics

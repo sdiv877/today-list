@@ -1,16 +1,19 @@
+import { app } from 'electron';
 import Database = require('better-sqlite3')
 
-import { DEBUG } from './logging'
+import { DEBUG } from './debug'
 import Task from '../models/Task'
 
 export function connectToDatabase(): Database.Database {
 
+    // If in debug mode, files will be saved to the root directory of the repository.
+    // Otherwise they will be found in the 'appData/Today List/user' folder.
     if (DEBUG) {
         const db = new Database('tasks.db', { verbose: console.log });
         return db;
-        
+
     } else {
-        const db = new Database('tasks.db');
+        const db = new Database(app.getPath('userData') + '\\user\\tasks.db');
         return db;
     }
 }
@@ -62,6 +65,11 @@ export function loadList(table: string): Task[] {
     }
 
     db.close();
+
+    // Sort list by date
+    list.sort((a: Task, b: Task) => {
+        return a.date.valueOf() - b.date.valueOf();
+    });
 
     return list;
 }

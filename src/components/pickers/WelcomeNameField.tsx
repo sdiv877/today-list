@@ -1,5 +1,5 @@
 import React from 'react';
-import { consoleLog } from '../../utils/logging'
+import { consoleLog } from '../../utils/debug'
 import { Typography, makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles(() => ({

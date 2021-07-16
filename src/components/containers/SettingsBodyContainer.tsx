@@ -1,5 +1,5 @@
 import React from 'react';
-import { consoleLog } from '../../utils/logging';
+import { consoleLog } from '../../utils/debug';
 
 import SettingsCard from '../cards/SettingsCard';
 import SettingsNameField from '../pickers/SettingsNameField';

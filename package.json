@@ -1,6 +1,6 @@
 {
   "name": "today-list",
-  "productName": "today-list",
+  "productName": "Today List",
   "version": "1.0.0",
   "description": "Today List Electron App",
   "main": ".webpack/main",

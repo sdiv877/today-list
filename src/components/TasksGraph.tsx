@@ -1,5 +1,5 @@
-import React, {FC} from 'react'
-import { consoleLog } from '../utils/logging';
+import React, { FC } from 'react'
+import { consoleLog } from '../utils/debug';
 import { BarChart, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { Card, Divider } from '@material-ui/core';
 

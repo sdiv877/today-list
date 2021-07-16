@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { consoleLog } from '../../utils/logging'
+import { consoleLog } from '../../utils/debug'
 import { Button } from '@material-ui/core';
 
 // Props types

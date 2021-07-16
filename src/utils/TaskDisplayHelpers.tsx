@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
-import { Create, Assignment, AccessAlarm, Fastfood, Apartment, FitnessCenter, VideogameAsset } from '@material-ui/icons';
+import { Create, Assignment, AccessAlarm, Fastfood, Apartment, FitnessCenter, VideogameAsset } from '@material-ui/icons'
+
+import Task from '../models/Task'
 
 export function getIcon(iconName: string): ReactElement {
     const style = {
@@ -32,4 +34,12 @@ export function handleTaskField(task: string): string {
     }
 
     return task;
+}
+
+export function sortTaskList(list: Task[]): Task[] {
+    const sortedList = list.sort((a: Task, b: Task) => {
+        return a.date.valueOf() - b.date.valueOf();
+    });
+
+    return sortedList;
 }
