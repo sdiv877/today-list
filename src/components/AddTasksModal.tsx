@@ -32,7 +32,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
         props.setCurrentList(taskListCopy);
 
         // And add it to the local db
-        window.api.addToList('current_tasks', newTask)
+        window.database.addToList('current_tasks', newTask)
 
         // Scroll to the bottom of the page so the user can see their new task
         // 500ms is the time for a card's fade transition

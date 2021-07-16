@@ -22,7 +22,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         handleDeleteTask(task.id);
 
         // Add it to current_tasks (takes care of db state)
-        window.api.addToList('current_tasks', task);
+        window.database.addToList('current_tasks', task);
 
         console.log('Item added to current_tasks, key ' + task.id);
     }
@@ -44,7 +44,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         props.setRecoverableList(taskListCopy);
 
         // Then delete from local db
-        window.api.deleteFromList(props.table, id);
+        window.database.deleteFromList(props.table, id);
     }
 
     // Format all tasks into cards, and put them in an array called cardList

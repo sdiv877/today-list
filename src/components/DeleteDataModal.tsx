@@ -14,7 +14,7 @@ interface DeleteDataModal {
 const DeleteDataModal: FC<DeleteDataModal> = (props): JSX.Element => {
 
     function handleConfirmDeletion() {
-        window.api.deleteAllData();
+        window.user_data.deleteAllData();
         props.setShow(false);
     }
 

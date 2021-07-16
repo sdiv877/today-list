@@ -26,24 +26,24 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
 
         if (props.title === 'Annual Stats') {
             // Get annual task stats
-            window.api.sendTaskStatsRequest('request-annual-task-stats', props.year);
+            window.statistics.sendTaskStatsRequest('request-annual-task-stats', props.year);
 
-            window.api.receiveTaskStatsResponse('response-annual-task-stats', (event, task_stats_res) => {
+            window.statistics.receiveTaskStatsResponse('response-annual-task-stats', (event, task_stats_res) => {
                 setStats(task_stats_res);
             })
         } else {
             // Get the overall task stats
-            window.api.sendTaskStatsRequest('request-overall-task-stats', 0);
+            window.statistics.sendTaskStatsRequest('request-overall-task-stats', 0);
 
-            window.api.receiveTaskStatsResponse('response-overall-task-stats', (event, task_stats_res) => {
+            window.statistics.receiveTaskStatsResponse('response-overall-task-stats', (event, task_stats_res) => {
                 setStats(task_stats_res);
             })
         }
 
         // Remove listeners when component unmounts
         return () => {
-            window.api.removeAllListeners('response-annual-task-stats');
-            window.api.removeAllListeners('response-overall-task-stats');
+            window.app.removeAllListeners('response-annual-task-stats');
+            window.app.removeAllListeners('response-overall-task-stats');
         }
     }, [props.year])
 

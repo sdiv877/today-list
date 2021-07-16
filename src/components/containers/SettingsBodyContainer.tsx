@@ -20,16 +20,16 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendUserDataRequest();
+        window.user_data.sendUserDataRequest();
 
-        window.api.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
+        window.user_data.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
             console.log('User data response received from main: ' + JSON.stringify(user_data_res));
             setUsername(user_data_res.username);
             setBgColour(user_data_res.bg_colour);
         })
 
         return () => {
-            window.api.removeAllListeners('response-user-data');
+            window.app.removeAllListeners('response-user-data');
         }
     }, [])
 
@@ -40,7 +40,7 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
         }
 
         document.querySelector('body').style.backgroundColor = bgColour;
-        window.api.saveUserData(userData);
+        window.user_data.saveUserData(userData);
     }
 
     return (

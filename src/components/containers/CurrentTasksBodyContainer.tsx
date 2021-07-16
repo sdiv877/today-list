@@ -17,15 +17,15 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendListRequest('request-list', 'current_tasks');
+        window.database.sendListRequest('request-list', 'current_tasks');
 
-        window.api.receiveListResponse('response-list', (event, list_res) => {
+        window.database.receiveListResponse('response-list', (event, list_res) => {
             console.log('current_tasks response received from main. Length: ' + list_res.length)
             setCurrentList(list_res)
         })
 
         return () => {
-            window.api.removeAllListeners('response-list');
+            window.app.removeAllListeners('response-list');
         }
     }, [])
 

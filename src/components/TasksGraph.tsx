@@ -24,18 +24,18 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
         console.log('use effect called');
 
         // Get the graph data for the current year
-        window.api.sendGraphDataRequest('request-graph-data', props.year);
+        window.statistics.sendGraphDataRequest('request-graph-data', props.year);
 
-        window.api.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
+        window.statistics.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
             console.log('Graph data response received from main')
             setGraphData(graph_data_res);
         })
 
 
         // Get the graph range (min and max year) to decide how many pages we need
-        window.api.sendGraphDataRequest('request-graph-range', props.year);
+        window.statistics.sendGraphDataRequest('request-graph-range', props.year);
 
-        window.api.receiveGraphRangeResponse('response-graph-range', (event, graph_range_res) => {
+        window.statistics.receiveGraphRangeResponse('response-graph-range', (event, graph_range_res) => {
             console.log('Graph year range response received from main')
             console.log(graph_range_res);
             setGraphRange(graph_range_res);
@@ -43,8 +43,8 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
 
         // Remove listeners when component unmounts
         return () => {
-            window.api.removeAllListeners('response-graph-data');
-            window.api.removeAllListeners('response-graph-range');
+            window.app.removeAllListeners('response-graph-data');
+            window.app.removeAllListeners('response-graph-range');
         }
     }, [])
 
@@ -53,15 +53,15 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
         props.setYear(year);
 
         // We need to request the new data that needs to be displayed for it
-        window.api.sendGraphDataRequest('request-graph-data', year);
+        window.statistics.sendGraphDataRequest('request-graph-data', year);
 
-        window.api.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
+        window.statistics.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
             console.log('Graph data response received from main')
 
             // And set the react state to reflect this change in year
             setGraphData(graph_data_res);
             // Synchronously removeAllListeners
-            window.api.removeAllListeners('response-graph-data');
+            window.app.removeAllListeners('response-graph-data');
         })
     }
 

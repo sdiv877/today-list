@@ -21,15 +21,15 @@ const WelcomeNameField: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendUserDataRequest();
+        window.user_data.sendUserDataRequest();
 
-        window.api.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
+        window.user_data.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
             console.log('User data response received from main: ' + JSON.stringify(user_data_res));
             setUsername(user_data_res.username);
         })
 
         return () => {
-            window.api.removeAllListeners('response-user-data');
+            window.app.removeAllListeners('response-user-data');
         }
     }, [])
 

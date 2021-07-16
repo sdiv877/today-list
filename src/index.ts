@@ -27,6 +27,7 @@ const createWindow = (): void => {
     minHeight: 720,
     minWidth: 1280,
 
+    // Load the user's saved data colour if it exists, otherwise set background as white
     backgroundColor: loadUserData().bg_colour === '' ? '#ffffff' : loadUserData().bg_colour,
     autoHideMenuBar: true,
 
@@ -73,6 +74,36 @@ ipcMain.on('request-list', (event, table) => {
   event.reply('response-list', loadList(table))
 })
 
+ipcMain.on('addToList', (event, table, task) => {
+  addToList(table, task);
+});
+
+ipcMain.on('deleteFromList', (event, table, task) => {
+  deleteFromList(table, task);
+});
+
+// user_data requests and responses
+ipcMain.on('saveUserData', (event, userData) => {
+  console.log('Renderer requested saving of user data ' + JSON.stringify(userData))
+  saveUserData(userData);
+});
+
+ipcMain.on('loadUserData', (event) => {
+  console.log('Renderer requested loading of user data');
+  event.reply('response-user-data', loadUserData());
+});
+
+ipcMain.on('deleteAllData', () => {
+  deleteAllLists();
+  deleteUserData();
+
+  initDatabase();
+  initUserData();
+
+  BrowserWindow.getAllWindows()[0].reload();
+});
+
+// statistics
 ipcMain.on('request-graph-data', (event, year) => {
   console.log('Renderer requested graph data from')
   event.reply('response-graph-data', getTasksGraphData(year))
@@ -91,35 +122,6 @@ ipcMain.on('request-annual-task-stats', (event, year) => {
 ipcMain.on('request-overall-task-stats', (event, year) => {
   console.log('Renderer requested overall task-stats')
   event.reply('response-overall-task-stats', getTaskStats(year))
-});
-
-ipcMain.on('addToList', (event, table, task) => {
-  addToList(table, task);
-});
-
-ipcMain.on('deleteFromList', (event, table, task) => {
-  deleteFromList(table, task);
-});
-
-ipcMain.on('deleteAllData', () => {
-  deleteAllLists();
-  deleteUserData();
-
-  initDatabase();
-  initUserData();
-
-  BrowserWindow.getAllWindows()[0].reload();
-});
-
-// user_data requests and responses
-ipcMain.on('saveUserData', (event, userData) => {
-  console.log('Renderer requested saving of user data ' + JSON.stringify(userData))
-  saveUserData(userData);
-});
-
-ipcMain.on('loadUserData', (event) => {
-  console.log('Renderer requested loading of user data');
-  event.reply('response-user-data', loadUserData());
 });
 
 // clearing deleted_tasks (RecycleBin) before closing app

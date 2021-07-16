@@ -12,15 +12,15 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         console.log('use effect called');
 
-        window.api.sendListRequest('request-list', 'completed_tasks');
+        window.database.sendListRequest('request-list', 'completed_tasks');
 
-        window.api.receiveListResponse('response-list', (event, list_res) => {
+        window.database.receiveListResponse('response-list', (event, list_res) => {
             console.log('completed_tasks response received from main. Length: ' + list_res.length)
             setCompletedList(list_res)
         })
 
         return () => {
-            window.api.removeAllListeners('response-list');
+            window.app.removeAllListeners('response-list');
         }
     }, [])
 

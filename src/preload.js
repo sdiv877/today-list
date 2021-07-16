@@ -2,9 +2,9 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 // Set up context bridge between the renderer process and the main process
 contextBridge.exposeInMainWorld(
-  'api',
+  'database',
   {
-    // Declare access of window to .api by using the Window interface
+    // Declare access of window to .database etc by using the ./models/Window interface
     // Then in your renderer process you may call window.sendListRequest('request-list', 'current_tasks') etc.
     sendListRequest: (channel, table) => ipcRenderer.send(channel, table),
 
@@ -12,6 +12,29 @@ contextBridge.exposeInMainWorld(
       ipcRenderer.on(channel, func);
     },
 
+    addToList: (table, task) => ipcRenderer.send('addToList', table, task),
+    deleteFromList: (table, task) => ipcRenderer.send('deleteFromList', table, task),
+  }
+);
+
+contextBridge.exposeInMainWorld(
+  'user_data',
+  {
+    saveUserData: (userData) => ipcRenderer.send('saveUserData', userData),
+
+    sendUserDataRequest: () => ipcRenderer.send('loadUserData'),
+
+    receiveUserDataResponse: (channel, func) => {
+      ipcRenderer.on(channel, func)
+    },
+
+    deleteAllData: () => ipcRenderer.send('deleteAllData'),
+  }
+);
+
+contextBridge.exposeInMainWorld(
+  'statistics',
+  {
     sendGraphDataRequest: (channel, year) => ipcRenderer.send(channel, year),
 
     receiveGraphDataResponse: (channel, func) => {
@@ -27,23 +50,15 @@ contextBridge.exposeInMainWorld(
     receiveTaskStatsResponse: (channel, func) => {
       ipcRenderer.on(channel, func)
     },
+  }
+)
 
-    addToList: (table, task) => ipcRenderer.send('addToList', table, task),
-    deleteFromList: (table, task) => ipcRenderer.send('deleteFromList', table, task),
-
-    saveUserData: (userData) => ipcRenderer.send('saveUserData', userData),
-
-    sendUserDataRequest: () => ipcRenderer.send('loadUserData'),
-
-    receiveUserDataResponse: (channel, func) => {
-      ipcRenderer.on(channel, func)
-    },
-
-    deleteAllData: () => ipcRenderer.send('deleteAllData'),
-
+contextBridge.exposeInMainWorld(
+  'app',
+  {
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
       console.log('Attempted to remove listeners from: ' + channel);
     },
   }
-)
+);
