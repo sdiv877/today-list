@@ -30,8 +30,9 @@ From here if you would like to create an installer/packaged zip run:
 
 `> npm run make`  
 
-**It is recommended to changed the `DEBUG` variable in `today-list/src/utils/debug.ts` to `false` before creating an installer**, to avoid unnecessary console logging during runtime.  
-The files will be created in the root of the repo in a folder called 'out' (today-list/out).  
+It is recommended to changed the `DEBUG` variable in [`today-list/src/utils/debug.ts`](https://github.com/sdiv877/today-list/blob/main/src/utils/debug.ts) to `false` before creating an installer, to avoid unnecessary console logging during runtime.  
+
+The files will be created in the root of the repo in a folder called 'out' (`today-list/out`).  
 
 ## Sample Images
 ![Current Tasks Image](https://i.imgur.com/vgz2Lv7.png)  
