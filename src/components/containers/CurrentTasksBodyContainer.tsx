@@ -1,4 +1,5 @@
 import React from 'react';
+import { consoleLog } from '../../utils/logging'
 
 import CurrentTasksDisplay from '../task_cards/CurrentTasksDisplay';
 import AddTasksFab from '../buttons/AddTasksFab';
@@ -15,12 +16,12 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
 
     // Handling getting lists from db on page reload
     React.useEffect(() => {
-        console.log('use effect called');
+        consoleLog('use effect called');
 
         window.database.sendListRequest('request-list', 'current_tasks');
 
         window.database.receiveListResponse('response-list', (event, list_res) => {
-            console.log('current_tasks response received from main. Length: ' + list_res.length)
+            consoleLog('current_tasks response received from main. Length: ' + list_res.length)
             setCurrentList(list_res)
         })
 

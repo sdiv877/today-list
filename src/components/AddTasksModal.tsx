@@ -62,7 +62,6 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
 
     // Enter key handler
     function handleKeyPress(event: React.KeyboardEvent) {
-        console.log('h');
 
         if (event.key === 'Enter') {
             handleAdd()

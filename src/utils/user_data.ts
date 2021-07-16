@@ -1,5 +1,7 @@
 import { existsSync, writeFileSync, readFileSync, unlinkSync } from 'fs';
 
+import { consoleLog } from '../utils/logging'
+
 import UserData from '../models/UserData'
 
 const filePath = './user_data.json';
@@ -10,7 +12,7 @@ export function initUserData(): void {
 
     if (!existsSync(filePath)) {
         writeFileSync(filePath, JSON.stringify(initialUserData), 'utf8');
-        console.log('Initialised user data')
+        consoleLog('Initialised user data')
     }
 }
 

@@ -1,5 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
+import { consoleLog } from './utils/logging'
+
 // Set up context bridge between the renderer process and the main process
 contextBridge.exposeInMainWorld(
   'database',
@@ -58,7 +60,7 @@ contextBridge.exposeInMainWorld(
   {
     removeAllListeners: (channel) => {
       ipcRenderer.removeAllListeners(channel);
-      console.log('Attempted to remove listeners from: ' + channel);
+      consoleLog('Attempted to remove listeners from: ' + channel);
     },
   }
 );

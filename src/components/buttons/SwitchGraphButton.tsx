@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-
+import { consoleLog } from '../../utils/logging'
 import { Button } from '@material-ui/core';
 
 // Props types
@@ -14,7 +14,7 @@ const SwitchGraphButton: FC<SwitchGraphButtonProps> = (props): JSX.Element => {
     const [disabled, setDisabled] = React.useState(false);
 
     React.useEffect(() => {
-        console.log('button use effect called');
+        consoleLog('button use effect called');
 
         if (props.label === 'prev') {
             // If the year === the respective value of range for the button

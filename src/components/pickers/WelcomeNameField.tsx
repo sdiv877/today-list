@@ -1,4 +1,5 @@
 import React from 'react';
+import { consoleLog } from '../../utils/logging'
 import { Typography, makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles(() => ({
@@ -19,12 +20,12 @@ const WelcomeNameField: React.VoidFunctionComponent = () => {
     const [username, setUsername] = React.useState('')
 
     React.useEffect(() => {
-        console.log('use effect called');
+        consoleLog('use effect called');
 
         window.user_data.sendUserDataRequest();
 
         window.user_data.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
-            console.log('User data response received from main: ' + JSON.stringify(user_data_res));
+            consoleLog('User data response received from main: ' + JSON.stringify(user_data_res));
             setUsername(user_data_res.username);
         })
 

@@ -1,7 +1,8 @@
 import React from 'react';
+import { consoleLog } from '../../utils/logging';
 
-import SettingsCard from '../cards/SettingsCard'
-import SettingsNameField from '../pickers/SettingsNameField'
+import SettingsCard from '../cards/SettingsCard';
+import SettingsNameField from '../pickers/SettingsNameField';
 import SettingsColourPickerDisplay from '../pickers/SettingsColourPickerDisplay';
 import SettingsColourPicker from '../pickers/SettingsColourPicker';
 import SettingsDeleteButton from '../buttons/SettingsDeleteButton';
@@ -20,13 +21,13 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     const [show, setShow] = React.useState(false);
 
     React.useEffect(() => {
-        console.log('use effect called');
+        consoleLog('use effect called');
 
         window.user_data.sendUserDataRequest();
 
         // Initial values for background and username fields to display
         window.user_data.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
-            console.log('User data response received from main: ' + JSON.stringify(user_data_res));
+            consoleLog('User data response received from main: ' + JSON.stringify(user_data_res));
             setUsername(user_data_res.username);
             setBgColour(user_data_res.bg_colour);
         })

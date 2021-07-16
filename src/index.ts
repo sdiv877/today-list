@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 
+import { consoleLog } from './utils/logging'
 import { initDatabase, loadList, addToList, deleteFromList, clearList, deleteAllLists } from './utils/sqlite';
 import { initUserData, loadUserData, saveUserData, deleteUserData } from './utils/user_data';
 import { getGraphYearRange, getTasksGraphData, getTaskStats } from './utils/statistics';
@@ -70,7 +71,7 @@ app.on('activate', () => {
 
 // db requests and responses
 ipcMain.on('request-list', (event, table) => {
-  console.log('Renderer requested list from: ' + table)
+  consoleLog('Renderer requested list from: ' + table)
   event.reply('response-list', loadList(table))
 })
 
@@ -84,12 +85,12 @@ ipcMain.on('deleteFromList', (event, table, task) => {
 
 // user_data requests and responses
 ipcMain.on('saveUserData', (event, userData) => {
-  console.log('Renderer requested saving of user data ' + JSON.stringify(userData))
+  consoleLog('Renderer requested saving of user data ' + JSON.stringify(userData))
   saveUserData(userData);
 });
 
 ipcMain.on('loadUserData', (event) => {
-  console.log('Renderer requested loading of user data');
+  consoleLog('Renderer requested loading of user data');
   event.reply('response-user-data', loadUserData());
 });
 
@@ -105,22 +106,22 @@ ipcMain.on('deleteAllData', () => {
 
 // statistics
 ipcMain.on('request-graph-data', (event, year) => {
-  console.log('Renderer requested graph data from')
+  consoleLog('Renderer requested graph data from')
   event.reply('response-graph-data', getTasksGraphData(year))
 });
 
 ipcMain.on('request-graph-range', (event) => {
-  console.log('Renderer requested graph range')
+  consoleLog('Renderer requested graph range')
   event.reply('response-graph-range', getGraphYearRange())
 });
 
 ipcMain.on('request-annual-task-stats', (event, year) => {
-  console.log('Renderer requested annual task-stats')
+  consoleLog('Renderer requested annual task-stats')
   event.reply('response-annual-task-stats', getTaskStats(year))
 });
 
 ipcMain.on('request-overall-task-stats', (event, year) => {
-  console.log('Renderer requested overall task-stats')
+  consoleLog('Renderer requested overall task-stats')
   event.reply('response-overall-task-stats', getTaskStats(year))
 });
 

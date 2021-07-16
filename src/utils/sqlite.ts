@@ -1,11 +1,18 @@
 import Database = require('better-sqlite3')
 
+import { DEBUG } from './logging'
 import Task from '../models/Task'
 
 export function connectToDatabase(): Database.Database {
 
-    const db = new Database('tasks.db', { verbose: console.log });
-    return db;
+    if (DEBUG) {
+        const db = new Database('tasks.db', { verbose: console.log });
+        return db;
+        
+    } else {
+        const db = new Database('tasks.db');
+        return db;
+    }
 }
 
 export function initDatabase(): void {

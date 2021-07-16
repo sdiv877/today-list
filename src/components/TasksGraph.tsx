@@ -1,4 +1,5 @@
 import React, {FC} from 'react'
+import { consoleLog } from '../utils/logging';
 import { BarChart, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts'
 import { Card, Divider } from '@material-ui/core';
 
@@ -21,13 +22,13 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
 
     // Handling getting graph-data from db on page reload
     React.useEffect(() => {
-        console.log('use effect called');
+        consoleLog('use effect called');
 
         // Get the graph data for the current year
         window.statistics.sendGraphDataRequest('request-graph-data', props.year);
 
         window.statistics.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
-            console.log('Graph data response received from main')
+            consoleLog('Graph data response received from main')
             setGraphData(graph_data_res);
         })
 
@@ -36,8 +37,8 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
         window.statistics.sendGraphDataRequest('request-graph-range', props.year);
 
         window.statistics.receiveGraphRangeResponse('response-graph-range', (event, graph_range_res) => {
-            console.log('Graph year range response received from main')
-            console.log(graph_range_res);
+            consoleLog('Graph year range response received from main')
+            consoleLog(graph_range_res);
             setGraphRange(graph_range_res);
         })
 
@@ -56,7 +57,7 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
         window.statistics.sendGraphDataRequest('request-graph-data', year);
 
         window.statistics.receiveGraphDataResponse('response-graph-data', (event, graph_data_res) => {
-            console.log('Graph data response received from main')
+            consoleLog('Graph data response received from main')
 
             // And set the react state to reflect this change in year
             setGraphData(graph_data_res);

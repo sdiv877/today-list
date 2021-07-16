@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { consoleLog } from '../../utils/logging'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import RecoverableTaskCard from './RecoverableTaskCard';
@@ -24,7 +25,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         // Add it to current_tasks (takes care of db state)
         window.database.addToList('current_tasks', task);
 
-        console.log('Item added to current_tasks, key ' + task.id);
+        consoleLog('Item added to current_tasks, key ' + task.id);
     }
 
     // Task deletion handler
@@ -40,7 +41,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         }
 
         // Update react state
-        console.log('Deleted item, key: ' + id);
+        consoleLog('Deleted item, key: ' + id);
         props.setRecoverableList(taskListCopy);
 
         // Then delete from local db

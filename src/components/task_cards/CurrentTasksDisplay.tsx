@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { consoleLog } from '../../utils/logging'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import CurrentTaskCard from './CurrentTaskCard';
@@ -23,7 +24,7 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
         // Add it to completed_tasks (takes care of db state)
         window.database.addToList('completed_tasks', task);
 
-        console.log('Item added to completed_tasks, key ' + task.id);
+        consoleLog('Item added to completed_tasks, key ' + task.id);
     }
 
     // Task deletion handler
@@ -39,7 +40,7 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
         }
 
         // Update react state
-        console.log('Deleted item, key: ' + task.id);
+        consoleLog('Deleted item, key: ' + task.id);
         props.setCurrentList(taskListCopy);
 
         // Then delete from current_tasks table in db

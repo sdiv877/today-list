@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { consoleLog } from '../../utils/logging';
 import { Card, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Create, CheckBox } from '@material-ui/icons';
 
@@ -22,7 +23,7 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
 
     // Handling getting task stats on page reload or props.year change
     React.useEffect(() => {
-        console.log('use effect called');
+        consoleLog('use effect called');
 
         if (props.title === 'Annual Stats') {
             // Get annual task stats
