@@ -1,13 +1,11 @@
 # today-list
 An Electron app for organizing your daily tasks.
 
-**This app is currently under heavy development and regular use is not recommended.**  
-
 ## Features
-* A clear UI with a modern feel (IN DEV)  
-* Organization of tasks with due dates and times (IN DEV)  
-* A statistics tracker to get an idea of your productivity (IN DEV)  
-* App colour customization (TO DO)  
+* A clear UI with a modern feel  
+* Organization of tasks with due dates and times  
+* A statistics tracker to get an idea of your productivity  
+* App colour customization  
 
 ## Technology
 * Electron
@@ -18,7 +16,7 @@ An Electron app for organizing your daily tasks.
 
 ## Installation
 ### Installer
-An installer will be provided here once development is at a suitable level.
+An installer (labelled 'Setup') as well as a zip containing the packaged app can be found on the [latest releases page](https://github.com/sdiv877/today-list/releases/tag/v1.0.0).
 
 ### Manual
 You will need Node.js installed.  
@@ -27,5 +25,6 @@ Download the repository and in the root directory run:
 `> npm install`  
 `> npm start`
 
-## Development Sample
-![Dev Sample Image](https://i.imgur.com/N319maX.png)
+## Sample Images
+![Current Tasks Image](https://i.imgur.com/vgz2Lv7.png)  
+![Statistics Image](https://i.imgur.com/LfGVyaP.png)

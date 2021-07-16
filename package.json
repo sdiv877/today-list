@@ -2,7 +2,7 @@
   "name": "today-list",
   "productName": "Today List",
   "version": "1.0.0",
-  "description": "Today List Electron App",
+  "description": "Today List",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -14,12 +14,15 @@
   "author": "sdiv877",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./assets/icon.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "today_list"
+            "name": "today_list",
+            "setupIcon": "./assets/icon.ico"
           }
         },
         {
