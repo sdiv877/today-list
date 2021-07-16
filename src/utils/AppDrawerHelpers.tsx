@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import { Create, Check, Delete, BarChart, Settings } from '@material-ui/icons';
 
-export function getIcon(iconName: string): ReactElement {
+export function getIcon(iconName: string, selected: boolean): ReactElement {
     const style = {
         fontSize: 48,
         marginLeft: "4px",
-        color: '#747983',
+        color: selected ? '#FFFFFF' : '#747983',
     };
 
     switch (iconName) {

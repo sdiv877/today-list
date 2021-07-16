@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 
-import { consoleLog } from './utils/logging'
+import { DEBUG, consoleLog } from './utils/logging'
 import { initDatabase, loadList, addToList, deleteFromList, clearList, deleteAllLists } from './utils/sqlite';
 import { initUserData, loadUserData, saveUserData, deleteUserData } from './utils/user_data';
 import { getGraphYearRange, getTasksGraphData, getTaskStats } from './utils/statistics';
@@ -41,7 +41,9 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (DEBUG) {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 // This method will be called when Electron has finished

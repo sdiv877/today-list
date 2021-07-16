@@ -13,9 +13,18 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+function getCurrentPath(): string {
+    const subDirectories = window.location.href.split('/');
+    const currentPath = '/' + subDirectories[subDirectories.length - 1];
+
+    return currentPath;
+}
+
 const AppDrawer: React.VoidFunctionComponent = () => {
 
     const classes = useStyles();
+
+    const [selected, setSelected] = React.useState(getCurrentPath())
 
     return (
         <Drawer
@@ -25,19 +34,25 @@ const AppDrawer: React.VoidFunctionComponent = () => {
             classes={{ paper: classes.paper }}
         >
             <List>
-                <AppDrawerButton label={'Current Tasks'} path={'/'} />
-                <AppDrawerButton label={'Completed Tasks'} path={'/completed'} />
-                <AppDrawerButton label={'Recycle Bin'} path={'/bin'} />
+                {/* On clicking any of the appDrawerButtons, get the currentPath (page) we're on
+                and set 'selected' to it. The button then checks if the path it links to
+                is the same as the 'selected'. If so its icon color is changed to white.*/}
 
-                <Divider orientation="horizontal" />
+                <div className="appDrawerButtons" onClick={() => setSelected(getCurrentPath())}>
+                    <AppDrawerButton label={'Current Tasks'} selected={selected} path={'/'} />
+                    <AppDrawerButton label={'Completed Tasks'} selected={selected} path={'/completed'} />
+                    <AppDrawerButton label={'Recycle Bin'} selected={selected} path={'/bin'} />
 
-                <AppDrawerButton label={'Stats'} path={'/stats'} />
+                    <Divider orientation="horizontal" />
 
-                <Divider orientation="horizontal" />
+                    <AppDrawerButton label={'Stats'} selected={selected} path={'/stats'} />
 
-                <AppDrawerButton label={'Settings'} path={'/settings'} />
+                    <Divider orientation="horizontal" />
 
-                <Divider orientation="horizontal" />
+                    <AppDrawerButton label={'Settings'} selected={selected} path={'/settings'} />
+
+                    <Divider orientation="horizontal" />
+                </div>
             </List>
         </Drawer>);
 }

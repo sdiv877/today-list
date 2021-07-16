@@ -15,16 +15,19 @@ const ButtonTooltip = withStyles(() => ({
 // Needed to let TS know explicitly what is passed from props
 interface AppDrawerButtonProps {
     label: string,
+    selected: string,
     path: string,
 }
 
 const AppDrawerButton: FC<AppDrawerButtonProps> = (props): JSX.Element => {
 
     return (<ButtonTooltip title={props.label} arrow placement="right">
-        <ListItem button component={Link} to={props.path} replace >
+        <ListItem button disableRipple component={Link} to={props.path} replace >
+
             <ListItemIcon>
-                {getIcon(props.label)}
+                {getIcon(props.label, props.selected === props.path)}
             </ListItemIcon>
+
         </ListItem>
     </ButtonTooltip>);
 }
