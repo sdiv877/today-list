@@ -112,6 +112,9 @@ ipcMain.on('deleteAllData', () => {
 
   } else {
     BrowserWindow.getAllWindows()[0].reload();
+    
+    initUserData();
+    initDatabase();
   }
 });
 

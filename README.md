@@ -16,14 +16,22 @@ An Electron app for organizing your daily tasks.
 
 ## Installation
 ### Installer
-An installer (labelled 'Setup') as well as a zip containing the packaged app can be found on the [latest releases page](https://github.com/sdiv877/today-list/releases/tag/v1.0.0).
+Installers are currently only available for Windows.  
+An installer (labelled 'Setup') as well as a zip containing the packaged app can be found on the [latest releases page](https://github.com/sdiv877/today-list/releases/latest).
 
 ### Manual
 You will need Node.js installed.  
 Download the repository and in the root directory run:
 
 `> npm install`  
-`> npm start`
+`> npm start`  
+
+From here if you would like to create an installer/packaged zip run:  
+
+`> npm run make`  
+
+**It is recommended to changed the `DEBUG` variable in `today-list/src/utils/debug.ts` to `false` before creating an installer**, to avoid unnecessary console logging during runtime.  
+The files will be created in the root of the repo in a folder called 'out' (today-list/out).  
 
 ## Sample Images
 ![Current Tasks Image](https://i.imgur.com/vgz2Lv7.png)  
