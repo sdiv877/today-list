@@ -8,7 +8,7 @@ const filePath = './user_data.json';
 
 export function initUserData(): void {
 
-    const initialUserData: UserData = { username: '', bg_colour: '' };
+    const initialUserData: UserData = { username: '', bg_colour: '', button_colour: '' };
 
     if (!existsSync(filePath)) {
         writeFileSync(filePath, JSON.stringify(initialUserData), 'utf8');

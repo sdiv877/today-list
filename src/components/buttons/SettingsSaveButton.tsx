@@ -5,6 +5,7 @@ import '../../styles/SettingsSaveButton.css'
 
 // Props types
 interface SettingsSaveButtonProps {
+    buttonColour: string,
     submitUserData: () => void,
     disabled: boolean,
     setDisabled: (disabled: boolean) => void,
@@ -19,7 +20,7 @@ const SettingsSaveButton: FC<SettingsSaveButtonProps> = (props): JSX.Element => 
 
     return (
         <div className="settingsSaveButton">
-            <Button variant='contained' color='primary' disabled={props.disabled} onClick={handleClick}>
+            <Button style={{ backgroundColor: props.buttonColour, color: 'white' }} variant='contained' disabled={props.disabled} onClick={handleClick}>
                 Save
             </Button>
         </div>

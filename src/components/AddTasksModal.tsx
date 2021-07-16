@@ -15,6 +15,7 @@ interface AddTasksModalProps {
     setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>,
     show: boolean,
     setShow: (show: boolean) => void,
+    buttonColour: string,
 }
 
 const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
@@ -127,7 +128,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
                     <Button onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant='contained' color='primary' onClick={handleAdd}>
+                    <Button variant='contained' style={{ backgroundColor: props.buttonColour, color: 'white' }} onClick={handleAdd}>
                         Submit
                     </Button>
                 </DialogActions>

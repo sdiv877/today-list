@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 import { GithubPicker, ColorResult } from 'react-color'
+import { bgColours as background_colours, getButtonColour } from '../../utils/SettingsHelpers';
 
 import '../../styles/SettingsColourPicker.css'
 
 //Props types
 interface SettingsColourPickerProps {
+    bgColour: string,
     setBgColour: React.Dispatch<React.SetStateAction<string>>,
+    setButtonColour: React.Dispatch<React.SetStateAction<string>>,
     setDisplayColour: React.Dispatch<React.SetStateAction<string>>,
     saveDisabled: boolean,
     setSaveDisabled: (disabled: boolean) => void,
@@ -19,6 +22,7 @@ const SettingsColourPicker: FC<SettingsColourPickerProps> = (props): JSX.Element
     // Run when a swatch is left clicked
     function handleChange(colour: ColorResult) {
         props.setBgColour(colour.hex);
+        props.setButtonColour(getButtonColour(colour.hex))
         props.setDisplayColour(colour.hex);
         props.setSaveDisabled(false);
 
@@ -29,15 +33,19 @@ const SettingsColourPicker: FC<SettingsColourPickerProps> = (props): JSX.Element
     // If we hover a swatch, change the bg colour
     function handleMouseHover(colour: ColorResult) {
 
-        props.setDisplayColour(colour.hex)
+        if (!leftClicked) {
+            props.setDisplayColour(colour.hex);
+            props.setButtonColour(getButtonColour(colour.hex));
+        }
     }
 
     // If we leave the button and haven't left clicked, turn off display colour
     function handleMouseLeave() {
 
-        // If the left button was clicked on a swatch, don't change display back to transparent
+        // If the left button wasn'y clicked on a swatch, change display back to transparent
         if (!leftClicked) {
             props.setDisplayColour('transparent')
+            props.setButtonColour(getButtonColour(props.bgColour));
         }
     }
 
@@ -54,7 +62,7 @@ const SettingsColourPicker: FC<SettingsColourPickerProps> = (props): JSX.Element
             <GithubPicker
                 className="center"
                 triangle='hide'
-                colors={['#ffffff', '#d27676', '#e49576', '#f2bdca', '#f4dc76', '#76bc77', '#76abb1', '#7fafe5', '#769cde', '#9f76ec']}
+                colors={background_colours}
                 onChange={handleChange}
                 onSwatchHover={handleMouseHover}
                 width={'27.9%'}

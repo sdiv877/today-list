@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 // Props types
 interface AddTasksFabProps {
     setShow: (show: boolean) => void,
+    buttonColour: string,
 }
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +24,7 @@ const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {
     const classes = useStyles();
 
     return (
-        <Fab color="primary" aria-label="add" className={classes.root} onClick={() => { props.setShow(true) }}>
+        <Fab color="primary" aria-label="add" className={classes.root} style={{ backgroundColor: props.buttonColour }} onClick={() => { props.setShow(true) }}>
             <AddIcon />
         </Fab>);
 }

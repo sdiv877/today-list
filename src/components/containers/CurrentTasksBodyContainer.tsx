@@ -13,11 +13,13 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
 
     // AddTasksFab and AddTasksModal states
     const [show, setShow] = React.useState(false);
+    const [buttonColour, setButtonColour] = React.useState('transparent');
 
     // Handling getting lists from db on page reload
     React.useEffect(() => {
         consoleLog('use effect called');
 
+        // Getting current_tasks table
         window.database.sendListRequest('request-list', 'current_tasks');
 
         window.database.receiveListResponse('response-list', (event, list_res) => {
@@ -25,8 +27,21 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
             setCurrentList(list_res)
         })
 
+        // Getting button colour info
+        window.user_data.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
+            consoleLog('User data response received from main: ' + JSON.stringify(user_data_res));
+
+            if (user_data_res.button_colour === '') {
+                setButtonColour('#1976d2')
+            } else {
+                setButtonColour(user_data_res.button_colour);
+            }
+        })
+
+
         return () => {
             window.app.removeAllListeners('response-list');
+            window.app.removeAllListeners('response-user-data');
         }
     }, [])
 
@@ -34,8 +49,8 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
         <div className="CurrentTasksBodyContainer">
 
             <CurrentTasksDisplay currentList={currentList} setCurrentList={setCurrentList} />
-            <AddTasksFab setShow={setShow} />
-            <AddTasksModal currentList={currentList} setCurrentList={setCurrentList} show={show} setShow={setShow} />
+            <AddTasksFab setShow={setShow} buttonColour={buttonColour} />
+            <AddTasksModal currentList={currentList} setCurrentList={setCurrentList} show={show} setShow={setShow} buttonColour={buttonColour} />
 
         </div>);
 }
