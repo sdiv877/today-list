@@ -6,7 +6,7 @@ import { AccountCircle } from '@material-ui/icons';
 interface SettingsNameFieldProps {
     username: string,
     setUsername: React.Dispatch<React.SetStateAction<string>>,
-    setDisabled: (disabled: boolean) => void,
+    setSaveDisabled: (disabled: boolean) => void,
 }
 
 
@@ -30,7 +30,7 @@ const SettingsNameField: FC<SettingsNameFieldProps> = (props): JSX.Element => {
 
                 onChange={(event) => {
                     props.setUsername(event.target.value);
-                    props.setDisabled(false);
+                    props.setSaveDisabled(false);
                 }}
             />
         </div>);

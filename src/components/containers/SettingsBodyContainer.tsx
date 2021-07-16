@@ -2,6 +2,7 @@ import React from 'react';
 
 import SettingsCard from '../cards/SettingsCard'
 import SettingsNameField from '../pickers/SettingsNameField'
+import SettingsColourPickerDisplay from '../pickers/SettingsColourPickerDisplay';
 import SettingsColourPicker from '../pickers/SettingsColourPicker';
 import SettingsDeleteButton from '../buttons/SettingsDeleteButton';
 import SettingsSaveButton from '../buttons/SettingsSaveButton';
@@ -14,7 +15,8 @@ import '../../styles/fadeIn.css'
 const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     const [username, setUsername] = React.useState('');
     const [bgColour, setBgColour] = React.useState('');
-    const [disabled, setDisabled] = React.useState(true);
+    const [displayColour, setDisplayColour] = React.useState('transparent');
+    const [saveDisabled, setSaveDisabled] = React.useState(true);
     const [show, setShow] = React.useState(false);
 
     React.useEffect(() => {
@@ -22,6 +24,7 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
 
         window.user_data.sendUserDataRequest();
 
+        // Initial values for background and username fields to display
         window.user_data.receiveUserDataResponse('response-user-data', (event, user_data_res) => {
             console.log('User data response received from main: ' + JSON.stringify(user_data_res));
             setUsername(user_data_res.username);
@@ -45,11 +48,13 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
 
     return (
         < div className="SettingsBodyContainer" >
+            <SettingsColourPickerDisplay colour={displayColour} />
+
             <div className="fadeIn">
-                <SettingsCard title={'User Profile'} component={<SettingsNameField username={username} setUsername={setUsername} setDisabled={setDisabled} />} />
-                <SettingsCard title={'Appearance'} component={<SettingsColourPicker setBgColour={setBgColour} setDisabled={setDisabled} />} />
+                <SettingsCard title={'User Profile'} component={<SettingsNameField username={username} setUsername={setUsername} setSaveDisabled={setSaveDisabled} />} />
+                <SettingsCard title={'Appearance'} component={<SettingsColourPicker setBgColour={setBgColour} setDisplayColour={setDisplayColour} saveDisabled={saveDisabled} setSaveDisabled={setSaveDisabled} />} />
                 <SettingsCard title={'Data'} component={<SettingsDeleteButton show={show} setShow={setShow} />} />
-                <SettingsSaveButton submitUserData={submitUserData} disabled={disabled} setDisabled={setDisabled} />
+                <SettingsSaveButton submitUserData={submitUserData} disabled={saveDisabled} setDisabled={setSaveDisabled} />
 
                 <DeleteDataModal show={show} setShow={setShow} />
             </div>

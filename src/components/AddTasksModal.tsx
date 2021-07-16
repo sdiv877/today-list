@@ -36,7 +36,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
 
         // Scroll to the bottom of the page so the user can see their new task
         // 500ms is the time for a card's fade transition
-        setTimeout(() => { handleScroll() }, 500);
+        setTimeout(() => { handleScroll() }, 100);
     }
 
     // Tracking icon selected
