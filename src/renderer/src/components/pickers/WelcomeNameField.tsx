@@ -1,6 +1,6 @@
 import React from 'react';
-import '@fontsource/montserrat/500.css';
 import { Typography, makeStyles } from '@material-ui/core';
+import '@fontsource/montserrat/500.css';
 
 import { LOG } from '../../../../common/utils/debug';
 

@@ -1,6 +1,6 @@
-import '@fontsource/montserrat/500.css';
 import React, { FC } from 'react';
 import { Card, Typography, makeStyles } from '@material-ui/core';
+import '@fontsource/montserrat/500.css';
 
 const useStyles = makeStyles(() => ({
   card: {
