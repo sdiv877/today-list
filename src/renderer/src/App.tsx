@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { IpcEvents } from '../../common/ipc-events';
 
 import AppDrawer from './components/AppDrawer';
 import CompletedTasks from './pages/CompletedTasks';
@@ -10,7 +11,6 @@ import Settings from './pages/Settings';
 import Stats from './pages/Stats';
 
 import './styles/App.css';
-
 
 ReactDOM.render(
   <div className="App">
@@ -31,3 +31,6 @@ ReactDOM.render(
   </div>,
   document.getElementById('root')
 );
+
+window.ipcRendererManager.sendReadySignal();
+window.ipcRendererManager.send(IpcEvents.REQ_TEST);
