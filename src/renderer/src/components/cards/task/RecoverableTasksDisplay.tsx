@@ -24,7 +24,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         // Delete it from React:recoverableList and db:deleted_tasks
         handleDeleteTask(task.id);
         // Add it to db:current_tasks
-        window.database.addToTable('current_tasks', task);
+        // window.database.addToTable('current_tasks', task);
         LOG('Item added to current_tasks, key ' + task.id);
     }
 
@@ -45,7 +45,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (props): JSX.E
         LOG('Deleted task, id: ' + id);
         props.setRecoverableList(taskListCopy);
         // Then delete the task from the local db
-        window.database.deleteFromTable(props.table, id);
+        // window.database.deleteFromTable(props.table, id);
     }
 
     /** 

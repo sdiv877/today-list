@@ -48,7 +48,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
         taskListCopy = sortTaskList(taskListCopy) as ApiTask[]; // TODO: remove 'as'
         props.setCurrentList(taskListCopy);
         // and add the tasks to the db
-        window.database.addToTable('current_tasks', newTask)
+        // window.database.addToTable('current_tasks', newTask)
         // scroll to the bottom of the page so the user can see their new task
         // 500ms is the time for a card's fade transition
         setTimeout(() => { scrollToBottom() }, 100);
@@ -64,11 +64,11 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     }
 
     function scrollToBottom() {
-        window.scroll({
-            top: document.body.scrollHeight,
-            left: 0,
-            behavior: 'smooth',
-        });
+        // window.scroll({
+        //     top: document.body.scrollHeight,
+        //     left: 0,
+        //     behavior: 'smooth',
+        // });
     }
 
     /**

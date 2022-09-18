@@ -24,23 +24,23 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
     React.useEffect(() => {
         LOG('StatsCard useEffect() called');
 
-        if (props.title === 'Annual Stats') {
-            // get annual task stats
-            window.statistics.getAnnualTaskStats((event, task_stats_res) => {
-                setStats(task_stats_res);
-            })
-        } else {
-            // get the overall task stats
-            window.statistics.getOverallTaskStats((event, task_stats_res) => {
-                setStats(task_stats_res);
-            })
-        }
+        // if (props.title === 'Annual Stats') {
+        //     // get annual task stats
+        //     window.statistics.getAnnualTaskStats((event, task_stats_res) => {
+        //         setStats(task_stats_res);
+        //     })
+        // } else {
+        //     // get the overall task stats
+        //     window.statistics.getOverallTaskStats((event, task_stats_res) => {
+        //         setStats(task_stats_res);
+        //     })
+        // }
 
-        // remove listeners when component unmounts
-        return () => {
-            window.app.removeAllListeners('response-annual-task-stats');
-            window.app.removeAllListeners('response-overall-task-stats');
-        }
+        // // remove listeners when component unmounts
+        // return () => {
+        //     window.app.removeAllListeners('response-annual-task-stats');
+        //     window.app.removeAllListeners('response-overall-task-stats');
+        // }
     }, [props.year])
 
     return (
@@ -63,7 +63,7 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
                         </ListItemIcon>
                         <ListItemText primary={"Tasks completed: " + stats.totalCompleted} />
                     </ListItem>
-                    <MostProductiveStat title={props.title} text={stats.mostProductiveYear.toString()} value={stats.mostProductiveCount} />
+                    <MostProductiveStat title={props.title} text={"MISSING API CALL stats.mostProductiveYear()"} value={stats.mostProductiveCount} />
                 </List>
             </div>
         </Card>

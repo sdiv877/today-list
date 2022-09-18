@@ -22,7 +22,7 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
         // Delete it from currentList but don't add it to db:deleted_tasks (takes care of react state)
         handleDeleteTask(task, false);
         // Add it to completed_tasks (takes care of db state)
-        window.database.addToTable('completed_tasks', task);
+        // window.database.addToTable('completed_tasks', task);
         LOG('Item added to completed_tasks, key ' + task.id);
     }
 
@@ -45,12 +45,12 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
         LOG('Deleted item, key: ' + task.id);
         props.setCurrentList(taskListCopy);
         // Then delete from current_tasks table in db
-        window.database.deleteFromTable('current_tasks', task.id);
-        // Needed as we only add the task to deleted_tasks if the delete button is clicked.
-        // If complete is clicked, we only change the react state. The db stays the same. 
-        if (deleteFromDb) {
-            window.database.addToTable('deleted_tasks', task)
-        }
+        // window.database.deleteFromTable('current_tasks', task.id);
+        // // Needed as we only add the task to deleted_tasks if the delete button is clicked.
+        // // If complete is clicked, we only change the react state. The db stays the same. 
+        // if (deleteFromDb) {
+        //     window.database.addToTable('deleted_tasks', task)
+        // }
     }
 
     const cardList = props.currentList.map((task) => (

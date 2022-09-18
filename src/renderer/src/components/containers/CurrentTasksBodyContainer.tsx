@@ -21,25 +21,25 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
         LOG('CurrentTasksBodyContainer useEffect() called');
 
         // Getting current_tasks table
-        window.database.sendTableRequest('request-list', 'current_tasks');
-        window.database.receiveTableResponse('response-list', (event, list_res) => {
-            LOG('current_tasks response received from main. Length: ' + list_res.length)
-            setCurrentList(sortTaskList(list_res) as Task[]) // TODO: remove 'as'
-        })
+        // window.database.sendTableRequest('request-list', 'current_tasks');
+        // window.database.receiveTableResponse('response-list', (event, list_res) => {
+        //     LOG('current_tasks response received from main. Length: ' + list_res.length)
+        //     setCurrentList(sortTaskList(list_res) as Task[]) // TODO: remove 'as'
+        // })
         // getting button colour info
-        window.user_data.receiveUserSettingsResponse('response-user-data', (event, user_data_res) => {
-            LOG('User data response received from main: ' + JSON.stringify(user_data_res));
+        // window.user_data.receiveUserSettingsResponse('response-user-data', (event, user_data_res) => {
+        //     LOG('User data response received from main: ' + JSON.stringify(user_data_res));
 
-            if (user_data_res.button_colour === '') {
-                setButtonColour('#1976d2')
-            } else {
-                setButtonColour(user_data_res.button_colour);
-            }
-        })
-        return () => {
-            window.app.removeAllListeners('response-list');
-            window.app.removeAllListeners('response-user-data');
-        }
+        //     if (user_data_res.button_colour === '') {
+        //         setButtonColour('#1976d2')
+        //     } else {
+        //         setButtonColour(user_data_res.button_colour);
+        //     }
+        // })
+        // return () => {
+        //     window.app.removeAllListeners('response-list');
+        //     window.app.removeAllListeners('response-user-data');
+        // }
     }, [])
 
     return (

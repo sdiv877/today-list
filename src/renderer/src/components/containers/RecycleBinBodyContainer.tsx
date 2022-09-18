@@ -15,15 +15,15 @@ const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
     React.useEffect(() => {
         LOG('RecycleBinBodyContainer useEffect() called');
 
-        window.database.sendTableRequest('request-list', 'deleted_tasks');
+        // window.database.sendTableRequest('request-list', 'deleted_tasks');
 
-        window.database.receiveTableResponse('response-list', (event, list_res) => {
-            LOG('deleted_tasks response received from main. Length: ' + list_res.length)
-            setDeletedList(sortTaskList(list_res) as Task []) // TODO: remove 'as'
-        })
-        return () => {
-            window.app.removeAllListeners('response-list');
-        }
+        // window.database.receiveTableResponse('response-list', (event, list_res) => {
+        //     LOG('deleted_tasks response received from main. Length: ' + list_res.length)
+        //     setDeletedList(sortTaskList(list_res) as Task []) // TODO: remove 'as'
+        // })
+        // return () => {
+        //     window.app.removeAllListeners('response-list');
+        // }
     }, [])
 
     return (

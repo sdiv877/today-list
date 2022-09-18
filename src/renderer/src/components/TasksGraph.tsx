@@ -21,45 +21,45 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
     const [graphRange, setGraphRange] = React.useState([new Date().getFullYear(), new Date().getFullYear()]);
 
     // Handling getting graph-data from db on page reload
-    React.useEffect(() => {
-        LOG('TasksGraph useEffect() called');
-        // get the graph data for the current year
-        window.statistics.getGraphData((event, graph_data_res) => {
-            LOG('Graph data response received from main')
-            setGraphData(graph_data_res);
-        })
+    // React.useEffect(() => {
+    //     LOG('TasksGraph useEffect() called');
+    //     // get the graph data for the current year
+    //     window.statistics.getGraphData((event, graph_data_res) => {
+    //         LOG('Graph data response received from main')
+    //         setGraphData(graph_data_res);
+    //     })
 
-        // Get the graph range (min and max year) to decide how many pages we need
-        window.statistics.getGraphRange((event, graph_range_res) => {
-            LOG('Graph year range response received from main')
-            LOG(graph_range_res);
-            setGraphRange(graph_range_res);
-        })
+    //     // Get the graph range (min and max year) to decide how many pages we need
+    //     window.statistics.getGraphRange((event, graph_range_res) => {
+    //         LOG('Graph year range response received from main')
+    //         LOG(graph_range_res);
+    //         setGraphRange(graph_range_res);
+    //     })
 
-        // Remove listeners when component unmounts
-        return () => {
-            window.app.removeAllListeners('response-graph-data');
-            window.app.removeAllListeners('response-graph-range');
-        }
-    }, [])
+    //     // Remove listeners when component unmounts
+    //     return () => {
+    //         window.app.removeAllListeners('response-graph-data');
+    //         window.app.removeAllListeners('response-graph-range');
+    //     }
+    // }, [])
 
     function handleSetYear(year: number) {
         // set the year
         props.setYear(year);
         // then request the new data that needs to be displayed for it
-        window.statistics.getGraphData((event, graph_data_res) => {
-            LOG('Graph data response received from main')
-            // and set the react state to reflect these changes
-            setGraphData(graph_data_res);
-            // synchronously removeAllListeners
-            window.app.removeAllListeners('response-graph-data');
-        })
+        // window.statistics.getGraphData((event, graph_data_res) => {
+        //     LOG('Graph data response received from main')
+        //     // and set the react state to reflect these changes
+        //     setGraphData(graph_data_res);
+        //     // synchronously removeAllListeners
+        //     window.app.removeAllListeners('response-graph-data');
+        // })
     }
 
     return (
         < Card variant='outlined' className="TasksGraph" >
             <div className="graphTitle">
-                Task completion in {props.year.toString()}
+                Task completion in {"MISSING API CALL props.year"}
             </div>
             <Divider orientation='horizontal' />
             <div className="barGraph">

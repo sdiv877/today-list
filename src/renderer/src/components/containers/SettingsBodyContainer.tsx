@@ -28,16 +28,16 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
         LOG('SettingsBodyContainer useEffect() called');
 
         // get UserSettings and set initial values for background and username fields to display
-        window.user_data.sendUserSettingsRequest();
-        window.user_data.receiveUserSettingsResponse('response-user-data', (event, user_data_res) => {
-            LOG('User data response received from main: ' + JSON.stringify(user_data_res));
-            setUsername(user_data_res.username);
-            setBgColour(user_data_res.bg_colour);
-            setButtonColour(user_data_res.button_colour)
-        })
-        return () => {
-            window.app.removeAllListeners('response-user-data');
-        }
+        // window.user_data.sendUserSettingsRequest();
+        // window.user_data.receiveUserSettingsResponse('response-user-data', (event, user_data_res) => {
+        //     LOG('User data response received from main: ' + JSON.stringify(user_data_res));
+        //     setUsername(user_data_res.username);
+        //     setBgColour(user_data_res.bg_colour);
+        //     setButtonColour(user_data_res.button_colour)
+        // })
+        // return () => {
+        //     window.app.removeAllListeners('response-user-data');
+        // }
     }, [])
 
     function submitUserData() {
@@ -50,7 +50,7 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
         // change the colour to what was chosen for the current session
         document.querySelector('body').style.backgroundColor = bgColour;
         // save the colour so that it is remembered on the next app startup
-        window.user_data.saveUserSettings(userData);
+        // window.user_data.saveUserSettings(userData);
     }
 
     return (
