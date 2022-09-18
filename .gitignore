@@ -87,7 +87,3 @@ typings/
 
 # Electron-Forge
 out/
-
-# today-list
-tasks.db
-user_data.json
