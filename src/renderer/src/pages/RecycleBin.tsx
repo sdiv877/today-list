@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import RecycleBinHeaderContainer from "../components/containers/RecycleBinHeaderContainer";
-import RecycleBinBodyContainer from "../components/containers/RecycleBinBodyContainer";
+import RecycleBinBodyContainer from '../components/containers/RecycleBinBodyContainer';
+import RecycleBinHeaderContainer from '../components/containers/RecycleBinHeaderContainer';
 
 /**
  * /bin

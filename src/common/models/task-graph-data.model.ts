@@ -1,5 +1,5 @@
 /**
- * Specifies the values across every recorded year of Tasks for display in TaskGraph.tsx.
+ * Describes the values across every recorded year of Tasks for display in TaskGraph.tsx.
  */
 interface TaskGraphData {
   years: number[];
@@ -7,7 +7,7 @@ interface TaskGraphData {
 }
 
 /**
- * Specifies the values needed for a year of data in TaskGraph.tsx.
+ * Describes the values needed for a year of data in TaskGraph.tsx.
  */
 interface TaskGraphYearData {
   year: number;
@@ -15,11 +15,11 @@ interface TaskGraphYearData {
 }
 
 /**
- * Specifies the values needed for one month of data in TaskGraph.tsx.
+ * Describes the values needed for one month of data in TaskGraph.tsx.
  */
 interface TaskGraphMonthData {
   month: number;
-  Created: number; // caps needed for graph library
+  Created: number; // caps needed for re-charts library
   Completed: number; // ""
 }
 

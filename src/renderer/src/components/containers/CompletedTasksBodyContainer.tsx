@@ -1,11 +1,8 @@
-import React from "react";
-import { LOG } from "../../../../common/utils/debug";
+import React from 'react';
 
-import RecoverableTasksDisplay from "../cards/task/RecoverableTasksDisplay";
-
-import { sortTaskList } from "../../utils/TaskDisplayHelpers";
-
-import { Task } from "../../../../common/models/Task";
+import RecoverableTasksDisplay from '../cards/task/RecoverableTasksDisplay';
+import { Task } from '../../../../common/models/task.model';
+import { LOG } from '../../../../common/utils/debug';
 
 const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
   // completedList states
@@ -13,7 +10,7 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
 
   // handle getting Tasks from db on page reload
   React.useEffect(() => {
-    LOG("CompletedTasksBodyContainer useEffect() called");
+    LOG('CompletedTasksBodyContainer useEffect() called');
 
     // window.database.sendTableRequest("request-list", "completed_tasks");
     // window.database.receiveTableResponse("response-list", (event, list_res) => {
@@ -30,7 +27,7 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
       <RecoverableTasksDisplay
         recoverableList={completedList}
         setRecoverableList={setCompletedList}
-        table={"completed_tasks"}
+        table={'completed_tasks'}
       />
     </div>
   );

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import CompletedTasksHeaderContainer from "../components/containers/CompletedTasksHeaderContainer";
-import CompletedTasksBodyContainer from "../components/containers/CompletedTasksBodyContainer";
+import CompletedTasksBodyContainer from '../components/containers/CompletedTasksBodyContainer';
+import CompletedTasksHeaderContainer from '../components/containers/CompletedTasksHeaderContainer';
 
 /**
  * /completed

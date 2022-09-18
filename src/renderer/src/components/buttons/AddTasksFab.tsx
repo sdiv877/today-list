@@ -1,7 +1,6 @@
-import React, { FC } from "react";
-
-import { Fab, makeStyles } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import React, { FC } from 'react';
+import { Fab, makeStyles } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 // Props types
 interface AddTasksFabProps {
@@ -12,12 +11,12 @@ interface AddTasksFabProps {
 const useStyles = makeStyles(() => ({
   root: {
     margin: 0,
-    top: "auto",
-    right: "5vmin",
-    bottom: "10vmin",
-    left: "auto",
-    position: "fixed",
-  },
+    top: 'auto',
+    right: '5vmin',
+    bottom: '10vmin',
+    left: 'auto',
+    position: 'fixed'
+  }
 }));
 
 const AddTasksFab: FC<AddTasksFabProps> = (props): JSX.Element => {

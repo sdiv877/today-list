@@ -1,5 +1,5 @@
 /**
- * Specifies the stats related to user's task creation/completion.
+ * Describes the stats related to user's task creation/completion.
  */
 interface TaskStats {
   totalCreated: number;

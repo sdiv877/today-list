@@ -1,12 +1,12 @@
-import React, { FC } from "react";
-import { Button } from "@material-ui/core";
+import React, { FC } from 'react';
+import { Button } from '@material-ui/core';
 
-import "../../styles/SettingsSaveButton.css";
+import '../../styles/SettingsSaveButton.css';
 
 // Props types
 interface SettingsSaveButtonProps {
   buttonColour: string;
-  submitUserData: () => void;
+  submitUserSettings: () => void;
   disabled: boolean;
   setDisabled: (disabled: boolean) => void;
 }
@@ -15,14 +15,14 @@ const SettingsSaveButton: FC<SettingsSaveButtonProps> = (
   props
 ): JSX.Element => {
   function handleClick(): void {
-    props.submitUserData();
+    props.submitUserSettings();
     props.setDisabled(true);
   }
 
   return (
     <div className="settingsSaveButton">
       <Button
-        style={{ backgroundColor: props.buttonColour, color: "white" }}
+        style={{ backgroundColor: props.buttonColour, color: 'white' }}
         variant="contained"
         disabled={props.disabled}
         onClick={handleClick}

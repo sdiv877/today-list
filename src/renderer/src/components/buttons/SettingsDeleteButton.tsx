@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { Button } from "@material-ui/core";
+import React, { FC } from 'react';
+import { Button } from '@material-ui/core';
 
 interface SettingsDeleteButtonProps {
   show: boolean;
@@ -17,7 +17,7 @@ const SettingsDeleteButton: FC<SettingsDeleteButtonProps> = (
     <div>
       <Button
         variant="outlined"
-        style={{ color: "crimson", borderColor: "crimson", fontWeight: "bold" }}
+        style={{ color: 'crimson', borderColor: 'crimson', fontWeight: 'bold' }}
         onClick={handleClick}
       >
         Delete all data

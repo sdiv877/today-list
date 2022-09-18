@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import StatsHeaderContainer from "../components/containers/StatsHeaderContainer";
-import StatsBodyContainer from "../components/containers/StatsBodyContainer";
+import StatsBodyContainer from '../components/containers/StatsBodyContainer';
+import StatsHeaderContainer from '../components/containers/StatsHeaderContainer';
 
 /**
  * /stats

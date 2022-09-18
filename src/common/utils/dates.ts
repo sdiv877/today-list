@@ -1,31 +1,31 @@
 const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
 const WEEKDAYS = [
-  "Sunday",
-  "Monday",
-  "Tueday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
+  'Sunday',
+  'Monday',
+  'Tueday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
 ];
 
 /** ex "Due 8/07/21 at 15:00" */
 export function getTaskCardDateString(date: Date): string {
-  let taskCardDateString = "Due: " + getLogicalDateString(date);
-  taskCardDateString += " at " + getTimeString(date);
+  let taskCardDateString = 'Due: ' + getLogicalDateString(date);
+  taskCardDateString += ' at ' + getTimeString(date);
   return taskCardDateString;
 }
 
@@ -40,13 +40,13 @@ function getLogicalDateString(date: Date): string {
     date.getMonth() === currentDate.getMonth() &&
     date.getFullYear() === currentDate.getFullYear()
   ) {
-    return "Today";
+    return 'Today';
   } else if (
     date.getDate() === currentDate.getDate() + 1 &&
     date.getMonth() === currentDate.getMonth() &&
     date.getFullYear() === currentDate.getFullYear()
   ) {
-    return "Tomorrow";
+    return 'Tomorrow';
     // if the asbolute day of the month diff <= 7 and month and year are equal
   } else if (
     Math.abs(date.getDate() - currentDate.getDate()) <= 7 &&
@@ -62,13 +62,13 @@ function getLogicalDateString(date: Date): string {
 function getShortDateString(date: Date): string {
   const month =
     date.getMonth() < 9
-      ? "0" + (date.getMonth() + 1).toString()
+      ? '0' + (date.getMonth() + 1).toString()
       : (date.getMonth() + 1).toString();
   const dateString =
     date.getDate().toString() +
-    "/" +
+    '/' +
     month +
-    "/" +
+    '/' +
     date.getFullYear().toString().slice(2);
   return dateString;
 }
@@ -79,9 +79,9 @@ function getShortDateString(date: Date): string {
 function getDayDateString(date: Date): string {
   const dateString =
     getWeekdayString(date.getDay()) +
-    ", " +
+    ', ' +
     getOrdinalDayString(date.getDate()) +
-    " " +
+    ' ' +
     getMonthString(date.getMonth());
   return dateString;
 }
@@ -102,13 +102,13 @@ function getWeekdayString(day: number): string {
 function getOrdinalDayString(day: number): string {
   switch (true) {
     case day === 1 || day === 21 || day === 31:
-      return day.toString() + "st";
+      return day.toString() + 'st';
     case day === 2 || day === 22:
-      return day.toString() + "nd";
+      return day.toString() + 'nd';
     case day === 3 || day == 23:
-      return day.toString() + "rd";
+      return day.toString() + 'rd';
     default:
-      return day.toString() + "th";
+      return day.toString() + 'th';
   }
 }
 
@@ -126,11 +126,11 @@ export function getMonthString(month: number): string {
 function getTimeString(date: Date): string {
   let hoursString = date.getHours().toString();
   if (date.getHours() < 10) {
-    hoursString = "0" + hoursString.toString();
+    hoursString = '0' + hoursString.toString();
   }
   let minutesString = date.getMinutes().toString();
   if (date.getMinutes() < 10) {
-    minutesString = "0" + minutesString.toString();
+    minutesString = '0' + minutesString.toString();
   }
-  return hoursString + ":" + minutesString;
+  return hoursString + ':' + minutesString;
 }

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import SettingsHeaderContainer from "../components/containers/SettingsHeaderContainer";
-import SettingsBodyContainer from "../components/containers/SettingsBodyContainer";
+import SettingsBodyContainer from '../components/containers/SettingsBodyContainer';
+import SettingsHeaderContainer from '../components/containers/SettingsHeaderContainer';
 
 /**
  * /settings

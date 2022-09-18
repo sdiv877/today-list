@@ -1,15 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { HashRouter, Routes,Route } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
-import AppDrawer from "./components/AppDrawer";
-import CurrentTasks from "./pages/CurrentTasks";
-import Settings from "./pages/Settings";
-import CompletedTasks from "./pages/CompletedTasks";
-import RecycleBin from "./pages/RecycleBin";
-import Stats from "./pages/Stats";
+import AppDrawer from './components/AppDrawer';
+import CompletedTasks from './pages/CompletedTasks';
+import CurrentTasks from './pages/CurrentTasks';
+import RecycleBin from './pages/RecycleBin';
+import Settings from './pages/Settings';
+import Stats from './pages/Stats';
 
-import "./styles/App.css";
+import './styles/App.css';
+
 
 ReactDOM.render(
   <div className="App">
@@ -28,5 +29,5 @@ ReactDOM.render(
       </main>
     </HashRouter>
   </div>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
