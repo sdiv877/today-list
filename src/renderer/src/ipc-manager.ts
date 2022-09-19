@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * Implementation taken from https://github.com/electron/fiddle/blob/main/src/renderer/ipc.ts
+ * Implementation mostly taken from https://github.com/electron/fiddle/blob/main/src/renderer/ipc.ts
  */
 import { EventEmitter } from "events";
 import { ipcRenderer } from "electron";
@@ -11,7 +11,7 @@ import {
   WEBCONTENTS_READY_FOR_IPC_SIGNAL
 } from "../../common/ipc-events";
 
-import { LOG } from "../../common/utils/debug";
+import { LOG as _LOG } from "../../common/utils/debug";
 
 /**
  * The main purpose of this class is to be the central
@@ -35,10 +35,9 @@ class IpcRendererManager extends EventEmitter {
 
   public sendReadySignal(): void {
     if (this.readySignalSent) return;
-
     ipcRenderer.send(WEBCONTENTS_READY_FOR_IPC_SIGNAL);
     this.readySignalSent = true;
-    LOG('✌️ Renderer ready for IPC communication');
+    LOG('Ready for IPC communication!');
   }
 
   /**
@@ -61,6 +60,14 @@ class IpcRendererManager extends EventEmitter {
    */
   public invoke(channel: IpcEvents, ...args: Array<any>) {
     return ipcRenderer.invoke(channel, ...args);
+  }
+}
+
+const LOG = (msg: any, leadingNL=false) => {
+  if (leadingNL) {
+    _LOG('\n[ipcRendererManager] ' + msg);
+  } else {
+    _LOG('[ipcRendererManager] ' + msg);
   }
 }
 

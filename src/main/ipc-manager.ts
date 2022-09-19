@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * Implementation taken from https://github.com/electron/fiddle/blob/main/src/main/ipc.ts
+ * Implementation mostly taken from https://github.com/electron/fiddle/blob/main/src/main/ipc.ts
  */
 import { EventEmitter } from "events";
-import { BrowserWindow, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import { getOrCreateMainWindow } from "./main";
-import { LOG } from "../common/utils/debug";
+import { IpcListenerInitializer } from "./ipc-listeners";
+import { LOG as _LOG } from "../common/utils/debug";
 import {
   IpcEvents,
   WEBCONTENTS_READY_FOR_IPC_SIGNAL,
   ipcMainEvents
 } from "../common/ipc-events";
-
 
 /**
  * The main purpose of this class is to be the central
@@ -24,48 +24,33 @@ import {
  */
 class IpcMainManager extends EventEmitter {
   public readyWebContents = new WeakSet<Electron.WebContents>();
-  private targetWindow: BrowserWindow;
-  private messageQueue = new WeakMap<
-    Electron.WebContents,
-    Array<[IpcEvents, Array<any> | undefined]>
-  >();
+  private messageQueue = new WeakMap<Electron.WebContents, Array<[IpcEvents, Array<any> | undefined]>>();
 
   constructor() {
     super();
-
-    this.targetWindow = getOrCreateMainWindow();
 
     ipcMainEvents.forEach((name) => {
       ipcMain.removeAllListeners(name);
       ipcMain.on(name, (...args: Array<any>) => this.emit(name, ...args));
     });
 
-    LOG('Awaiting ready signal from Renderer...');
+    this.receiveRendererReadySignal();
+  }
 
-    ipcMain.on(
-      WEBCONTENTS_READY_FOR_IPC_SIGNAL,
-      (event: Electron.IpcMainEvent) => {
-        this.readyWebContents.add(event.sender);
-
-        const queue = this.messageQueue.get(event.sender);
-        this.messageQueue.delete(event.sender);
-        if (!queue) return;
-        for (const item of queue) {
-          this.send(item[0], item[1]);
-        }
-        LOG('✌️ Main ready for IPC communication');
-      }
-    );
+  public initListeners(initializers : IpcListenerInitializer[]) {
+    initializers.forEach(initializer => {
+      initializer();
+    });
   }
 
   /**
-   * Send an IPC message to this.targetWindow.
+   * Send an IPC message to the app's main_window renderer.
    *
    * @param {IpcEvents} channel
    * @param {Array<any>} [args]
    */
   public send(channel: IpcEvents, args?: Array<any>) {
-    const _target = this.targetWindow.webContents;
+    const _target = getOrCreateMainWindow().webContents;
     const _args = args || [];
     if (!this.readyWebContents.has(_target)) {
       const existing = this.messageQueue.get(_target) || [];
@@ -77,9 +62,9 @@ class IpcMainManager extends EventEmitter {
   }
 
   /**
-   * Creates a peristent listener that will fire whenever a message is 
-   * received on the specified channel. The listener itself is a function 
-   * that the Renderer may invoke with specified arguments, to yield 
+   * Creates a peristent listener that will fire whenever a message is
+   * received on the specified channel. The listener itself is a function
+   * that the Renderer may invoke with specified arguments, to yield
    * a promised result.
    * @param channel
    * @param listener
@@ -106,6 +91,31 @@ class IpcMainManager extends EventEmitter {
     listener: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any
   ) {
     ipcMain.handleOnce(channel, listener);
+  }
+
+  public LOG = (msg: any, leadingNL = false) => {
+    if (leadingNL) {
+      _LOG("\n[ipcMainManager] " + msg);
+    } else {
+      _LOG("[ipcMainManager] " + msg);
+    }
+  };
+
+  private receiveRendererReadySignal() {
+    this.LOG("Awaiting ready signal from Renderer...", true);
+    ipcMain.on(
+      WEBCONTENTS_READY_FOR_IPC_SIGNAL,
+      (event: Electron.IpcMainEvent) => {
+        ipcMainManager.readyWebContents.add(event.sender);
+        const queue = ipcMainManager.messageQueue.get(event.sender);
+        ipcMainManager.messageQueue.delete(event.sender);
+        this.LOG("Ready for IPC communication!");
+        if (!queue) return;
+        for (const item of queue) {
+          ipcMainManager.send(item[0], item[1]);
+        }
+      }
+    );
   }
 }
 

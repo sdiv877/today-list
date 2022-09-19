@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { LOG } from '../../common/utils/debug';
 import { IpcEvents } from '../../common/ipc-events';
 
 import AppDrawer from './components/AppDrawer';
