@@ -5,7 +5,7 @@ import DateTimePicker from "./pickers/DateTimePicker";
 import IconMenu from "./pickers/IconMenu";
 
 import { NewTask, TaskStatus } from "../../../common/models/task.model";
-import { TaskIconUtil } from "../utils/icon-helpers";
+import { TaskIcon, TaskIconUtil } from "../utils/icon-helpers";
 import { sortTaskList } from "../utils/task-display-helpers";
 
 import "../styles/AddTasksModal.css";
@@ -21,8 +21,8 @@ interface AddTasksModalProps {
 
 const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
   // Tracks the icon selected
-  const [selectedIcon, setSelectedIcon] = React.useState("");
-  const handleIconChange = (icon: string | null) => {
+  const [selectedIcon, setSelectedIcon] = React.useState<TaskIcon>('create');
+  const handleIconChange = (icon: TaskIcon) => {
     setSelectedIcon(icon);
   };
   // Tracks the task written
@@ -53,7 +53,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     taskListCopy = sortTaskList(taskListCopy) as NewTask[]; // TODO: remove 'as'
     props.setCurrentList(taskListCopy);
     // and add the tasks to the db
-    // window.database.addToTable('current_tasks', newTask)
+    window.api.task.create(newTask);
     // scroll to the bottom of the page so the user can see their new task
     // 500ms is the time for a card's fade transition
     setTimeout(() => {
@@ -82,7 +82,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
    * Clears states of all input fields.
    */
   function clearStates() {
-    setSelectedIcon("");
+    setSelectedIcon('create');
     setSelectedTask("");
     setSelectedDate(new Date());
   }

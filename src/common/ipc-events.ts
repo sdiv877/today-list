@@ -1,8 +1,12 @@
 export enum IpcEvents {
-  REQ_TEST = "REQ_TEST",
-  PING = "PING"
+    REQ_TEST = "REQ_TEST",
+    RES_TEST = "RES_TEST",
+    PING = "TEST",
+    TASK_CREATE = "TASK_CREATE",
+    TASK_GET_ALL = "TASK_GET_ALL",
+    TASK_UPDATE = "TASK_UPDATE",
+    TASK_DELETE = "TASK_DELETE"
 }
-
 export const ipcMainEvents = [
   IpcEvents.REQ_TEST,
   IpcEvents.PING

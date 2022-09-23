@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 interface CurrentTaskCardProps {
   task: Task;
   handleCompleteTask(task: Task): void;
-  handleDeleteTask(task: Task, deleteFromDb: boolean): void;
+  handleDeleteTask(task: Task): void;
 }
 
 const CurrentTaskCard: FC<CurrentTaskCardProps> = (props): JSX.Element => {
@@ -68,7 +68,7 @@ const CurrentTaskCard: FC<CurrentTaskCardProps> = (props): JSX.Element => {
               aria-label="delete-task"
               className="hiddenButton"
               onClick={() => {
-                props.handleDeleteTask(props.task, true);
+                props.handleDeleteTask(props.task);
               }}
             >
               <Delete />

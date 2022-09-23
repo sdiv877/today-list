@@ -1,7 +1,8 @@
 import React from 'react';
 
 import RecoverableTasksDisplay from '../cards/task/RecoverableTasksDisplay';
-import { Task } from '../../../../common/models/task.model';
+import { Task, TaskStatus } from '../../../../common/models/task.model';
+import { sortTaskList } from '../../utils/task-display-helpers';
 import { LOG } from '../../../../common/utils/debug';
 
 const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
@@ -11,15 +12,11 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
   // handle getting Tasks from db on page reload
   React.useEffect(() => {
     LOG('CompletedTasksBodyContainer useEffect() called');
-
-    // window.database.sendTableRequest("request-list", "completed_tasks");
-    // window.database.receiveTableResponse("response-list", (event, list_res) => {
-    //   LOG("completed_tasks response received from main. Length: " + list_res.length);
-    //   setCompletedList(sortTaskList(list_res) as Task[]); // TODO: remove 'as'
-    // });
-    // return () => {
-    //   window.app.removeAllListeners("response-list");
-    // };
+    // get all Completed Tasks
+    window.api.task.getAll(TaskStatus.Completed).then((taskRes) => {
+      LOG("Completed Tasks received from main. Length: " + taskRes.length);
+      setCompletedList(sortTaskList(taskRes) as Task[]); // TODO: remove 'as'
+    });
   }, []);
 
   return (

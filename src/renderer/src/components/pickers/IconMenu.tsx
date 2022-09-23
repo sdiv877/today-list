@@ -17,7 +17,6 @@ const IconMenu: FC<IconMenuProps> = (props): JSX.Element => {
       <FormControl fullWidth>
         <InputLabel>Icon</InputLabel>
         <Select
-          defaultValue=""
           value={props.selectedIcon}
           onChange={(event) => {
             handleChange(event.target.value as string);

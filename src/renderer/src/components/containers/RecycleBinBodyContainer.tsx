@@ -3,7 +3,8 @@ import React from 'react';
 import RecoverableTasksDisplay from '../cards/task/RecoverableTasksDisplay';
 
 import { LOG } from '../../../../common/utils/debug';
-import { Task } from '../../../../common/models/task.model';
+import { Task, TaskStatus } from '../../../../common/models/task.model';
+import { sortTaskList } from '../../utils/task-display-helpers';
 
 const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
   // deletedList states
@@ -12,16 +13,11 @@ const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
   // handle getting Tasks from db on page reload
   React.useEffect(() => {
     LOG('RecycleBinBodyContainer useEffect() called');
-
-    // window.database.sendTableRequest('request-list', 'deleted_tasks');
-
-    // window.database.receiveTableResponse('response-list', (event, list_res) => {
-    //     LOG('deleted_tasks response received from main. Length: ' + list_res.length)
-    //     setDeletedList(sortTaskList(list_res) as Task []) // TODO: remove 'as'
-    // })
-    // return () => {
-    //     window.app.removeAllListeners('response-list');
-    // }
+    // get all Deleted Tasks
+    window.api.task.getAll(TaskStatus.Deleted).then((listRes) => {
+      LOG('Deleted Tasks response received from main. Length: ' + listRes.length)
+      setDeletedList(sortTaskList(listRes) as Task[]) // TODO: remove 'as'
+    });
   }, []);
 
   return (
