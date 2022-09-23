@@ -9,9 +9,9 @@ import {
   IpcEvents,
   ipcRendererEvents,
   WEBCONTENTS_READY_FOR_IPC_SIGNAL
-} from "../../common/ipc-events";
+} from "../../../common/ipc/ipc-events";
 
-import { LOG as _LOG } from "../../common/utils/debug";
+import { LOG as _LOG } from "../../../common/utils/debug";
 
 /**
  * The main purpose of this class is to be the central
@@ -63,11 +63,7 @@ class IpcRendererManager extends EventEmitter {
   }
 
   public LOG = (msg: any, leadingNL=false) => {
-    if (leadingNL) {
-      _LOG('\n[ipcRendererManager] ' + msg);
-    } else {
-      _LOG('[ipcRendererManager] ' + msg);
-    }
+    _LOG(msg, 'ipcRendererManager', leadingNL);
   }
 }
 

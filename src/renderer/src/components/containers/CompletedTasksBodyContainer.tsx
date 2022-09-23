@@ -14,7 +14,7 @@ const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
     LOG('CompletedTasksBodyContainer useEffect() called');
     // get all Completed Tasks
     window.api.task.getAll(TaskStatus.Completed).then((taskRes) => {
-      LOG("Completed Tasks received from main. Length: " + taskRes.length);
+      window.ipcRendererManager.LOG("Completed Tasks received from main. Length: " + taskRes.length);
       setCompletedList(sortTaskList(taskRes) as Task[]); // TODO: remove 'as'
     });
   }, []);

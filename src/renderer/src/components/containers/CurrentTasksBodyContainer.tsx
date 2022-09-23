@@ -20,7 +20,7 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
     LOG('CurrentTasksBodyContainer useEffect() called');
     // get all InProgress Tasks
     window.api.task.getAll(TaskStatus.InProgress).then((taskRes) => {
-      LOG('Current Tasks response received from main. Length: ' + taskRes.length);
+      window.ipcRendererManager.LOG('Current Tasks response received from main. Length: ' + taskRes.length);
       setCurrentList(sortTaskList(taskRes) as Task[]);
     });
     // getting button colour info

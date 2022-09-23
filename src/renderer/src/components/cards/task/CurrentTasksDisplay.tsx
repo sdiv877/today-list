@@ -20,12 +20,16 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
     // update db state
     task.status = TaskStatus.Completed;
     window.api.task.update(task);
+    window.ipcRendererManager.LOG("Set TaskStatus to Delete, id " + task.id);
   }
 
   function handleDeleteTask(task: Task): void {
+    // update react state
     removeFromDisplayList(task.id);
+    // update db state
     task.status = TaskStatus.Deleted;
     window.api.task.update(task);
+    window.ipcRendererManager.LOG("Set TaskStatus to Deleted, id " + task.id);
   }
 
   function removeFromDisplayList(taskId: number): void {

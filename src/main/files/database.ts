@@ -33,7 +33,7 @@ const taskTable = "task";
  * running in production or debug mode. Intended for use AFTER user-settings.initUserSettings() has been run.
  */
 export function connectToDatabase(): Database {
-  return DatabaseConstructor(userDbPath, { verbose: LOG });
+  return DatabaseConstructor(userDbPath, { verbose: (message) => LOG(message, 'Database') });
 }
 
 /**

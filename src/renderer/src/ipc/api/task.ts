@@ -1,6 +1,6 @@
-import { ipcRendererManager } from "../../renderer/src/ipc-manager";
-import { IpcEvents } from "../ipc-events";
-import { Task, NewTask, TaskStatus } from "../models/task.model";
+import { ipcRendererManager } from "../ipc-manager";
+import { IpcEvents } from "../../../../common/ipc/ipc-events";
+import { Task, NewTask, TaskStatus } from "../../../../common/models/task.model";
 
 export interface ITaskApi {
     create: (newTask: NewTask) => Promise<void>,

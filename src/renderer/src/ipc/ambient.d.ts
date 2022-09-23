@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IApi } from "./api";
-import { IpcEvents } from "./ipc-events";
+import { IpcEvents } from "../../../common/ipc/ipc-events";
 
 declare global {
   interface Window {

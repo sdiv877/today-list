@@ -11,7 +11,7 @@ import {
   IpcEvents,
   WEBCONTENTS_READY_FOR_IPC_SIGNAL,
   ipcMainEvents
-} from "../../common/ipc-events";
+} from "../../common/ipc/ipc-events";
 
 /**
  * Basically just stating that the initializer should be a function
@@ -100,11 +100,7 @@ class IpcMainManager extends EventEmitter {
   }
 
   public LOG = (msg: any, leadingNL = false) => {
-    if (leadingNL) {
-      _LOG("\n[ipcMainManager] " + msg);
-    } else {
-      _LOG("[ipcMainManager] " + msg);
-    }
+    _LOG(msg, 'ipcMainManager', leadingNL);
   };
 
   private receiveRendererReadySignal() {

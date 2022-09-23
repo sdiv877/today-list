@@ -54,6 +54,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     props.setCurrentList(taskListCopy);
     // and add the tasks to the db
     window.api.task.create(newTask);
+    window.ipcRendererManager.LOG("Created new task, " + newTask);
     // scroll to the bottom of the page so the user can see their new task
     // 500ms is the time for a card's fade transition
     setTimeout(() => {

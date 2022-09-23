@@ -15,7 +15,7 @@ const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
     LOG('RecycleBinBodyContainer useEffect() called');
     // get all Deleted Tasks
     window.api.task.getAll(TaskStatus.Deleted).then((listRes) => {
-      LOG('Deleted Tasks response received from main. Length: ' + listRes.length)
+      window.ipcRendererManager.LOG('Deleted Tasks response received from main. Length: ' + listRes.length)
       setDeletedList(sortTaskList(listRes) as Task[]) // TODO: remove 'as'
     });
   }, []);

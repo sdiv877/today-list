@@ -46,16 +46,16 @@
         [
           "@electron-forge/plugin-webpack",
           {
-            "mainConfig": "./webpack-config/webpack.main.config.js",
+            "mainConfig": "./webpack/webpack.main.config.js",
             "renderer": {
-              "config": "./webpack-config/webpack.renderer.config.js",
+              "config": "./webpack/webpack.renderer.config.js",
               "entryPoints": [
                 {
                   "html": "./src/renderer/public/index.html",
                   "js": "./src/renderer/src/renderer.ts",
                   "name": "main_window",
                   "preload": {
-                    "js": "./src/main/preload.ts"
+                    "js": "./src/preload/preload.ts"
                   }
                 }
               ]

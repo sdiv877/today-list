@@ -1,5 +1,5 @@
 import { ipcMainManager, IpcListenerInitializer } from "./ipc-manager";
-import { IpcEvents } from "../../common/ipc-events";
+import { IpcEvents } from "../../common/ipc/ipc-events";
 import { createTask, deleteTask, getAllTasks, updateTask } from "../files/database";
 
 export const initTaskListeners: IpcListenerInitializer = () => {

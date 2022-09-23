@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { DEBUG } from '../../common/utils/debug';
-import { IpcEvents } from '../../common/ipc-events';
+import { IpcEvents } from '../../common/ipc/ipc-events';
 
 import AppDrawer from './components/AppDrawer';
 import CompletedTasks from './pages/CompletedTasks';

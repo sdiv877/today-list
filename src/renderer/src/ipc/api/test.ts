@@ -1,5 +1,5 @@
-import { ipcRendererManager } from "../../renderer/src/ipc-manager";
-import { IpcEvents } from "../ipc-events";
+import { ipcRendererManager } from "../ipc-manager";
+import { IpcEvents } from "../../../../common/ipc/ipc-events";
 
 export interface ITestApi {
     headPing: () => Promise<string>;

@@ -23,7 +23,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (
     // update db state
     task.status = TaskStatus.InProgress;
     window.api.task.update(task);
-    LOG('Task status set to InProgress, id ' + task.id);
+    window.ipcRendererManager.LOG('Set TaskStatus to InProgress, id ' + task.id);
   }
 
   function removeFromDisplayList(taskId: number): void {

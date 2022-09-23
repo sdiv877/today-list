@@ -17,7 +17,7 @@ export function initUserSettings(): void {
     }
     if (!existsSync(userSettingsPath)) { // settings.json
         writeFileSync(userSettingsPath, JSON.stringify(DefaultUserSettings), 'utf8');
-        LOG('Initialised user data')
+        LOG('Initialised user data', 'UserSettings')
     }
 }
 

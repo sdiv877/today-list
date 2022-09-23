@@ -7,6 +7,7 @@ export enum IpcEvents {
     TASK_UPDATE = "TASK_UPDATE",
     TASK_DELETE = "TASK_DELETE"
 }
+
 export const ipcMainEvents = [
   IpcEvents.REQ_TEST,
   IpcEvents.PING
