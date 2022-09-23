@@ -1,7 +1,6 @@
 export enum IpcEvents {
   REQ_TEST = "REQ_TEST",
-  RES_TEST = "RES_TEST",
-  PING = "TEST"
+  PING = "PING"
 }
 
 export const ipcMainEvents = [
@@ -10,7 +9,6 @@ export const ipcMainEvents = [
 ];
 
 export const ipcRendererEvents = [
-  IpcEvents.RES_TEST,
   IpcEvents.PING
 ];
 

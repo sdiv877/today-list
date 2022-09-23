@@ -69,8 +69,9 @@ class IpcMainManager extends EventEmitter {
   /**
    * Creates a peristent listener that will fire whenever a message is
    * received on the specified channel. The listener itself is a function
-   * that the Renderer may invoke with specified arguments, to yield
-   * a promised result.
+   * that the Renderer may invoke with specified arguments.
+   * Note: `return` should be used in the listener for synchronous replies,
+   *  while async replies should be done with `event.reply()`.
    * @param channel
    * @param listener
    */

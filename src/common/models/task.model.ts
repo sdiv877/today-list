@@ -7,6 +7,7 @@ interface Task {
   id: number;
   icon: TaskIcon;
   description: string;
+  status: TaskStatus;
   dueDate: Date;
   lastModifiedDate: Date;
   creationDate: Date;
@@ -18,9 +19,14 @@ interface Task {
 interface NewTask {
   icon: TaskIcon;
   description: string;
+  status: TaskStatus;
   dueDate: Date;
-  lastModifiedDate?: Date;
-  creationDate?: Date;
 }
 
-export { Task, NewTask };
+enum TaskStatus {
+  InProgress = 0,
+  Completed = 1,
+  Deleted = 2
+}
+
+export { Task, NewTask, TaskStatus };

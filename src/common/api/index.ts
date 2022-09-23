@@ -1,3 +1,4 @@
+import { ITaskApi, taskApi } from "./task";
 import { ITestApi, testApi } from "./test";
 
 /**
@@ -5,6 +6,7 @@ import { ITestApi, testApi } from "./test";
  */
 export interface IApi {
     test: ITestApi
+    task: ITaskApi
 }
 
 /**
@@ -12,5 +14,6 @@ export interface IApi {
  * Uses ipcRendererManager under the hood.
  */
 export const api: IApi = {
+    task: taskApi,
     test: testApi
 }

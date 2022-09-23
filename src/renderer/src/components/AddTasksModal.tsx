@@ -4,7 +4,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextFi
 import DateTimePicker from "./pickers/DateTimePicker";
 import IconMenu from "./pickers/IconMenu";
 
-import { NewTask } from "../../../common/models/task.model";
+import { NewTask, TaskStatus } from "../../../common/models/task.model";
 import { TaskIconUtil } from "../utils/icon-helpers";
 import { sortTaskList } from "../utils/task-display-helpers";
 
@@ -43,6 +43,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     const newTask: NewTask = {
       icon: TaskIconUtil.valueOf(selectedIcon),
       description: selectedTask,
+      status: TaskStatus.InProgress,
       dueDate: selectedDate,
     };
     // clone the current list of tasks
