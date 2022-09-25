@@ -1,7 +1,8 @@
 import DatabaseConstructor, { Database } from "better-sqlite3";
+import { Task, NewTask, TaskStatus } from "../../common/models/task.model";
+import { TaskYearRange } from "../../common/models/task-graph-data.model";
 import { LOG } from "../../common/utils/debug";
 import { USER_DATA_PATH } from "./paths";
-import { Task, NewTask, TaskStatus } from "../../common/models/task.model";
 import { unlinkSync } from "fs";
 
 const userDbPath = USER_DATA_PATH + "tasks.db";
@@ -153,7 +154,7 @@ export function getAllTasksCount(): number {
 export function getTasksDueInYearCount(year: number): number {
   const db = connectToDatabase();
   const dueDateColumn = db.prepare("SELECT COUNT(*) FROM " + taskTable + " WHERE due_date LIKE (? || '%')");
-  const numDatesThatMatchYear = dueDateColumn.pluck().get(year.toString());
+  const numDatesThatMatchYear = dueDateColumn.pluck().get(year.toString()); // use year for ? in LIKE ()
   db.close();
   return numDatesThatMatchYear;
 }
@@ -173,32 +174,15 @@ export function getTasksDueInYear(year: number): Task[] {
 
 /**
  * Returns the lowest and highest year values found from the date_due fields in the database.
- * @returns [minYear, maxYear]
  */
-export function getTaskDueYearRange(): number[] {
+export function getTasksDueYearRange(): TaskYearRange {
   const db = connectToDatabase();
-  // Get all the date fields in the db
-  const selectYears = db.prepare("SELECT date from " + taskTable);
-  const dateISOStrings: string[] = selectYears.pluck().all();
-
-  // [minYear, maxYear]
-  const yearRange: number[] = [
-    new Date().getFullYear(),
-    new Date().getFullYear()
-  ];
-  for (const date of dateISOStrings) {
-    const yearOfDate = new Date(date).getFullYear();
-    // If the yearOfDate is lower than the current minimum, set it to be the new minimum
-    if (yearOfDate < yearRange[0]) {
-      yearRange[0] = yearOfDate;
-    }
-    // Same idea
-    if (yearOfDate > yearRange[1]) {
-      yearRange[1] = yearOfDate;
-    }
-  }
+  const selectMinDate = db.prepare("SELECT min(date(due_date)) FROM " + taskTable);
+  const minYear: number = new Date(selectMinDate.pluck().get()).getFullYear();
+  const selectMaxDate = db.prepare("SELECT max(date(due_date)) FROM " + taskTable);
+  const maxYear: number = new Date(selectMaxDate.pluck().get()).getFullYear();
   db.close();
-  return yearRange;
+  return { min: minYear, max: maxYear };
 }
 
 export function deleteAllTasks(): void {
@@ -217,7 +201,7 @@ export function deleteLocalDatabase() {
 
 export function initDebugTasks(): void {
   createTask({icon: 'assignment', description: 'Do homework', status: TaskStatus.InProgress, dueDate: new Date()});
-  createTask({icon: 'fitnesscenter', description: 'Workout', status: TaskStatus.Completed, dueDate: new Date()});
+  createTask({icon: 'fitnesscenter', description: 'Workout', status: TaskStatus.Completed, dueDate: new Date('2019-01-01T17:47:08+00:00')});
   createTask({icon: 'create', description: 'Write an email', status: TaskStatus.Deleted, dueDate: new Date()});
   createTask({icon: 'videogameasset', description: 'Play a game', status: TaskStatus.InProgress, dueDate: new Date()});
 }

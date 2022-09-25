@@ -5,16 +5,34 @@ export enum IpcEvents {
     TASK_CREATE = "TASK_CREATE",
     TASK_GET_ALL = "TASK_GET_ALL",
     TASK_UPDATE = "TASK_UPDATE",
-    TASK_DELETE = "TASK_DELETE"
+    TASK_DELETE = "TASK_DELETE",
+    STATS_TASK_GRAPHDATA_GET = "STATS_TASK_GRAPHDATA_GET",
+    STATS_TASK_ANNUAL_GET = "STATS_TASK_ANNUAL_GET",
+    STATS_TASK_OVERALL_GET = "STATS_TASK_OVERALL_GET",
 }
 
 export const ipcMainEvents = [
-  IpcEvents.REQ_TEST,
-  IpcEvents.PING
+  IpcEvents.RES_TEST,
+  IpcEvents.PING,
+  IpcEvents.TASK_CREATE,
+  IpcEvents.TASK_GET_ALL,
+  IpcEvents.TASK_UPDATE,
+  IpcEvents.TASK_DELETE, 
+  IpcEvents.STATS_TASK_GRAPHDATA_GET,
+  IpcEvents.STATS_TASK_ANNUAL_GET,
+  IpcEvents.STATS_TASK_OVERALL_GET
 ];
 
 export const ipcRendererEvents = [
-  IpcEvents.PING
+  IpcEvents.REQ_TEST,
+  IpcEvents.PING,
+  IpcEvents.TASK_CREATE,
+  IpcEvents.TASK_GET_ALL,
+  IpcEvents.TASK_UPDATE,
+  IpcEvents.TASK_DELETE, 
+  IpcEvents.STATS_TASK_GRAPHDATA_GET,
+  IpcEvents.STATS_TASK_ANNUAL_GET,
+  IpcEvents.STATS_TASK_OVERALL_GET
 ];
 
 export const WEBCONTENTS_READY_FOR_IPC_SIGNAL =

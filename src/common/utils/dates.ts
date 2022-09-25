@@ -134,3 +134,7 @@ function getTimeString(date: Date): string {
   }
   return hoursString + ':' + minutesString;
 }
+
+export function getCurrentYear(): number {
+  return new Date().getFullYear();
+}

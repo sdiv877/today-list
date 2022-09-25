@@ -1,9 +1,20 @@
+import { getCurrentYear } from '../../common/utils/dates';
+
 /**
- * Describes the values across every recorded year of Tasks for display in TaskGraph.tsx.
+ * Describes the creation and completion values across every recorded year of 
+ * Tasks for display in `TaskGraph.tsx`. Data should be displayed one year at 
+ * a time i.e. at an index of `yearlyData[]`
  */
 interface TaskGraphData {
-  years: number[];
-  data: TaskGraphYearData[];
+  years: number[],
+  yearlyData: TaskGraphYearData[];
+  yearRange: TaskYearRange;
+  currentYear: number;
+}
+
+interface TaskYearRange {
+  min: number,
+  max: number
 }
 
 /**
@@ -18,9 +29,35 @@ interface TaskGraphYearData {
  * Describes the values needed for one month of data in TaskGraph.tsx.
  */
 interface TaskGraphMonthData {
-  month: number;
+  month: string;
   Created: number; // caps needed for re-charts library
-  Completed: number; // ""
+  Completed: number;
 }
 
-export { TaskGraphData, TaskGraphYearData, TaskGraphMonthData };
+const DefaultTaskGraphMonthData: TaskGraphMonthData = {
+  month: 'January',
+  Created: 0,
+  Completed: 0
+}
+
+const DefaultTaskGraphYearData: TaskGraphYearData = {
+  year: getCurrentYear(),
+  monthlyData: [ DefaultTaskGraphMonthData ] // array
+}
+
+const DefaultTaskGraphData: TaskGraphData = {
+  years: [ DefaultTaskGraphYearData.year ],
+  yearlyData: [ DefaultTaskGraphYearData ],
+  yearRange: { min: DefaultTaskGraphYearData.year, max: DefaultTaskGraphYearData.year },
+  currentYear: getCurrentYear()
+}
+
+export {
+  TaskGraphData,
+  TaskGraphYearData,
+  TaskGraphMonthData,
+  TaskYearRange,
+  DefaultTaskGraphData,
+  DefaultTaskGraphYearData,
+  DefaultTaskGraphMonthData
+};
