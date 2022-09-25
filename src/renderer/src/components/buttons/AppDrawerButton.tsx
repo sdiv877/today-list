@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, Tooltip, withStyles } from '@material-ui/core';
 
 import { AppDrawerIcon, AppDrawerUtil } from '../../utils/icon-helpers';
+import { PageRoute } from '../AppDrawer';
 
 const ButtonTooltip = withStyles(() => ({
   tooltip: {
@@ -16,7 +17,7 @@ const ButtonTooltip = withStyles(() => ({
 interface AppDrawerButtonProps {
   label: AppDrawerIcon;
   selected: string;
-  path: string;
+  path: PageRoute;
 }
 
 const AppDrawerButton: FC<AppDrawerButtonProps> = (props): JSX.Element => {

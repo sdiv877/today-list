@@ -1,73 +1,89 @@
 import React, { FC } from 'react';
 import { Card, Divider } from '@material-ui/core';
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import SwitchGraphButton, { SwitchGraphOperation } from './buttons/SwitchGraphButton';
 
-import SwitchGraphButton from './buttons/SwitchGraphButton';
-
-import { TaskGraphData } from '../../../common/models/task-graph-data.model';
+import { DefaultTaskGraphData, DefaultTaskGraphYearData } from '../../../common/models/task-graph-data.model';
+import { LOG } from '../../../common/utils/debug';
 
 import '../styles/TasksGraph.css';
 
-// Props types
 interface TasksGraphProps {
-  year: number;
-  setYear: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedYear: React.Dispatch<React.SetStateAction<number>>
 }
 
 const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
-  // Graph data states
-  const [graphData, setGraphData] = React.useState(new Array<TaskGraphData>());
-  const [graphRange, setGraphRange] = React.useState([
-    new Date().getFullYear(),
-    new Date().getFullYear()
-  ]);
+  // graph data
+  const [graphData, setGraphData] = React.useState(DefaultTaskGraphData);
+  const [yearData, setYearData] = React.useState(DefaultTaskGraphYearData);
+  // buttons to switch yearData displayed in graph
+  const [prevDisabled, setPrevDisabled] = React.useState(false);
+  const [nextDisabled, setNextDisabled] = React.useState(false);
 
-  // Handling getting graph-data from db on page reload
-  // React.useEffect(() => {
-  //     LOG('TasksGraph useEffect() called');
-  //     // get the graph data for the current year
-  //     window.statistics.getGraphData((event, graph_data_res) => {
-  //         LOG('Graph data response received from main')
-  //         setGraphData(graph_data_res);
-  //     })
+  /**
+   * Fetch TaskGraphData from API, but don't set yearData yet as it takes some time
+   * for setGraphData to finish.
+   */
+  React.useEffect(() => {
+      LOG('TasksGraph useEffect() called');
+      window.api.stats.getTaskGraphData().then((graphDataRes) => {
+          window.ipcRendererManager.LOG('TaskGraphData received from main. Length: ' + graphDataRes.years.length);
+          setGraphData(graphDataRes);
+      })
+  }, [])
 
-  //     // Get the graph range (min and max year) to decide how many pages we need
-  //     window.statistics.getGraphRange((event, graph_range_res) => {
-  //         LOG('Graph year range response received from main')
-  //         LOG(graph_range_res);
-  //         setGraphRange(graph_range_res);
-  //     })
+  /**
+   * On every update of graphData (actual completion of setGraphData() hook), update
+   * the yearData that is currrently visible in the graph to the data that is closest
+   * to the current year.
+   */
+  React.useEffect(() => {
+      // attempt to find yearData from current year
+      let currentYearIndex = graphData.years.indexOf(graphData.currentYear);
+      if (currentYearIndex === -1) {
+        // if not available just pick the latest year available
+        currentYearIndex = graphData.years.length - 1;
+      }
+      props.setSelectedYear(graphData.yearlyData[currentYearIndex].year);
+      setYearData(graphData.yearlyData[currentYearIndex]);
+      handleSwitchGraphButtonState(currentYearIndex);
+  }, [graphData])
 
-  //     // Remove listeners when component unmounts
-  //     return () => {
-  //         window.app.removeAllListeners('response-graph-data');
-  //         window.app.removeAllListeners('response-graph-range');
-  //     }
-  // }, [])
-
-  function handleSetYear(year: number) {
-    // set the year
-    props.setYear(year);
-    // then request the new data that needs to be displayed for it
-    // window.statistics.getGraphData((event, graph_data_res) => {
-    //     LOG('Graph data response received from main')
-    //     // and set the react state to reflect these changes
-    //     setGraphData(graph_data_res);
-    //     // synchronously removeAllListeners
-    //     window.app.removeAllListeners('response-graph-data');
-    // })
+  function handleSetYear(operation: SwitchGraphOperation) {
+    const currentYearIndex = graphData.years.indexOf(yearData.year);
+    let newYearIndex = currentYearIndex;
+    if ((operation === 'next') && (yearData.year < graphData.yearRange.max)) {
+      newYearIndex++;
+    } else if ((operation === 'prev') && (yearData.year > graphData.yearRange.min)) {
+      newYearIndex --;
+    }
+    props.setSelectedYear(graphData.yearlyData[newYearIndex].year);
+    setYearData(graphData.yearlyData[newYearIndex]);
+    handleSwitchGraphButtonState(newYearIndex);
+    LOG("yearData set to " + yearData.year);
   }
+
+  function handleSwitchGraphButtonState(currentYearIndex: number) {
+    setNextDisabled(currentYearIndex >= (graphData.yearlyData.length - 1));
+    setPrevDisabled(currentYearIndex <= 0);
+  }
+
+  const xAxisTickFormatter = (value: string) => {
+    const limit = 3;
+    if (value.length <= limit) return value;
+    return value.substring(0, limit);
+  };
 
   return (
     <Card variant="outlined" className="TasksGraph">
       <div className="graphTitle">
-        Task completion in {'MISSING API CALL props.year'}
+        Task completion in {yearData.year}
       </div>
       <Divider orientation="horizontal" />
       <div className="barGraph">
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={graphData}>
-            <XAxis dataKey="month" />
+          <BarChart data={yearData.monthlyData}>
+            <XAxis dataKey="month" interval={0} tickFormatter={xAxisTickFormatter} />
             <YAxis
               domain={[0, 'auto']}
               label={{
@@ -84,18 +100,8 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
         </ResponsiveContainer>
       </div>
       <div className="graphButtons">
-        <SwitchGraphButton
-          label={'prev'}
-          graphRange={graphRange}
-          year={props.year}
-          setYear={handleSetYear}
-        />
-        <SwitchGraphButton
-          label={'next'}
-          graphRange={graphRange}
-          year={props.year}
-          setYear={handleSetYear}
-        />
+        <SwitchGraphButton operation={'prev'} setSelectedYear={handleSetYear} disabled={prevDisabled} />
+        <SwitchGraphButton operation={'next'} setSelectedYear={handleSetYear} disabled={nextDisabled} />
       </div>
     </Card>
   );

@@ -1,19 +1,20 @@
-import React from 'react';
+import React from "react";
 
-import StatsCard from '../cards/StatsCard';
-import TasksGraph from '../TasksGraph';
+import TasksGraph from "../TasksGraph";
+import StatsCard from "../cards/StatsCard";
 
-import '../../styles/fadeIn.css';
+import "../../styles/fadeIn.css";
+import { getCurrentYear } from "../../../../common/utils/dates";
 
 const StatsBodyContainer: React.VoidFunctionComponent = () => {
-  const [year, setYear] = React.useState(new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = React.useState(getCurrentYear());
 
   return (
     <div className="StatsBodyContainer">
       <div className="fadeIn">
-        <TasksGraph year={year} setYear={setYear} />
-        <StatsCard title={'Annual Stats'} year={year} />
-        <StatsCard title={'Overall Stats'} year={0} />
+        <TasksGraph setSelectedYear={setSelectedYear} />
+        <StatsCard type={"Annual Stats"} selectedYear={selectedYear} />
+        <StatsCard type={"Overall Stats"} />
       </div>
     </div>
   );

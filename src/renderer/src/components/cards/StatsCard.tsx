@@ -5,53 +5,41 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from '@material-ui/core';
-import { CheckBox, Create } from '@material-ui/icons';
+import { CheckBox, Create, Today } from '@material-ui/icons';
 
-import TaskStats from '../../../../common/models/task-stats.model';
+import { TaskStatsType, getDefaultTaskStats } from '../../../../common/models/task-stats.model';
 import { LOG } from '../../../../common/utils/debug';
-import MostProductiveStat from '../text/MostProductiveStat';
 
 import '../../styles/StatsCard.css';
 
 // Props types
 interface StatsCardProps {
-  title: string;
-  year: number;
+  type: TaskStatsType;
+  selectedYear?: number;
 }
 
-const initialStats: TaskStats = { totalCreated: 0, totalCompleted: 0 };
-
 const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
-  const [stats, setStats] = React.useState(initialStats);
+  const [stats, setStats] = React.useState(getDefaultTaskStats(props.type));
 
-  // Handling getting task stats on page reload or props.year change
+  // get TaskStats on page reload or `props.selectedYear` change
   React.useEffect(() => {
     LOG('StatsCard useEffect() called');
-
-    // if (props.title === 'Annual Stats') {
-    //     // get annual task stats
-    //     window.statistics.getAnnualTaskStats((event, task_stats_res) => {
-    //         setStats(task_stats_res);
-    //     })
-    // } else {
-    //     // get the overall task stats
-    //     window.statistics.getOverallTaskStats((event, task_stats_res) => {
-    //         setStats(task_stats_res);
-    //     })
-    // }
-
-    // // remove listeners when component unmounts
-    // return () => {
-    //     window.app.removeAllListeners('response-annual-task-stats');
-    //     window.app.removeAllListeners('response-overall-task-stats');
-    // }
-  }, [props.year]);
+    if (props.type === 'Annual Stats') {
+      window.api.stats.getAnnualTaskStats(props.selectedYear).then((taskStatsRes) => {
+        setStats(taskStatsRes);
+      })
+    } else {
+      window.api.stats.getOverallTaskStats().then((taskStatsRes) => {
+        setStats(taskStatsRes);
+      })
+    }
+  }, [props.selectedYear]);
 
   return (
     <Card className="statsCard" variant="outlined">
-      <div className="statsTitle">{props.title}</div>
+      <div className="statsTitle">{props.type}</div>
       <Divider orientation="horizontal" />
       <div className="statsText">
         <List className="statsTextList">
@@ -69,11 +57,18 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
               primary={'Tasks completed: ' + stats.totalCompleted}
             />
           </ListItem>
-          <MostProductiveStat
-            title={props.title}
-            text={'MISSING API CALL stats.mostProductiveYear()'}
-            value={stats.mostProductiveCount}
-          />
+          <div className="mostProductiveStat">
+            <ListItem>
+              <ListItemIcon>
+                <Today />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  `Most productive period: ${stats.mostProductivePeriod} [${stats.totalCompleted} tasks completed]`
+                }
+              />
+            </ListItem>
+          </div>
         </List>
       </div>
     </Card>
