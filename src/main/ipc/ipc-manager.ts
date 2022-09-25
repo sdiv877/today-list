@@ -14,8 +14,8 @@ import {
 } from "../../common/ipc/ipc-events";
 
 /**
- * Basically just stating that the initializer should be a function
- * that does something. For readability more than a practical purpose.
+ * For readability more than a practical purpose. Basically just
+ * stating that the initializer should be a function that does something.
  */
  export type IpcListenerInitializer = () => void;
 

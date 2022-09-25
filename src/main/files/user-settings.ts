@@ -1,9 +1,8 @@
 import { existsSync, mkdirSync, writeFileSync, readFileSync, unlinkSync } from 'fs';
 
+import { UserSettings, DefaultUserSettings } from '../../common/models/user-settings.model';
 import { USER_DATA_PATH } from './paths';
 import { LOG } from '../../common/utils/debug';
-
-import { UserSettings, DefaultUserSettings } from '../../common/models/user-settings.model';
 
 const userSettingsPath = USER_DATA_PATH + 'settings.json';
 
@@ -22,13 +21,13 @@ export function initUserSettings(): void {
 }
 
 export function loadUserSettings(): UserSettings {
-    const userDataString = readFileSync(userSettingsPath, 'utf8');
-    const userData: UserSettings = JSON.parse(userDataString);
-    return userData;
+    const userSettingsString = readFileSync(userSettingsPath, 'utf8');
+    const userSettings: UserSettings = JSON.parse(userSettingsString);
+    return userSettings;
 }
 
-export function saveUserSettings(userData: UserSettings): void {
-    writeFileSync(userSettingsPath, JSON.stringify(userData), 'utf8');
+export function saveUserSettings(updatedSettings: UserSettings): void {
+    writeFileSync(userSettingsPath, JSON.stringify(updatedSettings), 'utf8');
 }
 
 export function deleteUserSettings(): void {

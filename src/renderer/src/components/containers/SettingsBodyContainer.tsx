@@ -1,21 +1,17 @@
 import React from 'react';
-
-import {
-  BackgroundColour,
-  BackgroundColourUtil,
-  ButtonColour
-} from '../../../../common/utils/colours';
-import { LOG } from '../../../../common/utils/debug';
-import '../../styles/fadeIn.css';
+import DeleteDataModal from '../DeleteDataModal';
 import SettingsDeleteButton from '../buttons/SettingsDeleteButton';
 import SettingsSaveButton from '../buttons/SettingsSaveButton';
 import SettingsCard from '../cards/SettingsCard';
-import DeleteDataModal from '../DeleteDataModal';
 import SettingsColourPicker from '../pickers/SettingsColourPicker';
 import SettingsColourPickerDisplay from '../pickers/SettingsColourPickerDisplay';
 import SettingsNameField from '../pickers/SettingsNameField';
 
+import { BackgroundColour, BackgroundColourUtil, ButtonColour } from '../../../../common/utils/colours';
 import { UserSettings } from '../../../../common/models/user-settings.model';
+import { LOG } from '../../../../common/utils/debug';
+
+import '../../styles/fadeIn.css';
 
 const SettingsBodyContainer: React.VoidFunctionComponent = () => {
   const [username, setUsername] = React.useState('');
@@ -30,16 +26,12 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     LOG('SettingsBodyContainer useEffect() called');
 
     // get UserSettings and set initial values for background and username fields to display
-    // window.user_data.sendUserSettingsRequest();
-    // window.user_data.receiveUserSettingsResponse('response-user-data', (event, user_data_res) => {
-    //     LOG('User data response received from main: ' + JSON.stringify(user_data_res));
-    //     setUsername(user_data_res.username);
-    //     setBgColour(user_data_res.bg_colour);
-    //     setButtonColour(user_data_res.button_colour)
-    // })
-    // return () => {
-    //     window.app.removeAllListeners('response-user-data');
-    // }
+    window.api.settings.get().then((userDataRes) => {
+        LOG('User data response received from main: ' + JSON.stringify(userDataRes));
+        setUsername(userDataRes.username);
+        setBgColour(userDataRes.bgColour);
+        setButtonColour(userDataRes.buttonColour)
+    })
   }, []);
 
   function submitUserSettings() {
@@ -52,7 +44,7 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
     // change the colour to what was chosen for the current session
     document.querySelector('body').style.backgroundColor = bgColour;
     // save the colour so that it is remembered on the next app startup
-    // window.userSettings.saveUserSettings(userSettings);
+    window.api.settings.update(userSettings);
   }
 
   return (

@@ -5,7 +5,7 @@ import { createTask, deleteTask, getAllTasks, updateTask } from "../files/databa
 export const initTaskListeners: IpcListenerInitializer = () => {
   ipcMainManager.handle(IpcEvents.TASK_CREATE, (event, newTask) => {
     ipcMainManager.LOG('Renderer requested creation of '+ newTask.toString());
-    return createTask(newTask);
+    createTask(newTask);
   });
 
   ipcMainManager.handle(IpcEvents.TASK_GET_ALL, (event, status) => {
@@ -15,11 +15,11 @@ export const initTaskListeners: IpcListenerInitializer = () => {
 
   ipcMainManager.handle(IpcEvents.TASK_UPDATE, (event, updatedTask) => {
     ipcMainManager.LOG('Renderer requested update of Task ID: ' + updatedTask.id);
-    return updateTask(updatedTask);
+    updateTask(updatedTask);
   });
 
   ipcMainManager.handle(IpcEvents.TASK_DELETE, (event, idToDelete) => {
     ipcMainManager.LOG('Renderer requested deletion of Task ID: ' + idToDelete);
-    return deleteTask(idToDelete);
+    deleteTask(idToDelete);
   })
 };

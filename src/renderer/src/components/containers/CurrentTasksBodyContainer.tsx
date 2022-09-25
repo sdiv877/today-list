@@ -24,15 +24,10 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
       setCurrentList(sortTaskList(taskRes) as Task[]);
     });
     // getting button colour info
-    // window.user_data.receiveUserSettingsResponse('response-user-data', (event, user_data_res) => {
-    //     LOG('User data response received from main: ' + JSON.stringify(user_data_res));
-
-    //     if (user_data_res.button_colour === '') {
-    //         setButtonColour(ButtonColour.Blue)
-    //     } else {
-    //         setButtonColour(user_data_res.button_colour);
-    //     }
-    // })
+    window.api.settings.get().then((userSettingsRes) => {
+      LOG('User settings received from main: ' + JSON.stringify(userSettingsRes));
+      setButtonColour(userSettingsRes.buttonColour);
+    })
   }, []);
 
   return (

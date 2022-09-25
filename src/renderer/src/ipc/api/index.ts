@@ -1,6 +1,7 @@
-import { ITaskApi, taskApi } from "./task";
-import { IStatsApi, statsApi } from "./stats";
-import { ITestApi, testApi } from "./test";
+import { ITaskApi, taskApi } from "./task.invokers";
+import { IStatsApi, statsApi } from "./stats.invokers";
+import { ISettingsApi, settingsApi } from "./settings.invokers";
+import { ITestApi, testApi } from "./test.invokers";
 
 /**
  * The methods available from the API. For use with Window.ts.
@@ -8,6 +9,7 @@ import { ITestApi, testApi } from "./test";
 export interface IApi {
     task: ITaskApi,
     stats: IStatsApi,
+    settings: ISettingsApi,
     test: ITestApi
 }
 
@@ -18,5 +20,6 @@ export interface IApi {
 export const api: IApi = {
     task: taskApi,
     stats: statsApi,
+    settings: settingsApi,
     test: testApi
 }

@@ -1,9 +1,10 @@
 import { MAIN_MENU_BAR_TEMPLATE } from './menu/main-menu';
 import { app, BrowserWindow, Menu } from 'electron';
 import { ipcMainManager } from './ipc/ipc-manager';
-import { initTestListeners } from './ipc/test-listeners';
-import { initTaskListeners } from './ipc/task-listeners';
-import { initStatsListeners } from './ipc/stats-listeners';
+import { initTestListeners } from './ipc/test.handlers';
+import { initTaskListeners } from './ipc/task.handlers';
+import { initStatsListeners } from './ipc/stats.handlers';
+import { initSettingsListeners } from './ipc/settings.handlers';
 import { deleteUserSettings, initUserSettings } from './files/user-settings';
 import { deleteLocalDatabase, deleteAllTasksByStatus, initDatabase, initDebugTasks } from './files/database';
 import { DEBUG } from '../common/utils/debug';
@@ -108,5 +109,6 @@ app.on('activate', () => {
 ipcMainManager.initListeners([
   initTestListeners,
   initTaskListeners,
-  initStatsListeners
+  initStatsListeners,
+  initSettingsListeners
 ]);
