@@ -1,9 +1,11 @@
 import DatabaseConstructor, { Database } from "better-sqlite3";
-import { Task, NewTask, TaskStatus } from "../../common/models/task.model";
+import { unlinkSync } from "fs";
+
+import { Task, DbTask, NewTask, TaskStatus } from "../../common/models/task.model";
 import { TaskYearRange } from "../../common/models/task-graph-data.model";
+import { getCurrentDate } from "../../common/utils/dates";
 import { LOG } from "../../common/utils/debug";
 import { USER_DATA_PATH } from "./paths";
-import { unlinkSync } from "fs";
 
 const userDbPath = USER_DATA_PATH + "tasks.db";
 const taskTable = "task";
@@ -60,15 +62,7 @@ export function getAllTasks(status: TaskStatus): Task[] {
   const allTasks = new Array<Task>();
   // convert db tasks back to Task format
   for (const dbTask of dbTasks) {
-    const task: Task = {
-      id: dbTask.id,
-      icon: dbTask.icon,
-      description: dbTask.description,
-      status: dbTask.status,
-      dueDate: new Date(dbTask.due_date),
-      lastModifiedDate: new Date(dbTask.last_modified_date),
-      creationDate: new Date(dbTask.creation_date)
-    }
+    const task = mapDbTaskToObject(dbTask);
     allTasks.push(task);
   }
   // sort list of tasks by dueDate
@@ -79,24 +73,50 @@ export function getAllTasks(status: TaskStatus): Task[] {
   return allTasks;
 }
 
+export function getTaskById(id: number | bigint): Task {
+  const db = connectToDatabase();
+  const selectStmt = db.prepare(`SELECT * FROM ${taskTable} WHERE id = ${id} LIMIT 1`)
+  const foundTask: Task = mapDbTaskToObject(selectStmt.get());
+  db.close();
+  return foundTask;
+}
+
 /**
- * Inserts a new Task into the database.
+ * Converts a DbTask to a Task object.
  */
-export function createTask(newTask: NewTask): void {
+function mapDbTaskToObject(dbTask: DbTask) {
+  const task: Task = {
+    id: dbTask.id,
+    icon: dbTask.icon,
+    description: dbTask.description,
+    status: dbTask.status,
+    dueDate: new Date(dbTask.due_date),
+    lastModifiedDate: new Date(dbTask.last_modified_date),
+    creationDate: new Date(dbTask.creation_date)
+  }
+  return task;
+}
+
+/**
+ * Creates a new Task and stores it in the database.
+ * @returns the newly stored Task.
+ */
+export function createTask(newTask: NewTask): Task {
   const db = connectToDatabase();
   const insert = db.prepare(`INSERT INTO ${taskTable} (${NEW_TASK_COLUMNS}) VALUES (${NEW_TASK_VALUE_BINDINGS})`);
 
-  const now = new Date();
-  insert.run({
+  const now = getCurrentDate();
+  const insertedId = insert.run({
     icon: newTask.icon,
     description: newTask.description,
     status: newTask.status,
     due_date: newTask.dueDate.toISOString(),
     last_modified_date: now.toISOString(),
     creation_date: now.toISOString()
-  });
+  }).lastInsertRowid;
 
   db.close();
+  return getTaskById(insertedId);
 }
 
 /**
@@ -113,7 +133,7 @@ function makeUpdateTaskQueryString(updatedTask: Task): string {
   return `UPDATE ${taskTable} ` +
          `SET icon = '${updatedTask.icon}', description = '${updatedTask.description}', ` +
              `status = ${updatedTask.status}, due_date = '${updatedTask.dueDate.toISOString()}', ` +
-             `last_modified_date = '${new Date().toISOString()}' ` +
+             `last_modified_date = '${getCurrentDate().toISOString()}' ` +
          `WHERE id = ${updatedTask.id}`;
 }
 
@@ -199,9 +219,10 @@ export function deleteLocalDatabase() {
   unlinkSync(userDbPath);
 }
 
-export function initDebugTasks(): void {
-  createTask({icon: 'assignment', description: 'Do homework', status: TaskStatus.InProgress, dueDate: new Date()});
+export function initDebugDatabase(): void {
+  const now = getCurrentDate();
+  createTask({icon: 'assignment', description: 'Do homework', status: TaskStatus.InProgress, dueDate: now});
   createTask({icon: 'fitnesscenter', description: 'Workout', status: TaskStatus.Completed, dueDate: new Date('2019-01-01T17:47:08+00:00')});
-  createTask({icon: 'create', description: 'Write an email', status: TaskStatus.Deleted, dueDate: new Date()});
-  createTask({icon: 'videogameasset', description: 'Play a game', status: TaskStatus.InProgress, dueDate: new Date()});
+  createTask({icon: 'create', description: 'Write an email', status: TaskStatus.Deleted, dueDate: now});
+  createTask({icon: 'videogameasset', description: 'Play a game', status: TaskStatus.InProgress, dueDate: now});
 }

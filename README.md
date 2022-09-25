@@ -24,7 +24,7 @@
  `> npm install`  
  `> npm start`
 
- Files created during debugging are stored in the `debug_user/` directory in the root of the repo. Assuming the `DEBUG` variable is set to `true`.
+ Files created during debugging are stored in the `.debug_user/` directory in the root of the repo. Assuming the `DEBUG` variable is set to `true`.
 
 ## Sample Images
  ![Current Tasks Image](https://i.imgur.com/vgz2Lv7.png)  

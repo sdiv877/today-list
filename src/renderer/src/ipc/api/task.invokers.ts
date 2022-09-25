@@ -3,7 +3,7 @@ import { IpcEvents } from "../../../../common/ipc/ipc-events";
 import { Task, NewTask, TaskStatus } from "../../../../common/models/task.model";
 
 export interface ITaskApi {
-    create: (newTask: NewTask) => Promise<void>,
+    create: (newTask: NewTask) => Promise<Task>,
     getAll: (status: TaskStatus) => Promise<Task[]>,
     update: (updatedTask: Task) => Promise<void>,
     delete: (idToDelete: number) => Promise<void>

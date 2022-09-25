@@ -8,7 +8,8 @@ import {
   TaskGraphYearData,
   TaskGraphMonthData,
   DefaultTaskGraphYearData,
-  DefaultTaskGraphMonthData
+  DefaultTaskGraphMonthData,
+  DefaultTaskGraphData
 } from "../../common/models/task-graph-data.model";
 
 export function getTaskGraphData(): TaskGraphData {
@@ -24,6 +25,8 @@ export function getTaskGraphData(): TaskGraphData {
     yearRange: getTasksDueYearRange(),
     currentYear: getCurrentYear()
   };
+
+  if (tgData.yearlyData.length === 0) return { ...DefaultTaskGraphData };
   // LOG('tgData: ' + JSON.stringify(tgData, null, 2));
   return tgData;
 }

@@ -1,7 +1,8 @@
 import { TaskIcon } from './icons.model';
 
 /**
- * Describes a Task stored in the database.
+ * Describes a Task that was taken from the database. Appropriate for
+ * use outside the business logic layer.
  */
 interface Task {
   id: number;
@@ -11,6 +12,20 @@ interface Task {
   dueDate: Date;
   lastModifiedDate: Date;
   creationDate: Date;
+}
+
+/**
+ * Describes an immutable Task taken directly from the database. Not
+ * suitable for use outside of the business logic layer.
+ */
+interface DbTask {
+  id: number;
+  icon: TaskIcon;
+  description: string;
+  status: TaskStatus;
+  due_date: Date;
+  last_modified_date: Date;
+  creation_date: Date;
 }
 
 /**
@@ -29,4 +44,4 @@ enum TaskStatus {
   Deleted = 2
 }
 
-export { Task, NewTask, TaskStatus };
+export { Task, DbTask, NewTask, TaskStatus };

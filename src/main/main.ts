@@ -1,12 +1,12 @@
 import { MAIN_MENU_BAR_TEMPLATE } from './menu/main-menu';
 import { app, BrowserWindow, Menu } from 'electron';
 import { ipcMainManager } from './ipc/ipc-manager';
-import { initTestListeners } from './ipc/test.handlers';
-import { initTaskListeners } from './ipc/task.handlers';
-import { initStatsListeners } from './ipc/stats.handlers';
-import { initSettingsListeners } from './ipc/settings.handlers';
+import { initTestListeners } from './ipc/handlers/test.handlers';
+import { initTaskListeners } from './ipc/handlers/task.handlers';
+import { initStatsListeners } from './ipc/handlers/stats.handlers';
+import { initSettingsListeners } from './ipc/handlers/settings.handlers';
 import { deleteUserSettings, initUserSettings } from './files/user-settings';
-import { deleteLocalDatabase, deleteAllTasksByStatus, initDatabase, initDebugTasks } from './files/database';
+import { deleteLocalDatabase, deleteAllTasksByStatus, initDatabase, initDebugDatabase } from './files/database';
 import { DEBUG } from '../common/utils/debug';
 import { TaskStatus } from '../common/models/task.model';
 
@@ -74,7 +74,7 @@ app.on('ready', () =>  {
   initUserSettings();
   initDatabase();
   if (DEBUG) {
-    initDebugTasks();
+    initDebugDatabase();
   }
 });
 

@@ -11,7 +11,7 @@ const userSettingsPath = USER_DATA_PATH + 'settings.json';
  * if either doesn't exist.
  */
 export function initUserSettings(): void {
-    if (!existsSync(USER_DATA_PATH)) { // debug_user/ or user/
+    if (!existsSync(USER_DATA_PATH)) { // .debug_user/ or user/
         mkdirSync(USER_DATA_PATH, { recursive: true });
     }
     if (!existsSync(userSettingsPath)) { // settings.json

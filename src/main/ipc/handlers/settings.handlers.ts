@@ -1,9 +1,9 @@
 import { app } from "electron";
-import { ipcMainManager, IpcListenerInitializer } from "./ipc-manager";
-import { IpcEvents } from "../../common/ipc/ipc-events";
-import { deleteUserSettings, initUserSettings, loadUserSettings, saveUserSettings } from '../files/user-settings';
-import { deleteLocalDatabase, initDatabase } from "../files/database";
-import { DEBUG } from "../../common/utils/debug";
+import { ipcMainManager, IpcListenerInitializer } from "../ipc-manager";
+import { IpcEvents } from "../../../common/ipc/ipc-events";
+import { deleteUserSettings, initUserSettings, loadUserSettings, saveUserSettings } from '../../files/user-settings';
+import { deleteLocalDatabase, initDatabase } from "../../files/database";
+import { DEBUG } from "../../../common/utils/debug";
 
 export const initSettingsListeners: IpcListenerInitializer = () => {
   ipcMainManager.handle(IpcEvents.SETTINGS_GET, () => {

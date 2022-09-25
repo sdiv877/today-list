@@ -89,4 +89,4 @@ typings/
 out/
 
 # today-list
-debug_user/
+.debug_user/

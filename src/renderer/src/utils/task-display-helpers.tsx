@@ -1,4 +1,4 @@
-import { NewTask, Task } from '../../../common/models/task.model';
+import { Task } from '../../../common/models/task.model';
 
 export function handleTaskField(task: string): string {
   if (task === '') {
@@ -7,7 +7,7 @@ export function handleTaskField(task: string): string {
   return task;
 }
 
-export function sortTaskList(list: Task[] | NewTask[]): Task | NewTask[] {
+export function sortTaskList(list: Task[]): Task[] {
   const sortedList = list.sort((t1: Task, t2: Task) => {
     return t1.dueDate.valueOf() - t2.dueDate.valueOf();
   });

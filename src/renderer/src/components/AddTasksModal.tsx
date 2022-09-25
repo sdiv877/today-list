@@ -4,16 +4,17 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextFi
 import DateTimePicker from "./pickers/DateTimePicker";
 import IconMenu from "./pickers/IconMenu";
 
-import { NewTask, TaskStatus } from "../../../common/models/task.model";
+import { Task, NewTask, TaskStatus } from "../../../common/models/task.model";
 import { TaskIcon, TaskIconUtil } from "../utils/icon-helpers";
 import { sortTaskList } from "../utils/task-display-helpers";
+import { getCurrentDate } from "../../../common/utils/dates";
 
 import "../styles/AddTasksModal.css";
 
 // Props types
 interface AddTasksModalProps {
-  currentList: NewTask[];
-  setCurrentList: React.Dispatch<React.SetStateAction<NewTask[]>>;
+  currentList: Task[];
+  setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>;
   show: boolean;
   setShow: (show: boolean) => void;
   buttonColour: string;
@@ -31,7 +32,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     setSelectedTask(task);
   };
   // Tracks the date selected
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState(getCurrentDate());
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
   };
@@ -48,18 +49,19 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     };
     // clone the current list of tasks
     let taskListCopy = props.currentList.map((l) => Object.assign({}, l));
-    // sort list and add the new task to react state
-    taskListCopy = taskListCopy.concat(newTask);
-    taskListCopy = sortTaskList(taskListCopy) as NewTask[]; // TODO: remove 'as'
-    props.setCurrentList(taskListCopy);
-    // and add the tasks to the db
-    window.api.task.create(newTask);
-    window.ipcRendererManager.LOG("Created new task, " + newTask);
-    // scroll to the bottom of the page so the user can see their new task
-    // 500ms is the time for a card's fade transition
-    setTimeout(() => {
-      scrollToBottom();
-    }, 100);
+    // add the task to the db
+    window.api.task.create(newTask).then((storedTask) => {
+      // add the new task to react state and sort the list
+      taskListCopy.push(storedTask);
+      taskListCopy = sortTaskList(taskListCopy);
+      props.setCurrentList(taskListCopy);
+      window.ipcRendererManager.LOG("Created new task, " + newTask);
+      // scroll to the bottom of the page so the user can see their new task
+      // 500ms is the time for a card's fade transition
+      setTimeout(() => {
+        scrollToBottom();
+      }, 100);
+    });
   };
 
   /**
@@ -85,7 +87,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
   function clearStates() {
     setSelectedIcon('create');
     setSelectedTask("");
-    setSelectedDate(new Date());
+    setSelectedDate(getCurrentDate());
   }
 
   function handleClose() {

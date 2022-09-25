@@ -34,7 +34,7 @@ export function getTaskCardDateString(date: Date): string {
  * @returns ["Today", "Tomorrow", "Weekday, Day Month", "dd/MM/YY"]
  */
 function getLogicalDateString(date: Date): string {
-  const currentDate = new Date();
+  const currentDate = getCurrentDate();
   if (
     date.getDate() === currentDate.getDate() &&
     date.getMonth() === currentDate.getMonth() &&
@@ -47,7 +47,7 @@ function getLogicalDateString(date: Date): string {
     date.getFullYear() === currentDate.getFullYear()
   ) {
     return 'Tomorrow';
-    // if the asbolute day of the month diff <= 7 and month and year are equal
+    // if the absolute day of the month diff <= 7 and month and year are equal
   } else if (
     Math.abs(date.getDate() - currentDate.getDate()) <= 7 &&
     date.getMonth() === currentDate.getMonth() &&
@@ -135,6 +135,10 @@ function getTimeString(date: Date): string {
   return hoursString + ':' + minutesString;
 }
 
+export function getCurrentDate(): Date {
+  return new Date();
+}
+
 export function getCurrentYear(): number {
-  return new Date().getFullYear();
+  return getCurrentDate().getFullYear();
 }

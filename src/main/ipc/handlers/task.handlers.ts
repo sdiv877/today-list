@@ -1,11 +1,11 @@
-import { ipcMainManager, IpcListenerInitializer } from "./ipc-manager";
-import { IpcEvents } from "../../common/ipc/ipc-events";
-import { createTask, deleteTask, getAllTasks, updateTask } from "../files/database";
+import { ipcMainManager, IpcListenerInitializer } from "../ipc-manager";
+import { IpcEvents } from "../../../common/ipc/ipc-events";
+import { createTask, deleteTask, getAllTasks, updateTask } from "../../files/database";
 
 export const initTaskListeners: IpcListenerInitializer = () => {
   ipcMainManager.handle(IpcEvents.TASK_CREATE, (event, newTask) => {
     ipcMainManager.LOG('Renderer requested creation of '+ newTask.toString());
-    createTask(newTask);
+    return createTask(newTask);
   });
 
   ipcMainManager.handle(IpcEvents.TASK_GET_ALL, (event, status) => {
