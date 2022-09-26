@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Card, Divider } from '@material-ui/core';
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import SwitchGraphButton, { SwitchGraphOperation } from './buttons/SwitchGraphButton';
 
+import GenericButton from "./buttons/GenericButton";
 import { DefaultTaskGraphData, DefaultTaskGraphYearData } from '../../../common/models/task-graph-data.model';
 import { LOG } from '../../../common/utils/debug';
 
@@ -11,6 +11,10 @@ import '../styles/TasksGraph.css';
 interface TasksGraphProps {
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>
 }
+
+type SwitchGraphOperation = 'prev' | 'next';
+
+const switchGraphButtonStyles = { marginLeft: '6px' };
 
 const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
   // graph data
@@ -76,20 +80,22 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
 
   return (
     <Card variant="outlined" className="TasksGraph">
-      <div className="graphTitle">
-        Task completion in {yearData.year}
-      </div>
+      <div className="graphTitle">Task completion in {yearData.year}</div>
       <Divider orientation="horizontal" />
       <div className="barGraph">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={yearData.monthlyData}>
-            <XAxis dataKey="month" interval={0} tickFormatter={xAxisTickFormatter} />
+            <XAxis
+              dataKey="month"
+              interval={0}
+              tickFormatter={xAxisTickFormatter}
+            />
             <YAxis
-              domain={[0, 'auto']}
+              domain={[0, "auto"]}
               label={{
-                value: 'Number of Tasks',
+                value: "Number of Tasks",
                 angle: -90,
-                position: 'insideLeft'
+                position: "insideLeft"
               }}
             />
             <Tooltip />
@@ -99,9 +105,21 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="graphButtons">
-        <SwitchGraphButton operation={'prev'} setSelectedYear={handleSetYear} disabled={prevDisabled} />
-        <SwitchGraphButton operation={'next'} setSelectedYear={handleSetYear} disabled={nextDisabled} />
+      <div className="graphButtons" style={{display: 'flex'}}>
+        <GenericButton
+          label={"Prev"}
+          variant={"outlined"}
+          style={switchGraphButtonStyles}
+          disabled={prevDisabled}
+          onClick={() => handleSetYear("prev")}
+        />
+        <GenericButton
+          label={"Next"}
+          variant={"outlined"}
+          style={switchGraphButtonStyles}
+          disabled={nextDisabled}
+          onClick={() => handleSetYear("next")}
+        />
       </div>
     </Card>
   );

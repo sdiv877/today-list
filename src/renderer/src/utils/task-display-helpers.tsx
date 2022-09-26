@@ -13,3 +13,7 @@ export function sortTaskList(list: Task[]): Task[] {
   });
   return sortedList;
 }
+
+export function setDocumentBgColour(colour: string) {
+  document.querySelector('body').style.backgroundColor = colour;
+}

@@ -3,10 +3,10 @@ import AddTasksModal from '../AddTasksModal';
 import AddTasksFab from '../buttons/AddTasksFab';
 import CurrentTasksDisplay from '../cards/task/CurrentTasksDisplay';
 
-import { LOG } from '../../../../common/utils/debug';
 import { Task, TaskStatus } from '../../../../common/models/task.model';
-import { sortTaskList } from '../../utils/task-display-helpers';
+import { sortTaskList, setDocumentBgColour } from '../../utils/task-display-helpers';
 import { ButtonColour } from '../../../../common/utils/colours';
+import { LOG } from '../../../../common/utils/debug';
 
 const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
   // currentList states
@@ -18,10 +18,13 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
   // handle getting Tasks from db on page reload
   React.useEffect(() => {
     LOG('CurrentTasksBodyContainer useEffect() called');
+    window.api.settings.get().then((userSettingsRes) => {
+      setDocumentBgColour(userSettingsRes.bgColour);
+    })
     // get all InProgress Tasks
     window.api.task.getAll(TaskStatus.InProgress).then((taskRes) => {
       window.ipcRendererManager.LOG('Current Tasks response received from main. Length: ' + taskRes.length);
-      setCurrentList(sortTaskList(taskRes) as Task[]);
+      setCurrentList(sortTaskList(taskRes));
     });
     // getting button colour info
     window.api.settings.get().then((userSettingsRes) => {

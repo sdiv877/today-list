@@ -9,12 +9,13 @@ import Typography from '@material-ui/core/Typography';
 interface DeleteDataModal {
   show: boolean;
   setShow: (show: boolean) => void;
+  onConfirm: () => void;
 }
 
 const DeleteDataModal: FC<DeleteDataModal> = (props): JSX.Element => {
   const handleConfirmDeletion = () => {
-    window.api.settings.deleteAllData();
     props.setShow(false);
+    props.onConfirm();
   }
 
   const handleClose = () => {
