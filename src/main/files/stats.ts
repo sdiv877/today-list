@@ -85,22 +85,42 @@ function getAllMonthData(tasks: Task[], year: number): TaskGraphMonthData[] {
 
 export function getAnnualTaskStats(year: number): TaskStats {
   const graphData = getTaskGraphData();
+  // find the yearData of the selected year
   let relevantYearData = DefaultTaskGraphYearData;
   for (const yearData of graphData.yearlyData) {
     if (yearData.year === year) {
       relevantYearData = yearData;
     }
   }
-  // get max Completed field in relevantYearData
-  const highestCompletion = Math.max(
-    ...relevantYearData.monthlyData.map((md) => md.Completed)
+  // sum up all created/completed field for each month
+  let totalCreated = 0;
+  let totalCompleted = 0;
+  for (const md of relevantYearData.monthlyData) {
+    totalCreated += md.Created;
+    totalCompleted += md.Completed;
+  }
+  // get max Completed field in relevantYearData to find mostCompletedMonth
+  const highestCompletion = Math.max(...relevantYearData.monthlyData.map((md) => md.Completed));
+  const mostCompletedMonth = relevantYearData.monthlyData.find(
+    (md) => md.Completed === highestCompletion
   );
-  const mostProductiveMonth = relevantYearData.monthlyData.find((md) => md.Completed == highestCompletion);
+  // do the same for max Created field
+  const highestCreation = Math.max(...relevantYearData.monthlyData.map((md) => md.Created));
+  const mostCreatedMonth = relevantYearData.monthlyData.find(
+    (md) => md.Created === highestCreation
+  );
+  // if the mostCompletedMonth has a value of 0, then default to mostCreatedMonth
+  let mostProductiveMonth: string;
+  if (mostCompletedMonth.Completed != 0) {
+    mostProductiveMonth = mostCompletedMonth.month;
+  } else {
+    mostProductiveMonth = mostCreatedMonth.month;
+  }
   return {
     type: 'Annual Stats',
-    totalCreated: mostProductiveMonth.Created,
-    totalCompleted: mostProductiveMonth.Completed,
-    mostProductivePeriod: mostProductiveMonth.month
+    totalCreated: totalCreated,
+    totalCompleted: totalCompleted,
+    mostProductivePeriod: mostProductiveMonth
   }
 }
 
@@ -124,8 +144,8 @@ export function getOverallTaskStats(): TaskStats {
   const mostProductiveYear = graphData.yearlyData[mostProductiveYearIndex].year;
   return {
     type: 'Overall Stats',
-    totalCreated: createdTasksByYear[mostProductiveYearIndex],
-    totalCompleted: completedTasksByYear[mostProductiveYearIndex],
+    totalCreated: createdTasksByYear.reduce((a, b) => a + b, 0),
+    totalCompleted: completedTasksByYear.reduce((a, b) => a + b, 0),
     mostProductivePeriod: mostProductiveYear.toString()
   };
 }
