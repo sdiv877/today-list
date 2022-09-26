@@ -1,7 +1,10 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import { DefaultUserSettings, UserSettings } from "../../../common/models/user-settings.model";
-import { setDocumentBgColour } from "../utils/task-display-helpers";
+import {
+  DefaultUserSettings,
+  UserSettings
+} from '../../../common/models/user-settings.model';
+import { setDocumentBgColour } from '../utils/task-display-helpers';
 
 import { LOG } from '../../../common/utils/debug';
 
@@ -19,7 +22,7 @@ interface UserSettingsProviderProps {
 export const UserSettingsContext = React.createContext<IUserSettingsContext>({
   ...DefaultUserSettings,
   refresh: (): void => {
-    LOG("UserSettingsContext refresh() not initialized", "UserSettingsContext");
+    LOG('UserSettingsContext refresh() not initialized', 'UserSettingsContext');
   }
 });
 
@@ -29,19 +32,20 @@ export const UserSettingsContext = React.createContext<IUserSettingsContext>({
  */
 const UserSettingsProvider: FC<UserSettingsProviderProps> = (props) => {
   // state of UserSettings fetched from disk
-  const [userSettings, setUserSettings] = React.useState<UserSettings>(DefaultUserSettings);
+  const [userSettings, setUserSettings] =
+    React.useState<UserSettings>(DefaultUserSettings);
   // util function to fetch UserSettings from disk
   const refreshUserSettings = () => {
     window.api.settings.get().then((userSettingsRes) => {
       setUserSettings(userSettingsRes);
       setDocumentBgColour(userSettingsRes.bgColour);
-    })
-  }
+    });
+  };
   // initial state of the provider is the userSettings state and the util function to update it
   const DefaultUserSettingsContextProviderValue: IUserSettingsContext = {
     ...userSettings,
     refresh: refreshUserSettings
-  }
+  };
 
   // on App's first load fetch data from disk
   React.useEffect(() => {
@@ -49,7 +53,9 @@ const UserSettingsProvider: FC<UserSettingsProviderProps> = (props) => {
   }, []);
 
   return (
-    <UserSettingsContext.Provider value={DefaultUserSettingsContextProviderValue}>
+    <UserSettingsContext.Provider
+      value={DefaultUserSettingsContextProviderValue}
+    >
       {props.children}
     </UserSettingsContext.Provider>
   );

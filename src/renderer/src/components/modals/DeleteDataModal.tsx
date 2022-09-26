@@ -16,7 +16,7 @@ const DeleteDataModal: FC<DeleteDataModal> = (props): JSX.Element => {
   const handleConfirmDeletion = () => {
     props.setShow(false);
     props.onConfirm();
-  }
+  };
 
   const handleClose = () => {
     props.setShow(false);

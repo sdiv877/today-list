@@ -10,13 +10,17 @@ import { LOG } from '../../../../common/utils/debug';
 
 const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
   const userSettingsContext = useContext(UserSettingsContext);
-  const [currentTaskList, setCurrentTaskList] = React.useState(new Array<Task>());
+  const [currentTaskList, setCurrentTaskList] = React.useState(
+    new Array<Task>()
+  );
   const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
     LOG('CurrentTasksBodyContainer useEffect() called');
     window.api.task.getAll(TaskStatus.InProgress).then((taskRes) => {
-      window.ipcRendererManager.LOG('Current Tasks response received from main. Length: ' + taskRes.length);
+      window.ipcRendererManager.LOG(
+        'Current Tasks response received from main. Length: ' + taskRes.length
+      );
       setCurrentTaskList(sortTaskList(taskRes));
     });
   }, []);
@@ -27,7 +31,10 @@ const CurrentTasksBodyContainer: React.VoidFunctionComponent = () => {
         currentList={currentTaskList}
         setCurrentTaskList={setCurrentTaskList}
       />
-      <AddTasksFab setShow={setShow} buttonColour={userSettingsContext.buttonColour} />
+      <AddTasksFab
+        setShow={setShow}
+        buttonColour={userSettingsContext.buttonColour}
+      />
       <AddTasksModal
         currentTaskList={currentTaskList}
         setCurrentTaskList={setCurrentTaskList}

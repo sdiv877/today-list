@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 interface GenericButtonProps {
   label: string;
   style: React.CSSProperties;
-  variant: "text" | "outlined" | "contained";
+  variant: 'text' | 'outlined' | 'contained';
   disabled: boolean;
   className?: string;
   onClick: () => void;
@@ -13,7 +13,7 @@ interface GenericButtonProps {
 
 const GenericButton: FC<GenericButtonProps> = (props): JSX.Element => {
   return (
-    <div className={props.className ?? "GenericButton"}>
+    <div className={props.className ?? 'GenericButton'}>
       <Button
         style={props.style}
         variant={props.variant}

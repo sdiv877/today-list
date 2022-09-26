@@ -24,9 +24,7 @@ const CurrentTasksContainer: React.VoidFunctionComponent = () => {
   return (
     <div className="CurrentTasksHeaderContainer">
       <Card className={classes.card}>
-        <Typography className={classes.text}>
-          Welcome back
-        </Typography>
+        <Typography className={classes.text}>Welcome back</Typography>
         <div className="fadeIn WelcomeNameField">
           <Typography className={classes.text}>
             {userSettingsContext.username}

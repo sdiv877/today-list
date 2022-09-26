@@ -13,14 +13,16 @@ interface CurrentsTaskDisplayProps {
   setCurrentTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element => {
+const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (
+  props
+): JSX.Element => {
   function handleCompleteTask(task: Task): void {
     // update react state
     removeFromDisplayList(task.id);
     // update db state
     task.status = TaskStatus.Completed;
     window.api.task.update(task);
-    window.ipcRendererManager.LOG("Set TaskStatus to Delete, id " + task.id);
+    window.ipcRendererManager.LOG('Set TaskStatus to Delete, id ' + task.id);
   }
 
   function handleDeleteTask(task: Task): void {
@@ -29,22 +31,22 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
     // update db state
     task.status = TaskStatus.Deleted;
     window.api.task.update(task);
-    window.ipcRendererManager.LOG("Set TaskStatus to Deleted, id " + task.id);
+    window.ipcRendererManager.LOG('Set TaskStatus to Deleted, id ' + task.id);
   }
 
   function removeFromDisplayList(taskId: number): void {
-      // clone the list of tasks in the UI
-      const taskListCopy = props.currentList.map((l) => Object.assign({}, l));
-      // iterate over it and remove the task that the user wants to delete
-      for (let i = 0; i < taskListCopy.length; i++) {
-        if (taskListCopy[i].id === taskId) {
-          taskListCopy.splice(i, 1);
-          break;
-        }
+    // clone the list of tasks in the UI
+    const taskListCopy = props.currentList.map((l) => Object.assign({}, l));
+    // iterate over it and remove the task that the user wants to delete
+    for (let i = 0; i < taskListCopy.length; i++) {
+      if (taskListCopy[i].id === taskId) {
+        taskListCopy.splice(i, 1);
+        break;
       }
-      // update react state
-      LOG('Removed item from display list, key: ' + taskId);
-      props.setCurrentTaskList(taskListCopy);
+    }
+    // update react state
+    LOG('Removed item from display list, key: ' + taskId);
+    props.setCurrentTaskList(taskListCopy);
   }
 
   const cardList = props.currentList.map((task) => (

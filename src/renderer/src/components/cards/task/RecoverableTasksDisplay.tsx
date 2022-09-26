@@ -22,12 +22,16 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (
     // update db state
     task.status = TaskStatus.InProgress;
     window.api.task.update(task);
-    window.ipcRendererManager.LOG('Set TaskStatus to InProgress, id ' + task.id);
+    window.ipcRendererManager.LOG(
+      'Set TaskStatus to InProgress, id ' + task.id
+    );
   }
 
   function removeFromDisplayList(taskId: number): void {
     // clone the list of tasks in the UI
-    const taskListCopy = props.recoverableTaskList.map((l) => Object.assign({}, l));
+    const taskListCopy = props.recoverableTaskList.map((l) =>
+      Object.assign({}, l)
+    );
     // iterate over it and remove the task that the user wants to delete
     for (let i = 0; i < taskListCopy.length; i++) {
       if (taskListCopy[i].id === taskId) {
@@ -55,7 +59,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (
     </CSSTransition>
   ));
 
-  /** 
+  /**
    * The returned component. Wrapping the cards in a Transition group allows each item in the list to
    * have transitions applied separately (provided they each have a unique key).
    */

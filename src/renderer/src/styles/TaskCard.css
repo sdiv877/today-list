@@ -1,42 +1,42 @@
 .taskCard {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-    min-height: 115px;
-    display: flex;
+  min-height: 115px;
+  display: flex;
 }
 
 .taskCard:hover .hiddenButton {
-    visibility: visible;
+  visibility: visible;
 }
 
 .hiddenButton {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .taskIcon {
-    text-align: center;
+  text-align: center;
 }
 
 /** CSS Transitions **/
 .fading-task-card-enter {
-    max-height: 0;
-    opacity: 0;
+  max-height: 0;
+  opacity: 0;
 }
 
 .fading-task-card-enter-active {
-    max-height: 130px;
-    opacity: 1;
-    transition: all 500ms;
+  max-height: 130px;
+  opacity: 1;
+  transition: all 500ms;
 }
 
 .fading-task-card-exit {
-    max-height: 130px;
-    opacity: 1;
+  max-height: 130px;
+  opacity: 1;
 }
 
 .fading-task-card-exit-active {
-    opacity: 0;
-    transform: translate(640px, 0);
-    transition: all 500ms;
+  opacity: 0;
+  transform: translate(640px, 0);
+  transition: all 500ms;
 }

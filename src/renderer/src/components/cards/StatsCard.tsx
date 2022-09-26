@@ -5,11 +5,14 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
+  ListItemText
 } from '@material-ui/core';
 import { CheckBox, Create, Today } from '@material-ui/icons';
 
-import { TaskStatsType, getDefaultTaskStats } from '../../../../common/models/task-stats.model';
+import {
+  TaskStatsType,
+  getDefaultTaskStats
+} from '../../../../common/models/task-stats.model';
 import { LOG } from '../../../../common/utils/debug';
 
 import '../../styles/StatsCard.css';
@@ -27,13 +30,15 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
   React.useEffect(() => {
     LOG('StatsCard useEffect() called');
     if (props.type === 'Annual Stats') {
-      window.api.stats.getAnnualTaskStats(props.selectedYear).then((taskStatsRes) => {
-        setStats(taskStatsRes);
-      })
+      window.api.stats
+        .getAnnualTaskStats(props.selectedYear)
+        .then((taskStatsRes) => {
+          setStats(taskStatsRes);
+        });
     } else {
       window.api.stats.getOverallTaskStats().then((taskStatsRes) => {
         setStats(taskStatsRes);
-      })
+      });
     }
   }, [props.selectedYear]);
 
@@ -63,9 +68,7 @@ const StatsCard: FC<StatsCardProps> = (props): JSX.Element => {
                 <Today />
               </ListItemIcon>
               <ListItemText
-                primary={
-                  `Most productive period: ${stats.mostProductivePeriod} [${stats.totalCompleted} tasks completed]`
-                }
+                primary={`Most productive period: ${stats.mostProductivePeriod} [${stats.totalCompleted} tasks completed]`}
               />
             </ListItem>
           </div>

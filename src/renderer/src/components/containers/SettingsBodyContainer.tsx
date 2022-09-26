@@ -6,7 +6,11 @@ import SettingsColourPickerDisplay from '../pickers/SettingsColourPickerDisplay'
 import SettingsNameField from '../pickers/SettingsNameField';
 import GenericButton from '../buttons/GenericButton';
 
-import { BackgroundColour, BackgroundColourUtil, ButtonColour } from '../../../../common/utils/colours';
+import {
+  BackgroundColour,
+  BackgroundColourUtil,
+  ButtonColour
+} from '../../../../common/utils/colours';
 import { UserSettings } from '../../../../common/models/user-settings.model';
 import { setDocumentBgColour } from '../../utils/task-display-helpers';
 import { DEBUG, LOG } from '../../../../common/utils/debug';
@@ -14,7 +18,11 @@ import { DEBUG, LOG } from '../../../../common/utils/debug';
 import '../../styles/fadeIn.css';
 import { UserSettingsContext } from '../../providers/UserSettingsProvider';
 
-const deleteButtonStyle ={ color: 'crimson', borderColor: 'crimson', fontWeight: 'bold' };
+const deleteButtonStyle = {
+  color: 'crimson',
+  borderColor: 'crimson',
+  fontWeight: 'bold'
+};
 
 const SettingsBodyContainer: React.VoidFunctionComponent = () => {
   const userSettingsContext = React.useContext(UserSettingsContext);
@@ -28,11 +36,11 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
 
   React.useEffect(() => {
     LOG('SettingsBodyContainer useEffect() called');
-      setUsername(userSettingsContext.username);
-      setBgColour(userSettingsContext.bgColour);
-      setDocumentBgColour(userSettingsContext.bgColour);
-      setBgDisplayColour('transparent');
-      setButtonColour(userSettingsContext.buttonColour)
+    setUsername(userSettingsContext.username);
+    setBgColour(userSettingsContext.bgColour);
+    setDocumentBgColour(userSettingsContext.bgColour);
+    setBgDisplayColour('transparent');
+    setButtonColour(userSettingsContext.buttonColour);
   }, []);
 
   function submitUserSettings() {
@@ -86,14 +94,20 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
               variant={'outlined'}
               disabled={false}
               className={'SettingsDeleteButton'}
-              onClick={() => {setShowDeleteModal(true)}}
+              onClick={() => {
+                setShowDeleteModal(true);
+              }}
             />
           }
         />
-        <div style={{textAlign: 'center'}}>
+        <div style={{ textAlign: 'center' }}>
           <GenericButton
             label={'Save'}
-            style={{ backgroundColor: buttonColour, color: 'white', marginTop: '8px' }}
+            style={{
+              backgroundColor: buttonColour,
+              color: 'white',
+              marginTop: '8px'
+            }}
             variant={'contained'}
             disabled={saveDisabled}
             className={'SettingsSaveButton'}
@@ -103,7 +117,7 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
             }}
           />
         </div>
-        <DeleteDataModal 
+        <DeleteDataModal
           show={showDeleteModal}
           setShow={setShowDeleteModal}
           onConfirm={() => {

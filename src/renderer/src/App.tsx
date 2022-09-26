@@ -1,19 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { HashRouter, Route, Routes } from "react-router-dom";
-import UserSettingsProvider from "./providers/UserSettingsProvider";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import UserSettingsProvider from './providers/UserSettingsProvider';
 
-import AppDrawer from "./components/AppDrawer";
-import CompletedTasks from "./pages/CompletedTasks";
-import CurrentTasks from "./pages/CurrentTasks";
-import RecycleBin from "./pages/RecycleBin";
-import Settings from "./pages/Settings";
-import Stats from "./pages/Stats";
+import AppDrawer from './components/AppDrawer';
+import CompletedTasks from './pages/CompletedTasks';
+import CurrentTasks from './pages/CurrentTasks';
+import RecycleBin from './pages/RecycleBin';
+import Settings from './pages/Settings';
+import Stats from './pages/Stats';
 
-import "./styles/App.css";
+import './styles/App.css';
 
-import { IpcEvents } from "../../common/ipc/ipc-events";
-import { DEBUG } from "../../common/utils/debug";
+import { IpcEvents } from '../../common/ipc/ipc-events';
+import { DEBUG } from '../../common/utils/debug';
 
 // compose App
 const App = () => {
@@ -40,7 +40,7 @@ const App = () => {
 };
 
 // render App
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // initialize IPC
 window.ipcRendererManager.sendReadySignal();
@@ -48,6 +48,6 @@ window.ipcRendererManager.sendReadySignal();
 if (DEBUG) {
   window.ipcRendererManager.send(IpcEvents.REQ_TEST);
   window.api.test.headPing().then((res) => {
-    window.ipcRendererManager.LOG(res + " received");
+    window.ipcRendererManager.LOG(res + ' received');
   });
 }

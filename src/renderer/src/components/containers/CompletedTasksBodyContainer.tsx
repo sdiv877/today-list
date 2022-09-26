@@ -6,12 +6,16 @@ import { sortTaskList } from '../../utils/task-display-helpers';
 import { LOG } from '../../../../common/utils/debug';
 
 const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
-  const [completedTaskList, setCompletedTaskList] = React.useState(new Array<Task>());
+  const [completedTaskList, setCompletedTaskList] = React.useState(
+    new Array<Task>()
+  );
 
   React.useEffect(() => {
     LOG('CompletedTasksBodyContainer useEffect() called');
     window.api.task.getAll(TaskStatus.Completed).then((taskRes) => {
-      window.ipcRendererManager.LOG("Completed Tasks received from main. Length: " + taskRes.length);
+      window.ipcRendererManager.LOG(
+        'Completed Tasks received from main. Length: ' + taskRes.length
+      );
       setCompletedTaskList(sortTaskList(taskRes));
     });
   }, []);

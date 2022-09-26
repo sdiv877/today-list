@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import { ColorResult, GithubPicker } from 'react-color';
 
-import { BG_COLOURS, BackgroundColourUtil } from '../../../../common/utils/colours';
+import {
+  BG_COLOURS,
+  BackgroundColourUtil
+} from '../../../../common/utils/colours';
 
 import '../../styles/SettingsColourPicker.css';
 

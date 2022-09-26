@@ -3,15 +3,15 @@
 /**
  * Implementation mostly taken from https://github.com/electron/fiddle/blob/main/src/renderer/ipc.ts
  */
-import { EventEmitter } from "events";
-import { ipcRenderer } from "electron";
+import { EventEmitter } from 'events';
+import { ipcRenderer } from 'electron';
 import {
   IpcEvents,
   ipcRendererEvents,
   WEBCONTENTS_READY_FOR_IPC_SIGNAL
-} from "../../../common/ipc/ipc-events";
+} from '../../../common/ipc/ipc-events';
 
-import { LOG as _LOG } from "../../../common/utils/debug";
+import { LOG as _LOG } from '../../../common/utils/debug';
 
 /**
  * The main purpose of this class is to be the central
@@ -62,9 +62,9 @@ class IpcRendererManager extends EventEmitter {
     return ipcRenderer.invoke(channel, ...args);
   }
 
-  public LOG = (msg: any, leadingNL=false) => {
+  public LOG = (msg: any, leadingNL = false) => {
     _LOG(msg, 'ipcRendererManager', leadingNL);
-  }
+  };
 }
 
 export const ipcRendererManager = new IpcRendererManager();

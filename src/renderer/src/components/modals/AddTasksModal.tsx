@@ -1,15 +1,27 @@
-import React, { FC } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField } from "@material-ui/core";
+import React, { FC } from 'react';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField
+} from '@material-ui/core';
 
-import DateTimePicker from "../pickers/DateTimePicker";
-import IconMenu from "../pickers/IconMenu";
+import DateTimePicker from '../pickers/DateTimePicker';
+import IconMenu from '../pickers/IconMenu';
 
-import { Task, NewTask, TaskStatus } from "../../../../common/models/task.model";
-import { TaskIcon, TaskIconUtil } from "../../utils/icon-helpers";
-import { sortTaskList } from "../../utils/task-display-helpers";
-import { getCurrentDate } from "../../../../common/utils/dates";
+import {
+  Task,
+  NewTask,
+  TaskStatus
+} from '../../../../common/models/task.model';
+import { TaskIcon, TaskIconUtil } from '../../utils/icon-helpers';
+import { sortTaskList } from '../../utils/task-display-helpers';
+import { getCurrentDate } from '../../../../common/utils/dates';
 
-import "../../styles/AddTasksModal.css";
+import '../../styles/AddTasksModal.css';
 
 // Props types
 interface AddTasksModalProps {
@@ -27,7 +39,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
     setSelectedIcon(icon);
   };
   // tracks the task written
-  const [selectedTask, setSelectedTask] = React.useState("");
+  const [selectedTask, setSelectedTask] = React.useState('');
   const handleTaskChange = (task: string | null) => {
     setSelectedTask(task);
   };
@@ -45,7 +57,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
       icon: TaskIconUtil.valueOf(selectedIcon),
       description: selectedTask,
       status: TaskStatus.InProgress,
-      dueDate: selectedDate,
+      dueDate: selectedDate
     };
     // clone the current list of tasks
     let taskListCopy = props.currentTaskList.map((l) => Object.assign({}, l));
@@ -55,7 +67,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
       taskListCopy.push(storedTask);
       taskListCopy = sortTaskList(taskListCopy);
       props.setCurrentTaskList(taskListCopy);
-      window.ipcRendererManager.LOG("Created new task, " + newTask);
+      window.ipcRendererManager.LOG('Created new task, ' + newTask);
       // scroll to the bottom of the page so the user can see their new task
       // 500ms is the time for a card's fade transition
       setTimeout(() => {
@@ -68,17 +80,17 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
    * Allows submission of conent in the modal to be done with the enter key.
    */
   function handleKeyPress(event: React.KeyboardEvent) {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       handleAdd();
     }
   }
 
   function scrollToBottom() {
-    // window.scroll({
-    //     top: document.body.scrollHeight,
-    //     left: 0,
-    //     behavior: 'smooth',
-    // });
+    window.scroll({
+        top: document.body.scrollHeight,
+        left: 0,
+        behavior: 'smooth',
+    });
   }
 
   /**
@@ -86,7 +98,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
    */
   function clearStates() {
     setSelectedIcon('create');
-    setSelectedTask("");
+    setSelectedTask('');
     setSelectedDate(getCurrentDate());
   }
 
@@ -113,7 +125,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
         <DialogContent
           className="modal-content"
           dividers
-          style={{ paddingBottom: "40px" }}
+          style={{ paddingBottom: '40px' }}
         >
           <Grid
             container
@@ -132,7 +144,7 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
               <TextField
                 label="Task"
                 fullWidth
-                style={{ minWidth: "425px" }}
+                style={{ minWidth: '425px' }}
                 value={selectedTask}
                 onChange={(event) => {
                   handleTaskChange(event.target.value);
@@ -150,15 +162,15 @@ const AddTasksModal: FC<AddTasksModalProps> = (props): JSX.Element => {
         <DialogActions
           className="modal-footer"
           style={{
-            paddingTop: "15px",
-            paddingBottom: "15px",
-            paddingRight: "15px",
+            paddingTop: '15px',
+            paddingBottom: '15px',
+            paddingRight: '15px'
           }}
         >
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             variant="contained"
-            style={{ backgroundColor: props.buttonColour, color: "white" }}
+            style={{ backgroundColor: props.buttonColour, color: 'white' }}
             onClick={handleAdd}
           >
             Submit

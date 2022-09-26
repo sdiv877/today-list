@@ -1,15 +1,26 @@
 import React, { FC } from 'react';
 import { Card, Divider } from '@material-ui/core';
-import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 
-import GenericButton from "./buttons/GenericButton";
-import { DefaultTaskGraphData, DefaultTaskGraphYearData } from '../../../common/models/task-graph-data.model';
+import GenericButton from './buttons/GenericButton';
+import {
+  DefaultTaskGraphData,
+  DefaultTaskGraphYearData
+} from '../../../common/models/task-graph-data.model';
 import { LOG } from '../../../common/utils/debug';
 
 import '../styles/TasksGraph.css';
 
 interface TasksGraphProps {
-  setSelectedYear: React.Dispatch<React.SetStateAction<number>>
+  setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
 }
 
 type SwitchGraphOperation = 'prev' | 'next';
@@ -29,12 +40,14 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
    * for setGraphData to finish.
    */
   React.useEffect(() => {
-      LOG('TasksGraph useEffect() called');
-      window.api.stats.getTaskGraphData().then((graphDataRes) => {
-          window.ipcRendererManager.LOG('TaskGraphData received from main. Length: ' + graphDataRes.years.length);
-          setGraphData(graphDataRes);
-      })
-  }, [])
+    LOG('TasksGraph useEffect() called');
+    window.api.stats.getTaskGraphData().then((graphDataRes) => {
+      window.ipcRendererManager.LOG(
+        'TaskGraphData received from main. Length: ' + graphDataRes.years.length
+      );
+      setGraphData(graphDataRes);
+    });
+  }, []);
 
   /**
    * On every update of graphData (actual completion of setGraphData() hook), update
@@ -42,33 +55,36 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
    * to the current year.
    */
   React.useEffect(() => {
-      // attempt to find yearData from current year
-      let currentYearIndex = graphData.years.indexOf(graphData.currentYear);
-      if (currentYearIndex === -1) {
-        // if not available just pick the latest year available
-        currentYearIndex = graphData.years.length - 1;
-      }
-      props.setSelectedYear(graphData.yearlyData[currentYearIndex].year);
-      setYearData(graphData.yearlyData[currentYearIndex]);
-      handleSwitchGraphButtonState(currentYearIndex);
-  }, [graphData])
+    // attempt to find yearData from current year
+    let currentYearIndex = graphData.years.indexOf(graphData.currentYear);
+    if (currentYearIndex === -1) {
+      // if not available just pick the latest year available
+      currentYearIndex = graphData.years.length - 1;
+    }
+    props.setSelectedYear(graphData.yearlyData[currentYearIndex].year);
+    setYearData(graphData.yearlyData[currentYearIndex]);
+    handleSwitchGraphButtonState(currentYearIndex);
+  }, [graphData]);
 
   function handleSetYear(operation: SwitchGraphOperation) {
     const currentYearIndex = graphData.years.indexOf(yearData.year);
     let newYearIndex = currentYearIndex;
-    if ((operation === 'next') && (yearData.year < graphData.yearRange.max)) {
+    if (operation === 'next' && yearData.year < graphData.yearRange.max) {
       newYearIndex++;
-    } else if ((operation === 'prev') && (yearData.year > graphData.yearRange.min)) {
-      newYearIndex --;
+    } else if (
+      operation === 'prev' &&
+      yearData.year > graphData.yearRange.min
+    ) {
+      newYearIndex--;
     }
     props.setSelectedYear(graphData.yearlyData[newYearIndex].year);
     setYearData(graphData.yearlyData[newYearIndex]);
     handleSwitchGraphButtonState(newYearIndex);
-    LOG("yearData set to " + yearData.year);
+    LOG('yearData set to ' + yearData.year);
   }
 
   function handleSwitchGraphButtonState(currentYearIndex: number) {
-    setNextDisabled(currentYearIndex >= (graphData.yearlyData.length - 1));
+    setNextDisabled(currentYearIndex >= graphData.yearlyData.length - 1);
     setPrevDisabled(currentYearIndex <= 0);
   }
 
@@ -91,11 +107,11 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
               tickFormatter={xAxisTickFormatter}
             />
             <YAxis
-              domain={[0, "auto"]}
+              domain={[0, 'auto']}
               label={{
-                value: "Number of Tasks",
+                value: 'Number of Tasks',
                 angle: -90,
-                position: "insideLeft"
+                position: 'insideLeft'
               }}
             />
             <Tooltip />
@@ -105,20 +121,20 @@ const TasksGraph: FC<TasksGraphProps> = (props): JSX.Element => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="graphButtons" style={{display: 'flex'}}>
+      <div className="graphButtons" style={{ display: 'flex' }}>
         <GenericButton
-          label={"Prev"}
-          variant={"outlined"}
+          label={'Prev'}
+          variant={'outlined'}
           style={switchGraphButtonStyles}
           disabled={prevDisabled}
-          onClick={() => handleSetYear("prev")}
+          onClick={() => handleSetYear('prev')}
         />
         <GenericButton
-          label={"Next"}
-          variant={"outlined"}
+          label={'Next'}
+          variant={'outlined'}
           style={switchGraphButtonStyles}
           disabled={nextDisabled}
-          onClick={() => handleSetYear("next")}
+          onClick={() => handleSetYear('next')}
         />
       </div>
     </Card>

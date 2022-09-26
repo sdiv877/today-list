@@ -1,8 +1,28 @@
-import { app } from "electron";
 import { DEBUG } from "../../common/utils/debug";
 
+enum InstallationMethod {
+  Precompiled,
+  Native
+}
+
 /**
- * If in debug mode, files will be saved to the root directory of the repository
- *  at '.debug_user/', otherwise they will be in 'appData/today-list/user'.
+ * Modify depending on the package that is being made.
  */
-export const USER_DATA_PATH = DEBUG ? ".\\.debug_user\\" : app.getPath("userData") + "\\user\\";
+const installationMethod = InstallationMethod.Precompiled;
+
+/**
+ * Specifies the path that the database and persistent app settings will be stored.
+ * The `DEBUG` flag takes precedence, followed by handling of either an installer
+ * based or precompiled environment.
+ */
+let USER_DATA_PATH: string;
+
+if (DEBUG) {
+  USER_DATA_PATH = ".\\.debug_user\\";
+} else if (installationMethod === InstallationMethod.Precompiled) {
+  USER_DATA_PATH = ".\\user_data\\";
+} else if (installationMethod === InstallationMethod.Native) {
+  throw Error("Native installation paths have not been implemented.");
+}
+
+export { USER_DATA_PATH };

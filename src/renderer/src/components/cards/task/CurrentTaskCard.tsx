@@ -1,22 +1,22 @@
-import React, { FC } from "react";
-import { Card, Divider, Grid, IconButton, makeStyles } from "@material-ui/core";
-import { Check, Delete } from "@material-ui/icons";
+import React, { FC } from 'react';
+import { Card, Divider, Grid, IconButton, makeStyles } from '@material-ui/core';
+import { Check, Delete } from '@material-ui/icons';
 
-import { Task } from "../../../../../common/models/task.model";
-import { getTaskCardDateString } from "../../../../../common/utils/dates";
-import { TaskIconUtil } from "../../../utils/icon-helpers";
-import { handleTaskField } from "../../../utils/task-display-helpers";
+import { Task } from '../../../../../common/models/task.model';
+import { getTaskCardDateString } from '../../../../../common/utils/dates';
+import { TaskIconUtil } from '../../../utils/icon-helpers';
+import { handleTaskField } from '../../../utils/task-display-helpers';
 
-import "../../../styles/TaskCard.css";
+import '../../../styles/TaskCard.css';
 
 // Card styles
 const useStyles = makeStyles({
   title: {
-    fontSize: 18,
+    fontSize: 18
   },
   date: {
-    fontSize: 16,
-  },
+    fontSize: 16
+  }
 });
 
 // Props types

@@ -7,13 +7,17 @@ import { sortTaskList } from '../../utils/task-display-helpers';
 import { LOG } from '../../../../common/utils/debug';
 
 const RecycleBinBodyContainer: React.VoidFunctionComponent = () => {
-  const [deletedTaskList, setDeletedTaskList] = React.useState(new Array<Task>());
+  const [deletedTaskList, setDeletedTaskList] = React.useState(
+    new Array<Task>()
+  );
 
   React.useEffect(() => {
     LOG('RecycleBinBodyContainer useEffect() called');
     window.api.task.getAll(TaskStatus.Deleted).then((listRes) => {
-      window.ipcRendererManager.LOG('Deleted Tasks response received from main. Length: ' + listRes.length)
-      setDeletedTaskList(sortTaskList(listRes))
+      window.ipcRendererManager.LOG(
+        'Deleted Tasks response received from main. Length: ' + listRes.length
+      );
+      setDeletedTaskList(sortTaskList(listRes));
     });
   }, []);
 

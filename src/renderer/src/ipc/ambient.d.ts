@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IApi } from "./api";
-import { IpcEvents } from "../../../common/ipc/ipc-events";
+import { IApi } from './api';
+import { IpcEvents } from '../../../common/ipc/ipc-events';
 
 declare global {
   interface Window {
@@ -10,7 +10,7 @@ declare global {
       invoke: (channel: IpcEvents, ...args: Array<any>) => Promise<any>;
       LOG: (msg: any) => void;
     };
-    api: IApi
+    api: IApi;
   }
 }
 

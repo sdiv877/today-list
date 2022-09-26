@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import {
+  KeyboardDateTimePicker,
+  MuiPickersUtilsProvider
+} from '@material-ui/pickers';
 
 // Props types
 interface DateTimePickerProps {
