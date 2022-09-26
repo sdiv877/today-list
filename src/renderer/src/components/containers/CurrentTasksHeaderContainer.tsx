@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Typography, makeStyles } from '@material-ui/core';
 
-import { LOG } from '../../../../common/utils/debug';
+import { UserSettingsContext } from '../../providers/UserSettingsProvider';
 
 import '../../styles/fadeIn.css';
 
@@ -18,16 +18,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CurrentTasksContainer: React.VoidFunctionComponent = () => {
-  const [username, setUsername] = React.useState('');
   const classes = useStyles();
-
-  React.useEffect(() => {
-    LOG('CurrentTasksHeaderContainer useEffect() called');
-    window.api.settings.get().then( (userDataRes) => {
-        LOG('User data response received from main: ' + JSON.stringify(userDataRes));
-        setUsername(userDataRes.username);
-    })
-  }, []);
+  const userSettingsContext = React.useContext(UserSettingsContext);
 
   return (
     <div className="CurrentTasksHeaderContainer">
@@ -37,7 +29,7 @@ const CurrentTasksContainer: React.VoidFunctionComponent = () => {
         </Typography>
         <div className="fadeIn WelcomeNameField">
           <Typography className={classes.text}>
-            {username}
+            {userSettingsContext.username}
           </Typography>
         </div>
       </Card>

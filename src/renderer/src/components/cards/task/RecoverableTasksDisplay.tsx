@@ -9,9 +9,8 @@ import '../../../styles/TaskCard.css';
 
 // Props type
 interface RecoverableTasksDisplayProps {
-  recoverableList: Task[];
-  setRecoverableList: React.Dispatch<React.SetStateAction<Task[]>>;
-  table: string;
+  recoverableTaskList: Task[];
+  setRecoverableTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
 const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (
@@ -28,7 +27,7 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (
 
   function removeFromDisplayList(taskId: number): void {
     // clone the list of tasks in the UI
-    const taskListCopy = props.recoverableList.map((l) => Object.assign({}, l));
+    const taskListCopy = props.recoverableTaskList.map((l) => Object.assign({}, l));
     // iterate over it and remove the task that the user wants to delete
     for (let i = 0; i < taskListCopy.length; i++) {
       if (taskListCopy[i].id === taskId) {
@@ -38,14 +37,14 @@ const RecoverableTasksDisplay: FC<RecoverableTasksDisplayProps> = (
     }
     // update react state with the new list of Tasks
     LOG('Removed item from display list, id: ' + taskId);
-    props.setRecoverableList(taskListCopy);
+    props.setRecoverableTaskList(taskListCopy);
   }
 
   /**
    * Format all tasks into cards, and put them in an array called cardList
    * fading-task-card relates to styles in TaskCard.css
    */
-  const cardList = props.recoverableList.map((task) => (
+  const cardList = props.recoverableTaskList.map((task) => (
     <CSSTransition key={task.id} timeout={350} classNames="fading-task-card">
       <div className="taskCardItem">
         <RecoverableTaskCard

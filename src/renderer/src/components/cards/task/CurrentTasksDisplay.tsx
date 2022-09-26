@@ -10,7 +10,7 @@ import '../../../styles/TaskCard.css';
 // Props type
 interface CurrentsTaskDisplayProps {
   currentList: Task[];
-  setCurrentList: React.Dispatch<React.SetStateAction<Task[]>>;
+  setCurrentTaskList: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
 const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element => {
@@ -44,7 +44,7 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
       }
       // update react state
       LOG('Removed item from display list, key: ' + taskId);
-      props.setCurrentList(taskListCopy);
+      props.setCurrentTaskList(taskListCopy);
   }
 
   const cardList = props.currentList.map((task) => (
@@ -59,7 +59,6 @@ const CurrentTasksDisplay: FC<CurrentsTaskDisplayProps> = (props): JSX.Element =
     </CSSTransition>
   ));
 
-  // Returned component
   return (
     <div className="currentTasksDisplay">
       <TransitionGroup>{cardList}</TransitionGroup>

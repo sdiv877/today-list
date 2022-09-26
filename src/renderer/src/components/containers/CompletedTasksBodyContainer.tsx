@@ -2,31 +2,25 @@ import React from 'react';
 
 import RecoverableTasksDisplay from '../cards/task/RecoverableTasksDisplay';
 import { Task, TaskStatus } from '../../../../common/models/task.model';
-import { sortTaskList, setDocumentBgColour } from '../../utils/task-display-helpers';
+import { sortTaskList } from '../../utils/task-display-helpers';
 import { LOG } from '../../../../common/utils/debug';
 
 const CompletedTasksBodyContainer: React.VoidFunctionComponent = () => {
-  // completedList states
-  const [completedList, setCompletedList] = React.useState(new Array<Task>());
+  const [completedTaskList, setCompletedTaskList] = React.useState(new Array<Task>());
 
   React.useEffect(() => {
     LOG('CompletedTasksBodyContainer useEffect() called');
-    window.api.settings.get().then((userSettingsRes) => {
-      setDocumentBgColour(userSettingsRes.bgColour);
-    })
-    // get all Completed Tasks
     window.api.task.getAll(TaskStatus.Completed).then((taskRes) => {
       window.ipcRendererManager.LOG("Completed Tasks received from main. Length: " + taskRes.length);
-      setCompletedList(sortTaskList(taskRes));
+      setCompletedTaskList(sortTaskList(taskRes));
     });
   }, []);
 
   return (
     <div className="CompletedTasksBodyContainer">
       <RecoverableTasksDisplay
-        recoverableList={completedList}
-        setRecoverableList={setCompletedList}
-        table={'completed_tasks'}
+        recoverableTaskList={completedTaskList}
+        setRecoverableTaskList={setCompletedTaskList}
       />
     </div>
   );

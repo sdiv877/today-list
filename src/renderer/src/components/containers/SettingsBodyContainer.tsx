@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteDataModal from '../DeleteDataModal';
+import DeleteDataModal from '../modals/DeleteDataModal';
 import SettingsCard from '../cards/SettingsCard';
 import SettingsColourPicker from '../pickers/SettingsColourPicker';
 import SettingsColourPickerDisplay from '../pickers/SettingsColourPickerDisplay';
@@ -9,13 +9,15 @@ import GenericButton from '../buttons/GenericButton';
 import { BackgroundColour, BackgroundColourUtil, ButtonColour } from '../../../../common/utils/colours';
 import { UserSettings } from '../../../../common/models/user-settings.model';
 import { setDocumentBgColour } from '../../utils/task-display-helpers';
-import { LOG } from '../../../../common/utils/debug';
+import { DEBUG, LOG } from '../../../../common/utils/debug';
 
 import '../../styles/fadeIn.css';
+import { UserSettingsContext } from '../../providers/UserSettingsProvider';
 
 const deleteButtonStyle ={ color: 'crimson', borderColor: 'crimson', fontWeight: 'bold' };
 
 const SettingsBodyContainer: React.VoidFunctionComponent = () => {
+  const userSettingsContext = React.useContext(UserSettingsContext);
   const [username, setUsername] = React.useState('');
   const [bgColour, setBgColour] = React.useState(BackgroundColour.White);
   const [buttonColour, setButtonColour] = React.useState(ButtonColour.Blue);
@@ -26,26 +28,25 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
 
   React.useEffect(() => {
     LOG('SettingsBodyContainer useEffect() called');
-    // get UserSettings and set initial values for background and username fields to display
-    window.api.settings.get().then((userDataRes) => {
-        LOG('User data response received from main: ' + JSON.stringify(userDataRes));
-        setUsername(userDataRes.username);
-        setDocumentBgColour(userDataRes.bgColour);
-        setBgDisplayColour('transparent');
-        setButtonColour(userDataRes.buttonColour)
-    })
+      setUsername(userSettingsContext.username);
+      setBgColour(userSettingsContext.bgColour);
+      setDocumentBgColour(userSettingsContext.bgColour);
+      setBgDisplayColour('transparent');
+      setButtonColour(userSettingsContext.buttonColour)
   }, []);
 
   function submitUserSettings() {
-    const userSettings: UserSettings = {
+    const updatedUserSettings: UserSettings = {
       username: username,
       bgColour: bgColour,
       buttonColour: BackgroundColourUtil.toButtonColour(bgColour)
     };
-    setButtonColour(userSettings.buttonColour);
+    setButtonColour(updatedUserSettings.buttonColour);
     setDocumentBgColour(bgColour);
     // save the colour so that it is remembered on the next app startup
-    window.api.settings.update(userSettings);
+    window.api.settings.update(updatedUserSettings);
+    // update settings context for current app session
+    userSettingsContext.refresh();
   }
 
   return (
@@ -107,8 +108,9 @@ const SettingsBodyContainer: React.VoidFunctionComponent = () => {
           setShow={setShowDeleteModal}
           onConfirm={() => {
             window.api.settings.deleteAllData();
-            setDocumentBgColour(BackgroundColour.White);
-            setBgDisplayColour(BackgroundColour.White);
+            if (DEBUG) {
+              window.location.reload();
+            }
           }}
         />
       </div>
